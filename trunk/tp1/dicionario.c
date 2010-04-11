@@ -66,7 +66,7 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra)
     PFila celula;
 
     //verifica se a palavra esta inserida
-    pesquisaPalavraFila(&dic->hash[idPalavra], celula, palavra);
+    pesquisaPalavraFila(&dic->hash[idPalavra], &celula, palavra);
 
     //a palavra ainda nao foi inserida
     if(celula == NULL)
@@ -90,7 +90,7 @@ PFila PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLaten
     PFila celula;
 
     iniTime = getTime();
-    pesquisaPalavraFila(&dic->hash[idPalavra], celula, palavra);
+    pesquisaPalavraFila(&dic->hash[idPalavra], &celula, palavra);
     finalTime = getTime();
     *tempoLatencia = finalTime - iniTime;
     return celula;

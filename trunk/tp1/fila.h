@@ -28,7 +28,7 @@ typedef struct CFilaDoc_str
 }CFilaDoc;
 
 //Fila propriamente dita
-typedef struct FilaDoc
+typedef struct FilaDoc_str
 {
     PFilaDoc frente, tras;
 }FilaDoc;

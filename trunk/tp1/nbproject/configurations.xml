@@ -18,13 +18,19 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>data.c</itemPath>
+    <itemPath>data.h</itemPath>
     <itemPath>dicionario.c</itemPath>
     <itemPath>dicionario.h</itemPath>
     <itemPath>fila.c</itemPath>
     <itemPath>fila.h</itemPath>
     <itemPath>filap.c</itemPath>
     <itemPath>filap.h</itemPath>
+    <itemPath>file.c</itemPath>
+    <itemPath>file.h</itemPath>
     <itemPath>main.c</itemPath>
+    <itemPath>map.c</itemPath>
+    <itemPath>map.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -43,6 +49,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="data.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="data.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="dicionario.c">
         <itemTool>0</itemTool>
       </item>
@@ -61,8 +73,20 @@
       <item path="filap.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="file.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="file.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="main.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="map.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="map.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -86,6 +110,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="data.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="data.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="dicionario.c">
         <itemTool>0</itemTool>
       </item>
@@ -104,8 +134,20 @@
       <item path="filap.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="file.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="file.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="main.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="map.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="map.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
   </confs>
