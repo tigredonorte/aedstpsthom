@@ -46,7 +46,7 @@ void insereFila(FItem it, Fila *fila);
 //pesquisa sequencialmente uma palavra
 //se a palavra existir, retorna uma celula contendo todas as informaçoes da mesma
 //se a palavra nao existir, retorna uma celula nula
-void pesquisaPalavraFila(Fila *fila, PFila celula, char* palavra);
+void pesquisaPalavraFila(Fila *fila, PFila *celula, char* palavra);
 
 /*insere uma nova palavra na fila e a referencia ao documento que a contem*/
 void inserePalavraFila(Fila *fila, char* palavra, int idDoc);

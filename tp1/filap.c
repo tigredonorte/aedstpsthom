@@ -21,8 +21,12 @@ void insereFila(FItem it, Fila *fila)
 
 void inicializaItem(FItem *it, char* palavra, int idDoc)
 {
+    it = (FItem*)malloc(sizeof(FItem ) + sizeof(CFilaDoc));
     //inicializa a fila de documentos
     esvaziaFilaDoc(&it->FilaIdDoc);
+
+    //aloca a memoria necessaria para a palavra
+    it->palavra = (char*) malloc(sizeof(palavra));
 
     //copia a palavra passada como parametro
     strcpy(it->palavra, palavra); 
@@ -47,23 +51,23 @@ void insereDocumentoCelula(PFila celula, int idDoc)
     }
 }
 
-void pesquisaPalavraFila(Fila *fila, PFila celula, char* palavra)
+void pesquisaPalavraFila(Fila *fila, PFila *celula, char* palavra)
 {
-    celula = fila->frente;
-    while(celula != fila->tras)
+    (*celula) = fila->frente;
+    while((*celula) != fila->tras)
     {
-        celula = celula->prox;
-        if(strcmp(celula->item.palavra, palavra) == 0)
+        (*celula) = (*celula)->prox;
+        if(strcmp((*celula)->item.palavra, palavra) == 0)
         {
             return;
         }
     }
-    celula = NULL;
+    (*celula) = NULL;
 }
 
 void inserePalavraFila(Fila *fila, char* palavra, int idDoc)
 {
-    FItem it;
-    inicializaItem(&it, palavra, idDoc);
-    insereFila(it, fila);
+    FItem *it;
+    inicializaItem(it, palavra, idDoc);
+    insereFila(*it, fila);
 }
