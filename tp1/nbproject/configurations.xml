@@ -18,6 +18,13 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>dicionario.c</itemPath>
+    <itemPath>dicionario.h</itemPath>
+    <itemPath>fila.c</itemPath>
+    <itemPath>fila.h</itemPath>
+    <itemPath>filap.c</itemPath>
+    <itemPath>filap.h</itemPath>
+    <itemPath>main.c</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -28,11 +35,35 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cCompilerTool>
+          <commandLine>-Wall</commandLine>
+        </cCompilerTool>
         <linkerTool>
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="dicionario.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="dicionario.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="fila.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="fila.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="filap.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="filap.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="main.c">
+        <itemTool>0</itemTool>
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -55,6 +86,27 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="dicionario.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="dicionario.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="fila.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="fila.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="filap.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="filap.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="main.c">
+        <itemTool>0</itemTool>
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
