@@ -1,4 +1,5 @@
 #include "fila.h"
+#include <stdio.h>
 
 //Esvazia fila
 void esvaziaFilaDoc(FilaDoc *filaD)

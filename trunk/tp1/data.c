@@ -25,13 +25,10 @@ void insereIndiceInvertido(char *documento, DicionarioH *dic)
         // verifica se ainda existem palavras
         while(aux != NULL )
         {
-            char *palavra;
-            formataPalavra(palavra, aux);
-            InserePalavraDicionario(dic, idDoc, palavra);
+            InserePalavraDicionario(dic, idDoc, aux);
             aux = proxPalavra(NULL); // próxima palavra do arquivo
         }
     }
-    
 }
 
 void RecuperaIndiceInvertido(char *palavra, DicionarioH *dic)

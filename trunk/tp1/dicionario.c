@@ -67,7 +67,7 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra)
 
     //verifica se a palavra esta inserida
     pesquisaPalavraFila(&dic->hash[idPalavra], &celula, palavra);
-
+	 
     //a palavra ainda nao foi inserida
     if(celula == NULL)
     {
