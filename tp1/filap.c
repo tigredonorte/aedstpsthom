@@ -1,4 +1,5 @@
 #include "filap.h"
+#include <string.h>
 
 //Esvazia fila
 void esvaziaFila(Fila *fila)
@@ -21,12 +22,12 @@ void insereFila(FItem it, Fila *fila)
 
 void inicializaItem(FItem *it, char* palavra, int idDoc)
 {
-    it = (FItem*)malloc(sizeof(FItem ) + sizeof(CFilaDoc));
+    //it = (FItem*)malloc(sizeof(FItem ) + sizeof(CFilaDoc));
     //inicializa a fila de documentos
     esvaziaFilaDoc(&it->FilaIdDoc);
 
     //aloca a memoria necessaria para a palavra
-    it->palavra = (char*) malloc(sizeof(palavra));
+    it->palavra = (char*) malloc((strlen(palavra)+1)*sizeof(char));
 
     //copia a palavra passada como parametro
     strcpy(it->palavra, palavra); 
@@ -51,23 +52,26 @@ void insereDocumentoCelula(PFila celula, int idDoc)
     }
 }
 
-void pesquisaPalavraFila(Fila *fila, PFila *celula, char* palavra)
+void pesquisaPalavraFila(Fila *fila, PFila *celulaSrc, char* palavra)
 {
-    (*celula) = fila->frente;
-    while((*celula) != fila->tras)
+	 PFila celula;
+    celula = fila->frente;
+    
+    while(celula != fila->tras)
     {
-        (*celula) = (*celula)->prox;
-        if(strcmp((*celula)->item.palavra, palavra) == 0)
-        {
+        celula = celula->prox;
+        if(strcmp(celula->item.palavra, palavra) == 0)
+        {     		
+        		(*celulaSrc) = celula;
             return;
         }
     }
-    (*celula) = NULL;
+    (*celulaSrc) = NULL;
 }
 
 void inserePalavraFila(Fila *fila, char* palavra, int idDoc)
 {
-    FItem *it;
-    inicializaItem(it, palavra, idDoc);
-    insereFila(*it, fila);
+    FItem it;
+    inicializaItem(&it, palavra, idDoc);
+    insereFila(it, fila);
 }

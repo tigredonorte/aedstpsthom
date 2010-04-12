@@ -23,8 +23,6 @@ int main(int argc, char** argv)
     documento = (char*) malloc(11 * sizeof(char));
 
     strcpy(documento, "insere.txt");
-    printf("documento: (%s)", documento);
-    printf("lol");
 
     insereIndiceInvertido(documento, &dic);
     return (EXIT_SUCCESS);
