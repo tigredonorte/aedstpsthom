@@ -28,9 +28,12 @@
     <itemPath>filap.h</itemPath>
     <itemPath>file.c</itemPath>
     <itemPath>file.h</itemPath>
+    <itemPath>gen_data.c</itemPath>
+    <itemPath>gen_data.h</itemPath>
     <itemPath>main.c</itemPath>
     <itemPath>map.c</itemPath>
     <itemPath>map.h</itemPath>
+    <itemPath>sample.c</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -42,7 +45,7 @@
       </toolsSet>
       <compileType>
         <cCompilerTool>
-          <commandLine>-Wall</commandLine>
+          <commandLine>-Wall -g</commandLine>
         </cCompilerTool>
         <linkerTool>
           <linkerLibItems>
@@ -79,6 +82,12 @@
       <item path="file.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="gen_data.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="gen_data.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="main.c">
         <itemTool>0</itemTool>
       </item>
@@ -87,6 +96,9 @@
       </item>
       <item path="map.h">
         <itemTool>3</itemTool>
+      </item>
+      <item path="sample.c">
+        <itemTool>0</itemTool>
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -140,6 +152,12 @@
       <item path="file.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="gen_data.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="gen_data.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="main.c">
         <itemTool>0</itemTool>
       </item>
@@ -148,6 +166,9 @@
       </item>
       <item path="map.h">
         <itemTool>3</itemTool>
+      </item>
+      <item path="sample.c">
+        <itemTool>0</itemTool>
       </item>
     </conf>
   </confs>
