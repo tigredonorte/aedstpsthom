@@ -3,9 +3,9 @@
 #include <unistd.h>
 #include <string.h>
 #include "gen_data.h"
-/*
-#define MAX_LINE_SIZE 100
 
+#define MAX_LINE_SIZE 100
+/*
 void consultas(char *arqIn)
 {
 

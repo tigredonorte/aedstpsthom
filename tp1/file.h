@@ -30,6 +30,9 @@ void formataPalavra(char* dst, char* src);
 /*transforma cada letra da palavra em minuscula*/
 void setMinuscula(char* str);
 
+/*Cria o arquivo arqName caso ele nao exista e escreve a string no mesmo*/
+void writeFile(char *ArqName, char* string);
+
 
 #endif	/* _FILE_H */
 

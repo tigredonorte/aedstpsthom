@@ -7,10 +7,8 @@ void novoIndiceInvertido(DicionarioH *dic, int tamDic)
 
 void insereIndiceInvertido(char *documento, DicionarioH *dic)
 {
-    Map map;
-    inicializaMap(&map);
-
-    int idDoc = insereMap(&map, documento);
+    static int idDoc = 0;
+    idDoc++;
 
     char *buffer;
     char *aux;
@@ -25,13 +23,40 @@ void insereIndiceInvertido(char *documento, DicionarioH *dic)
         // verifica se ainda existem palavras
         while(aux != NULL )
         {
-            InserePalavraDicionario(dic, idDoc, aux);
+            int idDocs = idDoc;
+            InserePalavraDicionario(dic, idDocs, aux);
             aux = proxPalavra(NULL); // próxima palavra do arquivo
         }
     }
 }
 
-void RecuperaIndiceInvertido(char *palavra, DicionarioH *dic)
+void PesquisaIndiceInvertido(char *palavra, DicionarioH *dic, char *ArqName)
 {
+    writeFile(ArqName, palavra);
+    
+    long tempoLatencia;
+    int sucessoPesquisa = 1;
 
+    char *temp;
+    temp = proxPalavra(palavra);
+    while(temp != NULL && sucessoPesquisa)
+    {
+        PFila celula;
+        celula = PesquisaPalavraDicionario(dic, temp, &tempoLatencia);
+        if(celula == NULL)
+        {
+            sucessoPesquisa = 0;
+        }
+        else
+        {
+            sucessoPesquisa = 1;
+            recuperaFilaDocumentos(celula);
+        }
+        temp = proxPalavra(NULL);
+    }
+    if(sucessoPesquisa)
+    {
+        printf("as palavras (%s) foram encontradas com sucesso\n", palavra);
+    }
+    free(temp);
 }

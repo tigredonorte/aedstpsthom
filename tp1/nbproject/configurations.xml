@@ -31,8 +31,6 @@
     <itemPath>gen_data.c</itemPath>
     <itemPath>gen_data.h</itemPath>
     <itemPath>main.c</itemPath>
-    <itemPath>map.c</itemPath>
-    <itemPath>map.h</itemPath>
     <itemPath>sample.c</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -90,12 +88,6 @@
       </item>
       <item path="main.c">
         <itemTool>0</itemTool>
-      </item>
-      <item path="map.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="map.h">
-        <itemTool>3</itemTool>
       </item>
       <item path="sample.c">
         <itemTool>0</itemTool>
@@ -160,12 +152,6 @@
       </item>
       <item path="main.c">
         <itemTool>0</itemTool>
-      </item>
-      <item path="map.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="map.h">
-        <itemTool>3</itemTool>
       </item>
       <item path="sample.c">
         <itemTool>0</itemTool>

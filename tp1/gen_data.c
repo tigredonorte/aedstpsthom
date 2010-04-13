@@ -87,4 +87,3 @@ termsT *gen_data(char **terms, uint terms_size)
 
 }
  */
-
