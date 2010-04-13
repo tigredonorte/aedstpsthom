@@ -25,14 +25,39 @@ void inicializaItemDoc(FItemDoc *it, int idDoc)
 
 int pesquisaId(FilaDoc *fila, int idDoc)
 {
-    PFilaDoc celula = fila->frente;
+    PFilaDoc celula;
+    if(fila->frente != NULL)
+    {
+        celula = fila->frente;
+
+        while(celula->prox != NULL)
+        {
+            celula = celula->prox;
+            if(celula->item.idDoc == idDoc)
+            {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    printf("Falha de memoria\n"
+            "Arquivo: Fila.c\n"
+            "Funcao: PesquisaID\n"
+            "Erro: Fila.frente nao foi alocada -- Falha na alocacao\n"
+            "O Programa sera encerrado\n");
+    exit(EXIT_FAILURE);
+    return -1; //anti warning
+}
+
+void recuperaFilaId(FilaDoc *fila, int *ids)
+{
+    PFilaDoc celula;
+    celula = fila->frente;
+    int i = 0;
     while(celula->prox != NULL)
     {
         celula = celula->prox;
-        if(celula->item.idDoc == idDoc)
-        {
-            return 1;
-        }
+        ids[i] = celula->item.idDoc;
+        i++;
     }
-    return 0;
 }

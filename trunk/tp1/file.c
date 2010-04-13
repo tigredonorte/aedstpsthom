@@ -86,3 +86,25 @@ void formataPalavra(char* dst, char* src)
     dst[c] = '\0';       // insere marca de fim da string
 }
 
+//Escreve no arquivo uma string, retorna 1 se escreveu com sucesso, 0 se nao escreveu
+void writeFile(char *ArqName, char* string)
+{
+    FILE *arqOut;
+
+    //verifica se o arquivo ja exite, se existir abre ele novamente para adicionar ao fim do aquivo
+    if((arqOut = fopen(ArqName, "r")))
+    {
+        fclose(arqOut);
+        //cria o arquivo de saida caso ele nao exista e abre caso ele exista
+        arqOut = fopen(ArqName, "a");
+    }
+    //se arquivo nao existia cria um novo arquivo com o nome enviado
+    else
+    {
+        arqOut = fopen(ArqName, "a");
+    }
+
+    //salva dados no arquivo de saida
+    fprintf (arqOut, " %s ", string);
+    fclose(arqOut);
+}

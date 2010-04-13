@@ -52,21 +52,20 @@ void insereDocumentoCelula(PFila celula, int idDoc)
     }
 }
 
-void pesquisaPalavraFila(Fila *fila, PFila *celulaSrc, char* palavra)
+int pesquisaPalavraFila(Fila *fila, PFila *celula, char* palavra)
 {
-	 PFila celula;
-    celula = fila->frente;
+    (*celula) = fila->frente;
     
-    while(celula != fila->tras)
+    while((*celula) != fila->tras)
     {
-        celula = celula->prox;
-        if(strcmp(celula->item.palavra, palavra) == 0)
+        (*celula) = (*celula)->prox;
+        if(strcmp((*celula)->item.palavra, palavra) == 0)
         {     		
-        		(*celulaSrc) = celula;
-            return;
+            return 1;
         }
     }
-    (*celulaSrc) = NULL;
+    (*celula) = NULL;
+    return 0;
 }
 
 void inserePalavraFila(Fila *fila, char* palavra, int idDoc)
@@ -74,4 +73,11 @@ void inserePalavraFila(Fila *fila, char* palavra, int idDoc)
     FItem it;
     inicializaItem(&it, palavra, idDoc);
     insereFila(it, fila);
+}
+
+void recuperaDocumentos(PFila celula)
+{
+    int *ids;
+    recuperaFilaId(celula->item.FilaIdDoc, ids);
+
 }

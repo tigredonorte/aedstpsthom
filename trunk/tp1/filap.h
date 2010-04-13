@@ -44,9 +44,9 @@ void esvaziaFila(Fila *fila);
 void insereFila(FItem it, Fila *fila);
 
 //pesquisa sequencialmente uma palavra
-//se a palavra existir, retorna uma celula contendo todas as informaçoes da mesma
-//se a palavra nao existir, retorna uma celula nula
-void pesquisaPalavraFila(Fila *fila, PFila *celula, char* palavra);
+//se a palavra existir, retorna 1 e uma celula contendo todas as informaçoes da mesma
+//se a palavra nao existir, retorna 0 uma celula nula
+int pesquisaPalavraFila(Fila *fila, PFila *celula, char* palavra);
 
 /*insere uma nova palavra na fila e a referencia ao documento que a contem*/
 void inserePalavraFila(Fila *fila, char* palavra, int idDoc);
@@ -56,6 +56,9 @@ void insereDocumentoCelula(PFila celula, int idDoc);
 
 /*Inicializa um novo item*/
 void inicializaItem(FItem *it, char* palavra, int idDoc);
+
+//recupera os documentos presentes na celula da fila
+void recuperaDocumentos(PFila celula);
 
 #endif	/* _FILAP_H */
 

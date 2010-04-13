@@ -38,4 +38,6 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra);
 //retorna o tempo gasto para pesquisar a palavra
 PFila PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLatencia);
 
+//recupera a fila de documentos presente na celula passada como parametro
+void recuperaFilaDocumentos(PFila celula);
 #endif	/* _DICIONARIO_H */

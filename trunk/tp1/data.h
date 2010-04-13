@@ -9,7 +9,6 @@
 #define	_DATA_H
 
 #include "dicionario.h"
-#include "map.h"
 #include "file.h"
 
 typedef Dicionario DicionarioH;
@@ -18,6 +17,6 @@ void novoIndiceInvertido(DicionarioH *dic, int tamDic);
 
 void insereIndiceInvertido(char *documento, DicionarioH *dic);
 
-void RecuperaIndiceInvertido(char *palavra, DicionarioH *dic);
+void PesquisaIndiceInvertido(char *palavra, DicionarioH *dic, char *ArqName);
 #endif	/* _DATA_H */
 

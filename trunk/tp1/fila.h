@@ -44,5 +44,8 @@ void inicializaItemDoc(FItemDoc *it, int idDoc);
 
 //verifica se id existe na fila, retorna 1 se existir, 0 se nao existir
 int pesquisaId(FilaDoc *fila, int idDoc);
+
+//retorna um vetor com os ids de todos os documentos presentes na fila
+void recuperaFilaId(FilaDoc *fila, int *ids);
 #endif	/* _FILA_H */
 

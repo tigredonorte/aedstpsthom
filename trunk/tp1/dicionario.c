@@ -64,12 +64,9 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra)
 {
     int idPalavra = Char2Indice(palavra, dic->tam);
     PFila celula;
-
-    //verifica se a palavra esta inserida
-    pesquisaPalavraFila(&dic->hash[idPalavra], &celula, palavra);
-	 
-    //a palavra ainda nao foi inserida
-    if(celula == NULL)
+ 	 
+    //se a palavra ainda nao foi inserida
+    if(!pesquisaPalavraFila(&dic->hash[idPalavra], &celula, palavra))
     {
         inserePalavraFila(&dic->hash[idPalavra], palavra, idDoc);
     }
@@ -94,4 +91,9 @@ PFila PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLaten
     finalTime = getTime();
     *tempoLatencia = finalTime - iniTime;
     return celula;
+}
+
+void recuperaFilaDocumentos(PFila celula)
+{
+    recuperaDocumentos(celula);
 }
