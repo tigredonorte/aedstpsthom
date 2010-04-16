@@ -9,9 +9,12 @@
 #include <stdlib.h>
 #include "data.h"
 #include "file.h"
+#include "gen_data.h"
 #include <getopt.h>
+#include <pthread.h>
 
-#define tDic 1000
+//numero primo bem grande (acima do numero esperado de palavras geradas)
+#define tDic 888257
 /*
  * 
  */
@@ -62,22 +65,34 @@ int main(int argc, char** argv)
             abort ();
         }
     }
+    //apaga o conteudo escrito em outfile
     deleteFileContent(outFile);
 
+    //inicializa as funcoes do gerador de palavras
+    init_random_functions();
+
+    //inicializa um novo dicionario com o tamanho fixo tDic definido no cabeçalho deste arquivo
     DicionarioH dic;
-    int tamDic = tDic;
-    novoIndiceInvertido(&dic, tamDic);
+    novoIndiceInvertido(&dic, tDic);
 
-    //insereIndiceInvertido("insere.txt", &dic);
-    
-    char *aux;
-    char *buffer;
-    buffer = leArquivo("insere.txt", &aux);
+    //char *aux;
+    //char *buffer;
+    //buffer = leArquivo("insere.txt", &aux);
 
-    insereIndiceInvertido2(buffer, &dic);
+    //consultas(tamBuffer);
+    //insereIndiceInvertido2(buffer, &dic);
 
-    char palavra1[] = "lol lil";
-    PesquisaIndiceInvertido(palavra1, &dic, outFile);
+    //cria o numero de threads passada por parametro
+    pthread_t *consumidores;
+    consumidores = (pthread_t*) malloc(sizeof(pthread_t) * numThreads);
+    for(i = 0; i < numThreads; i++)
+    {
+        //pthread_create( i, NULL, consumidor, cpargs );
+    }
+
+
+    //char palavra1[] = "lol lil";
+    //PesquisaIndiceInvertido(palavra1, &dic, outFile);
 
     return (EXIT_SUCCESS);
 }
