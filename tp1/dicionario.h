@@ -23,7 +23,7 @@ typedef struct Dicionario_str
 }Dicionario;
 
 /* pega o tempo do sistema com a funcao getRusages */
-long getTime();
+double getTime();
 
 //Retorna uma valor correspondente a posicao do hash na palavra
 int Char2Indice(char* palavra, int m);

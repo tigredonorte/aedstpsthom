@@ -1,21 +1,21 @@
 #include "dicionario.h"
 
-long getTime()
+//retorna o tempo de relogio
+double getTime()
 {
-    //char buffer[30];
     struct timeval tv;
-
-    time_t curtime;
+    double curtime;
     gettimeofday(&tv, NULL);
-    curtime=tv.tv_sec;
-
-    return(tv.tv_sec);
+    curtime = (double) tv.tv_sec + 1.e-6 * (double) tv.tv_usec;
+    return(curtime);
 }
-
 
 /* calcula o indice do hash da palavra */
 int Char2Indice(char* palavra, int m)
 {
+    //escolhida uma base menor do que 11
+    int base = (m  % 11);
+
     //numero de letras da palavra (tamanho da palavra)
     int tam = strlen(palavra);
 
@@ -29,10 +29,13 @@ int Char2Indice(char* palavra, int m)
          *tam - i = tamanho da palavra - posicao da letra, desta forma palavras que possuam as mesmas
          *      letras em posicoes diferentes nao ocuparao o mesmo lugar no hash
         */
-        double n = pow(2 , (tam - i));
-        total += (*(palavra + i)) * n;
+        double n = pow(base , (tam - i));
+        total += ((*(palavra + i)) * n) ;
     }
-    int resultado = (int)total % m;
+    int resultado = (int)total % (m);
+
+    //se der buffer overflow nesta divisao
+    if(resultado < 0) resultado = resultado * (-1);
     return resultado;
     // retorna resultado acumulado (mod m)
 }

@@ -20,9 +20,10 @@ typedef struct {
 	char **terms;
 	uint size;
 	int type;
+        uint sizeInBytes;
 } termsT;
 
-gsl_rng * r;  /* global generator */
+gsl_rng * r;  // global generator
 
 int init_random_functions();
 

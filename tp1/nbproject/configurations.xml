@@ -32,6 +32,8 @@
     <itemPath>gen_data.h</itemPath>
     <itemPath>main.c</itemPath>
     <itemPath>sample.c</itemPath>
+    <itemPath>threads.c</itemPath>
+    <itemPath>threads.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -43,7 +45,7 @@
       </toolsSet>
       <compileType>
         <cCompilerTool>
-          <commandLine>-Wall -g -lm -gsl_rng -gsl_randist</commandLine>
+          <commandLine>-Wall -lm -lgsl -lgslcblas lpthread</commandLine>
         </cCompilerTool>
         <linkerTool>
           <linkerLibItems>
@@ -91,6 +93,12 @@
       </item>
       <item path="sample.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="threads.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="threads.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -155,6 +163,12 @@
       </item>
       <item path="sample.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="threads.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="threads.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
   </confs>
