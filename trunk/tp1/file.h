@@ -33,6 +33,10 @@ void setMinuscula(char* str);
 /*Cria o arquivo arqName caso ele nao exista e escreve a string no mesmo*/
 void writeFile(char *ArqName, char* string);
 
+//Escreve no arquivo um inteiro, retorna 1 se escreveu com sucesso, 0 se nao escreveu
+void writeFileInt(char *ArqName, int number);
+
+//apaga o conteudo de um arquivo
+void deleteFileContent(char *ArqName);
 
 #endif	/* _FILE_H */
-

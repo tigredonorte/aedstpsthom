@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <math.h>
-/*
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
@@ -17,15 +16,13 @@
 #define AVG_QUERY_SIZE 2
 #define VAR_QUERY_SIZE 1
 
-typedef struct
-{
-    char **terms;
-    uint size;
-    int type;
-    long int bytes;
-}termsT;
+typedef struct {
+	char **terms;
+	uint size;
+	int type;
+} termsT;
 
-gsl_rng * r;  // global generator
+gsl_rng * r;  /* global generator */
 
 int init_random_functions();
 
@@ -36,6 +33,4 @@ termsT *gen_query(char **terms, uint terms_size);
 termsT *gen_data(char **terms, uint terms_size);
 
 int free_doc_query(termsT *data);
- */
-
 #endif

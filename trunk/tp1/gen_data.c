@@ -1,6 +1,6 @@
 #include "gen_data.h"
 
-/*
+
 int init_random_functions()
 {
 	//init random numbers functions
@@ -17,7 +17,7 @@ termsT *gen_doc(char **terms, uint terms_size){
 
 	uint number_of_terms = abs(gsl_ran_gaussian(r, VAR_DOC_SIZE) + AVG_DOC_SIZE);
 	doc->size = number_of_terms;
-	
+
 	doc->type=0;
 
 	doc->terms = (char **) malloc(number_of_terms*sizeof(char *));
@@ -37,7 +37,7 @@ termsT *gen_doc(char **terms, uint terms_size){
 termsT *gen_query(char **terms, uint terms_size){
 
 	termsT *query = (termsT *) malloc(sizeof(termsT));
-	
+
 	uint number_of_terms = abs(gsl_ran_gaussian(r, VAR_QUERY_SIZE)) + AVG_QUERY_SIZE;
 
 	query->size = number_of_terms;
@@ -80,10 +80,9 @@ termsT *gen_data(char **terms, uint terms_size)
 	{
 		return gen_doc(terms, terms_size);
 	}
-	else 
+	else
 	{
 		return gen_query(terms, terms_size);
 	}
 
 }
- */

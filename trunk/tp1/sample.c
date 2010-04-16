@@ -5,8 +5,8 @@
 #include "gen_data.h"
 
 #define MAX_LINE_SIZE 100
-/*
-void consultas(char *arqIn)
+
+void consultas(char **argv, char *arqIn)
 {
 
     FILE* fp = fopen(arqIn,"r");
@@ -59,6 +59,4 @@ void consultas(char *arqIn)
         free(terms[i]);
     }
     free(terms);
-    return 1;
 }
- */

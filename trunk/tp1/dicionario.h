@@ -12,6 +12,7 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 typedef struct Fila Hash;
 
@@ -36,8 +37,6 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra);
 
 //pesquisa uma palavra dentro do dicionario
 //retorna o tempo gasto para pesquisar a palavra
-PFila PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLatencia);
+int PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLatencia, PFila *celula);
 
-//recupera a fila de documentos presente na celula passada como parametro
-void recuperaFilaDocumentos(PFila celula);
 #endif	/* _DICIONARIO_H */
