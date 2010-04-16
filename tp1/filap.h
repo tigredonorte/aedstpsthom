@@ -57,8 +57,8 @@ void insereDocumentoCelula(PFila celula, int idDoc);
 /*Inicializa um novo item*/
 void inicializaItem(FItem *it, char* palavra, int idDoc);
 
-//recupera os documentos presentes na celula da fila
-void recuperaDocumentos(PFila celula);
+//recupera uma fila de documentos
+void recuperaFilaDoc(PFila celula, FilaDoc *fila);
 
 #endif	/* _FILAP_H */
 

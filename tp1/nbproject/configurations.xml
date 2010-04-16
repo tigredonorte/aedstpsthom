@@ -43,7 +43,7 @@
       </toolsSet>
       <compileType>
         <cCompilerTool>
-          <commandLine>-Wall -g</commandLine>
+          <commandLine>-Wall -g -lm -gsl_rng -gsl_randist</commandLine>
         </cCompilerTool>
         <linkerTool>
           <linkerLibItems>

@@ -18,6 +18,7 @@ typedef struct CFilaDoc_str *PFilaDoc;
 typedef struct FItemDoc
 {
     int idDoc;
+    int numInsercoes;
 }FItemDoc;
 
 //Celula da fila
@@ -33,6 +34,9 @@ typedef struct FilaDoc_str
     PFilaDoc frente, tras;
 }FilaDoc;
 
+//verifica se a fila eh vazia, retorna 1 caso verdadeiro
+int eVaziaFila(FilaDoc *filaD);
+
 //Esvazia fila
 void esvaziaFilaDoc(FilaDoc *fila);
 
@@ -45,7 +49,17 @@ void inicializaItemDoc(FItemDoc *it, int idDoc);
 //verifica se id existe na fila, retorna 1 se existir, 0 se nao existir
 int pesquisaId(FilaDoc *fila, int idDoc);
 
-//retorna um vetor com os ids de todos os documentos presentes na fila
-void recuperaFilaId(FilaDoc *fila, int *ids);
+//retorna o id de uma celula
+void recuperaIdCelulaDoc(PFilaDoc celula, int *id);
+
+//retorna um ponteiro para a proxima celula da fila
+void proximaCelulaDoc(PFilaDoc *celula);
+
+//recupera o numero de tentativas de insercao de um documento
+int getNumInsercoes(PFilaDoc celula);
+
+//retorna a celula cabeca da fila
+void primeiroElementoFilaDoc(FilaDoc *filaDoc, PFilaDoc *celulaDoc);
+
 #endif	/* _FILA_H */
 

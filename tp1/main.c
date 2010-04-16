@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "data.h"
+#include "file.h"
 #include <getopt.h>
 
 #define tDic 1000
@@ -61,19 +62,23 @@ int main(int argc, char** argv)
             abort ();
         }
     }
-    
+    deleteFileContent(outFile);
+
     DicionarioH dic;
     int tamDic = tDic;
     novoIndiceInvertido(&dic, tamDic);
 
-    insereIndiceInvertido("insere.txt", &dic);
-    insereIndiceInvertido(vocabularioFile, &dic);
+    //insereIndiceInvertido("insere.txt", &dic);
+    
+    char *aux;
+    char *buffer;
+    buffer = leArquivo("insere.txt", &aux);
+
+    insereIndiceInvertido2(buffer, &dic);
 
     char palavra1[] = "lol lil";
     PesquisaIndiceInvertido(palavra1, &dic, outFile);
 
-    char palavra2[] = "kikin news";
-    PesquisaIndiceInvertido(palavra2, &dic, outFile);
     return (EXIT_SUCCESS);
 }
 

@@ -19,7 +19,7 @@ int Char2Indice(char* palavra, int m)
     //numero de letras da palavra (tamanho da palavra)
     int tam = strlen(palavra);
 
-    int total = 0; // acumula resultados de cada iteração
+    double total = 0; // acumula resultados de cada iteração
 
     int i;
     for(i = 0; i < tam; i++)
@@ -29,9 +29,11 @@ int Char2Indice(char* palavra, int m)
          *tam - i = tamanho da palavra - posicao da letra, desta forma palavras que possuam as mesmas
          *      letras em posicoes diferentes nao ocuparao o mesmo lugar no hash
         */
-        total += (*(palavra + i)) * (tam-i); 
+        double n = pow(2 , (tam - i));
+        total += (*(palavra + i)) * n;
     }
-    return (total % m);
+    int resultado = (int)total % m;
+    return resultado;
     // retorna resultado acumulado (mod m)
 }
 
@@ -77,23 +79,17 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra)
     }
 }
 
-
 //pesquisa uma palavra dentro do dicionario
-PFila PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLatencia)
+int PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLatencia, PFila *celula)
 {
-    long iniTime, finalTime;
+    long iniTime = 0;
+    long finalTime = 0;
 
     int idPalavra = Char2Indice(palavra, dic->tam);
-    PFila celula;
 
     iniTime = getTime();
-    pesquisaPalavraFila(&dic->hash[idPalavra], &celula, palavra);
+    int flag = pesquisaPalavraFila(&dic->hash[idPalavra], celula, palavra);
     finalTime = getTime();
     *tempoLatencia = finalTime - iniTime;
-    return celula;
-}
-
-void recuperaFilaDocumentos(PFila celula)
-{
-    recuperaDocumentos(celula);
+    return flag;
 }

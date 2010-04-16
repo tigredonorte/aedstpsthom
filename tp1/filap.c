@@ -75,9 +75,7 @@ void inserePalavraFila(Fila *fila, char* palavra, int idDoc)
     insereFila(it, fila);
 }
 
-void recuperaDocumentos(PFila celula)
+void recuperaFilaDoc(PFila celula, FilaDoc *fila)
 {
-    int *ids;
-    recuperaFilaId(celula->item.FilaIdDoc, ids);
-
+    *fila = celula->item.FilaIdDoc;
 }
