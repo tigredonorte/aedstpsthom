@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 
 //apontador para uma celula da fila
 typedef struct CFila_str *PFila;
@@ -35,6 +36,7 @@ typedef struct Fila
 {
     PFila frente, tras;
     int tamanho;
+    pthread_mutex_t mutex;
 }Fila;
 
 //Esvazia fila

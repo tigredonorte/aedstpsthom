@@ -1,23 +1,30 @@
 #include "filap.h"
-#include <string.h>
 
 //Esvazia fila
 void esvaziaFila(Fila *fila)
 {
+    pthread_mutex_lock (&fila->mutex);
+
     fila->tamanho = 0;
     fila->frente = (PFila)malloc(sizeof(CFila));
     fila->tras = fila->frente;
     fila->frente->prox = NULL;
+
+    pthread_mutex_unlock (&fila->mutex);
 }
 
 //insere novo elemento na fila
 void insereFila(FItem it, Fila *fila)
 {
+    pthread_mutex_lock (&fila->mutex);
+
     fila->tras->prox = (PFila)malloc(sizeof(CFila));
     fila->tras = fila->tras->prox;
     fila->tras->item = it;
     fila->tras->prox = NULL;
     fila->tamanho++;
+
+    pthread_mutex_unlock (&fila->mutex);
 }
 
 void inicializaItem(FItem *it, char* palavra, int idDoc)

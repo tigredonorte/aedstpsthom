@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 //apontador para uma celula da fila
 typedef struct CFilaDoc_str *PFilaDoc;
@@ -32,6 +33,7 @@ typedef struct CFilaDoc_str
 typedef struct FilaDoc_str
 {
     PFilaDoc frente, tras;
+    pthread_mutex_t mutex;
 }FilaDoc;
 
 //verifica se a fila eh vazia, retorna 1 caso verdadeiro

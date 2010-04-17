@@ -11,7 +11,7 @@
 #include "file.h"
 #include "gen_data.h"
 #include <getopt.h>
-#include <pthread.h>
+#include "threads.h"
 
 //numero primo bem grande (acima do numero esperado de palavras geradas)
 #define tDic 888257
@@ -82,14 +82,31 @@ int main(int argc, char** argv)
     //consultas(tamBuffer);
     //insereIndiceInvertido2(buffer, &dic);
 
+    //cria as caracteristicas da nova thread
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+
+    //cada thread criada se comportara como um processo a parte no sistema
+    //nao competirao entre si dentro de um processo so(isto aumenta a performance do programa)
+    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
+
     //cria o numero de threads passada por parametro
+    t_struct *estrutura_thread;
     pthread_t *consumidores;
+
     consumidores = (pthread_t*) malloc(sizeof(pthread_t) * numThreads);
+    int i;
     for(i = 0; i < numThreads; i++)
     {
-        //pthread_create( i, NULL, consumidor, cpargs );
+        pthread_create(&consumidores[i] , &attr, consumidor, estrutura_thread);
     }
+    pthread_attr_destroy (&attr);
 
+    for(i = 0; i < numThreads; i++)
+    {
+        void *parametro;//valor de retorno de cada thread, no caso este valor nao sera usado
+        pthread_join(consumidores[i] , parametro);
+    }
 
     //char palavra1[] = "lol lil";
     //PesquisaIndiceInvertido(palavra1, &dic, outFile);
