@@ -45,7 +45,7 @@
       </toolsSet>
       <compileType>
         <cCompilerTool>
-          <commandLine>-Wall -lm -lgsl -lgslcblas lpthread</commandLine>
+          <commandLine>-Wall -lm -lgsl -lgslcblas -lpthread</commandLine>
         </cCompilerTool>
         <linkerTool>
           <linkerLibItems>

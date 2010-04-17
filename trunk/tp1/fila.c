@@ -12,11 +12,17 @@ void esvaziaFilaDoc(FilaDoc *filaD)
     filaD->frente = (PFilaDoc)malloc(sizeof(CFilaDoc));
     filaD->tras = filaD->frente;
     filaD->frente->prox = NULL;
+
+    if(filaD)
+    {
+        pthread_mutex_init (&filaD->mutex, NULL);
+    }
 }
 
 //insere novo elemento na fila com id ordenado -- O(numDocs)
 void insereFilaDoc(FItemDoc it, FilaDoc *filaD)
 {
+    pthread_mutex_lock (&filaD->mutex);
     if(!eVaziaFila(filaD))
     {
         PFilaDoc celula, celulaAnt;
@@ -69,6 +75,7 @@ void insereFilaDoc(FItemDoc it, FilaDoc *filaD)
         filaD->tras->item = it;
         filaD->tras->prox = NULL;
     }
+    pthread_mutex_unlock (&filaD->mutex);
 }
 
 void inicializaItemDoc(FItemDoc *it, int idDoc)
