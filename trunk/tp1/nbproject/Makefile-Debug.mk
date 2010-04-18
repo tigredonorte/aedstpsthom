@@ -27,10 +27,18 @@ include Makefile
 OBJECTDIR=build/Debug/${PLATFORM}
 
 # Object Files
-OBJECTFILES=
+OBJECTFILES= \
+	${OBJECTDIR}/data.o \
+	${OBJECTDIR}/threads.o \
+	${OBJECTDIR}/fila.o \
+	${OBJECTDIR}/file.o \
+	${OBJECTDIR}/gen_data.o \
+	${OBJECTDIR}/dicionario.o \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/filap.o
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-Wall -lm -lgsl -lgslcblas -lpthread
 
 # CC Compiler Flags
 CCFLAGS=
@@ -49,6 +57,46 @@ LDLIBSOPTIONS=
 dist/Debug/${PLATFORM}/aedsiii: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/${PLATFORM}
 	${LINK.c} -o dist/Debug/${PLATFORM}/aedsiii ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/data.o: data.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/data.o data.c
+
+${OBJECTDIR}/threads.o: threads.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/threads.o threads.c
+
+${OBJECTDIR}/fila.o: fila.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/fila.o fila.c
+
+${OBJECTDIR}/file.o: file.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/file.o file.c
+
+${OBJECTDIR}/gen_data.o: gen_data.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/gen_data.o gen_data.c
+
+${OBJECTDIR}/dicionario.o: dicionario.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/dicionario.o dicionario.c
+
+${OBJECTDIR}/main.o: main.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
+
+${OBJECTDIR}/filap.o: filap.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/filap.o filap.c
 
 # Subprojects
 .build-subprojects:
