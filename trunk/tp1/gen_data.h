@@ -15,6 +15,7 @@
 
 #define AVG_QUERY_SIZE 2
 #define VAR_QUERY_SIZE 1
+#define MAX_LINE_SIZE 100
 
 typedef struct {
 	char **terms;
@@ -32,6 +33,8 @@ termsT *gen_doc(char **terms, uint terms_size);
 termsT *gen_query(char **terms, uint terms_size);
 
 termsT *gen_data(char **terms, uint terms_size);
+
+void imprimeTerms(termsT *terms);
 
 int free_doc_query(termsT *data);
 #endif

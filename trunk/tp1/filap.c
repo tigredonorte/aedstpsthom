@@ -3,14 +3,12 @@
 //Esvazia fila
 void esvaziaFila(Fila *fila)
 {
-    pthread_mutex_lock (&fila->mutex);
-
+    pthread_mutex_init(&fila->mutex, NULL);
     fila->tamanho = 0;
     fila->frente = (PFila)malloc(sizeof(CFila));
     fila->tras = fila->frente;
     fila->frente->prox = NULL;
 
-    pthread_mutex_unlock (&fila->mutex);
 }
 
 //insere novo elemento na fila

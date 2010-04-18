@@ -88,3 +88,25 @@ termsT *gen_data(char **terms, uint terms_size)
         return gen_query(terms, terms_size);
     }
 }
+
+void imprimeTerms(termsT *terms)
+{
+    static int size = 0;
+    static int num = 0;
+    num++;
+    size += terms->sizeInBytes;
+    printf("\nInicio da impressao (%d)\n", num);
+   /* int i;
+    for(i = 0; i < terms->size; i++)
+    {
+       printf("(%d)%s", i, terms->terms[i]);
+    }
+    */
+    printf("\nnumero de termos: (%d)", terms->size);
+    printf("\ntamanho em bytes: (%d)", terms->sizeInBytes);
+    printf("\ntamanho acumulado: (%d)", size);
+    if(terms->type == 0) printf("\nEstrutura de insercao");
+    else if(terms->type == 1) printf("\nEstrutura de pesquisa");
+    printf("\nFim da impressao\n\n");
+}
+

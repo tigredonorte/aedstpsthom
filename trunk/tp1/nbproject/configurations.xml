@@ -31,7 +31,6 @@
     <itemPath>gen_data.c</itemPath>
     <itemPath>gen_data.h</itemPath>
     <itemPath>main.c</itemPath>
-    <itemPath>sample.c</itemPath>
     <itemPath>threads.c</itemPath>
     <itemPath>threads.h</itemPath>
   </logicalFolder>
@@ -89,9 +88,6 @@
         <itemTool>3</itemTool>
       </item>
       <item path="main.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="sample.c">
         <itemTool>0</itemTool>
       </item>
       <item path="threads.c">
@@ -159,9 +155,6 @@
         <itemTool>3</itemTool>
       </item>
       <item path="main.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="sample.c">
         <itemTool>0</itemTool>
       </item>
       <item path="threads.c">

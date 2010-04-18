@@ -21,12 +21,13 @@ typedef Dicionario DicionarioH;
 void novoIndiceInvertido(DicionarioH *dic, int tamDic);
 
 /*insere no indice invertido a partir de um arquivo de entrada*/
-void insereIndiceInvertido(char *documento, DicionarioH *dic);
-
-/*Pesquisa as palavras no indice invertido*/
-void PesquisaIndiceInvertido(char *palavra, DicionarioH *dic, char *ArqName);
+//void insereIndiceInvertido(char *documento, DicionarioH *dic);
 
 /*insere no indice invertido a partir de uma matriz de strings "buffer"*/
-void insereIndiceInvertido2(char *Buffer, DicionarioH *dic);
+void insereIndiceInvertido(char **Buffer, DicionarioH *dic, int size);
+
+/*Pesquisa as palavras no indice invertido*/
+void PesquisaIndiceInvertido(char **palavra, DicionarioH *dic, char *ArqName, int size);
+
 #endif	/* _DATA_H */
 

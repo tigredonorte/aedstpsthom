@@ -37,6 +37,6 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra);
 
 //pesquisa uma palavra dentro do dicionario
 //retorna o tempo gasto para pesquisar a palavra
-int PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLatencia, PFila *celula);
+int PesquisaPalavraDicionario(Dicionario *dic, char *palavra, PFila *celula);
 
 #endif	/* _DICIONARIO_H */
