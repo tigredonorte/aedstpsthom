@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "data.h"
 #include "file.h"
 #include "gen_data.h"
 #include <getopt.h>
@@ -22,13 +21,15 @@ int main(int argc, char** argv)
 {
     char *vocabularioFile;
     char *outFile;
+    char *eFile;
+    int E = 0;
     int numTrabGerado, numThreads, tamBuffer;
     int c;
 
     if(argc < 5)
     {
-        printf("Numero de arqumentos invalido, o programa necessita dos 5 argumentos: "
-               "\n -n numero de trabalhos gerados (consulta, ou documento)"
+        printf("\nNumero de arqumentos invalido, o programa necessita dos 5 argumentos: "
+               "\n-n numero de trabalhos gerados (consulta, ou documento)"
                "\n-t numero de threads usadas para consumir o trabalho"
                "\n-k tamanho do buffer usado pelo gerador (em MB)"
                "\n-i nome arquivo de vocabulario"
@@ -37,7 +38,7 @@ int main(int argc, char** argv)
                "\nO Programa sera fechado.");
         exit(EXIT_FAILURE);
     }
-    while((c = getopt (argc, argv, ":n:t:k:i:o:")) != -1)
+    while((c = getopt (argc, argv, ":n:t:k:i:o:e:")) != -1)
     {
         switch (c)
         {
@@ -56,6 +57,11 @@ int main(int argc, char** argv)
             case 'o':
                     outFile = optarg;
                     break;
+            case 'e':
+                    eFile = optarg;
+                    E = 1;
+                    break;
+
             case '?':
                     printf("Argumentos invalidos para a execussao do programa,"
                             "por favor cheque o arquivo leiame.txt"
@@ -64,6 +70,11 @@ int main(int argc, char** argv)
             default:
             abort ();
         }
+    }
+    if(!E)
+    {
+        eFile = malloc(sizeof(char) * 10);
+        strcpy(eFile, "efile.ods");
     }
     //apaga o conteudo escrito em outfile
     deleteFileContent(outFile);
@@ -75,42 +86,42 @@ int main(int argc, char** argv)
     DicionarioH dic;
     novoIndiceInvertido(&dic, tDic);
 
-    //char *aux;
-    //char *buffer;
-    //buffer = leArquivo("insere.txt", &aux);
-
-    //consultas(tamBuffer);
-    //insereIndiceInvertido2(buffer, &dic);
-
     //cria as caracteristicas da nova thread
     pthread_attr_t attr;
     pthread_attr_init(&attr);
 
     //cada thread criada se comportara como um processo a parte no sistema
     //nao competirao entre si dentro de um processo so(isto aumenta a performance do programa)
-    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
+    pthread_attr_setscope(&attr, PTHREAD_SCOPE_PROCESS);
+
+    //cria uma nova t_struct
+    t_struct estrutura_thread;
+    inicializaTStruct(&estrutura_thread, outFile, eFile, vocabularioFile, numTrabGerado, tamBuffer, &dic);
+
+    //cria um produtor
+    pthread_t *produtors;
+    produtors = (pthread_t*) malloc(sizeof(pthread_t));
+    pthread_create(produtors , &attr, produtor, &estrutura_thread);
 
     //cria o numero de threads passada por parametro
-    t_struct *estrutura_thread;
     pthread_t *consumidores;
-
     consumidores = (pthread_t*) malloc(sizeof(pthread_t) * numThreads);
     int i;
     for(i = 0; i < numThreads; i++)
     {
-        pthread_create(&consumidores[i] , &attr, consumidor, estrutura_thread);
+        pthread_create(&consumidores[i] , &attr, consumidor, &estrutura_thread);
     }
+
+    //depois de inicializado o atributo, libera a memoria
     pthread_attr_destroy (&attr);
 
+    //aguarda ate que todas as threads acabem de execultar
     for(i = 0; i < numThreads; i++)
     {
-        void *parametro;//valor de retorno de cada thread, no caso este valor nao sera usado
-        pthread_join(consumidores[i] , parametro);
+        pthread_join(consumidores[i] , NULL);
     }
 
-    //char palavra1[] = "lol lil";
-    //PesquisaIndiceInvertido(palavra1, &dic, outFile);
-
+    printf("\nFim da execussao\n");
     return (EXIT_SUCCESS);
 }
 

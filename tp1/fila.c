@@ -2,26 +2,25 @@
 #include "filap.h"
 #include <stdio.h>
 
+//verifica se a fila e vazia, retorna 0 se nao for vazia, != 0 se for vazia
 int eVaziaFila(FilaDoc *filaD)
 {
     return(filaD->frente == filaD->tras);
 }
+
 //Esvazia fila
 void esvaziaFilaDoc(FilaDoc *filaD)
 {
     filaD->frente = (PFilaDoc)malloc(sizeof(CFilaDoc));
     filaD->tras = filaD->frente;
     filaD->frente->prox = NULL;
-
-    if(filaD)
-    {
-        pthread_mutex_init (&filaD->mutex, NULL);
-    }
+    pthread_mutex_init (&filaD->mutex, NULL); //inicializa o mutex da fila
 }
 
 //insere novo elemento na fila com id ordenado -- O(numDocs)
 void insereFilaDoc(FItemDoc it, FilaDoc *filaD)
 {
+    //bloqueia a thread
     pthread_mutex_lock (&filaD->mutex);
     if(!eVaziaFila(filaD))
     {
@@ -29,16 +28,22 @@ void insereFilaDoc(FItemDoc it, FilaDoc *filaD)
         celula = filaD->frente->prox;
         celulaAnt = celula;
         int encaixou = 0;
+
+        //varrera a fila inteira, enquanto nao chegar a ultima celula, ou enquanto
+        //o item a ser encaixado nao for <= a celula
         while(celula->prox != NULL && !encaixou)
         {
+            //se item e maior do que o item da fila, pega o proximo da fila para comparar
             if(it.idDoc > celula->item.idDoc)
             {
                 celulaAnt = celula;
                 celula = celula->prox;
             }
+            //se for menor ou igual a celula sera encaixada ou ja existe
             else
             {
                 encaixou = 1;
+                //se for menor aloca uma nova celula e encaixa na fila
                 if(it.idDoc < celula->item.idDoc)
                 {
                     it.numInsercoes++;
@@ -50,6 +55,7 @@ void insereFilaDoc(FItemDoc it, FilaDoc *filaD)
                  //se for igual nao encaixa e sai do loop
             }
         }
+        //se for igual incrementa o numero de insercoes da celula
         if(it.idDoc == celula->item.idDoc)
         {
             celula->item.numInsercoes++;
@@ -67,6 +73,7 @@ void insereFilaDoc(FItemDoc it, FilaDoc *filaD)
             }
         }
     }
+    // se a fila e vazia, encaixa na primeira posicao
     else
     {
         it.numInsercoes++;
@@ -75,9 +82,12 @@ void insereFilaDoc(FItemDoc it, FilaDoc *filaD)
         filaD->tras->item = it;
         filaD->tras->prox = NULL;
     }
+
+    //desbloqueia a thread
     pthread_mutex_unlock (&filaD->mutex);
 }
 
+//inicializa um novo item da uma celula
 void inicializaItemDoc(FItemDoc *it, int idDoc)
 {
     it->idDoc = idDoc;
@@ -87,6 +97,8 @@ void inicializaItemDoc(FItemDoc *it, int idDoc)
 int pesquisaId(FilaDoc *fila, int idDoc)
 {
     PFilaDoc celula;
+
+    //se a fila existe
     if(fila->frente != NULL)
     {
         celula = fila->frente;
@@ -101,6 +113,8 @@ int pesquisaId(FilaDoc *fila, int idDoc)
         }
         return 0;
     }
+    //se nao existir sai do programa para nao dar seg fault
+    //mas com a mensagem de erro da localizacao no codigo
     printf("Falha de memoria\n"
             "Arquivo: Fila.c\n"
             "Funcao: PesquisaID\n"
@@ -110,11 +124,13 @@ int pesquisaId(FilaDoc *fila, int idDoc)
     return -1; //anti warning
 }
 
+//retorna o id da celula passada por parametro
 void recuperaIdCelulaDoc(PFilaDoc celula, int *id)
 {
     *id = celula->item.idDoc;
 }
 
+//altera o conteudo da celula para que esta seja igual a proxima a ela
 void proximaCelulaDoc(PFilaDoc *celula)
 {
     if(*celula != NULL)
@@ -123,11 +139,13 @@ void proximaCelulaDoc(PFilaDoc *celula)
     }
 }
 
+//retorna o numero de insercoes da celula passada por parametro
 int getNumInsercoes(PFilaDoc celula)
 {
     return(celula->item.numInsercoes);
 }
 
+//salva na celula passada por parametro o primeiro elemento da fila de documentos
 void primeiroElementoFilaDoc(FilaDoc *filaDoc, PFilaDoc *celulaDoc)
 {
     *celulaDoc = filaDoc->frente;

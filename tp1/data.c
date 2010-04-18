@@ -5,67 +5,54 @@ void novoIndiceInvertido(DicionarioH *dic, int tamDic)
     InicializaDicionario(dic, tamDic);
 }
 
-void insereIndiceInvertido(char *documento, DicionarioH *dic)
+void insereIndiceInvertido(char **Buffer, DicionarioH *dic, int size)
 {
     static int idDoc = 0;
     idDoc++;
 
-    char *buffer;
-    char *aux;
-
-    aux = leArquivo(documento, &buffer);
-    if( aux == NULL ) // verifica se existem palavras no arquivo
-    {
-        printf("insereIndiceInvertido: nenhuma palavra adicionada no arquivo %s \n", documento);
-    }
-    else // se existirem palavras
-    {
-        // verifica se ainda existem palavras
-        while(aux != NULL )
-        {
-            int idDocs = idDoc;
-            InserePalavraDicionario(dic, idDocs, aux);
-            aux = proxPalavra(NULL); // próxima palavra do arquivo
-        }
-    }
-}
-
-void insereIndiceInvertido2(char *Buffer, DicionarioH *dic)
-{
-    static int idDoc = 0;
-    idDoc++;
-
-    //char *aux;
-    //aux = proxPalavra(Buffer);
+    int i = 0;
     // verifica se ainda existem palavras
-    while(Buffer != NULL )
+
+    for(i = 0; i < size; i++)
     {
         int idDocs = idDoc;
-        InserePalavraDicionario(dic, idDocs, Buffer);
-        Buffer = proxPalavra(NULL); // próxima palavra do arquivo
+        InserePalavraDicionario(dic, idDocs, Buffer[i]);
+        i++;
     }
 }
 
-void PesquisaIndiceInvertido(char *palavra, DicionarioH *dic, char *ArqName)
+/*realiza uma pesquisa no indice invertido
+ *
+ *Recebe um vetor de strings (char **) de palavras a serem pesquisadas
+ *Recebe um dicionario onde serao inseridos os termos
+ *Recebe um nome de arquivo onde serao salvas as pesquisas
+ *Recebe um inteiro com o numero de palavras do vetor de strings
+ *Salvara no arquivo as palavras a serem pesquisadas e em quais documentos elas ocorrem
+ */
+void PesquisaIndiceInvertido(char **palavra, DicionarioH *dic, char *ArqName, int size)
 {
-    writeFile(ArqName, palavra);
-    
-    long tempoLatencia = 0;
+    int i = 0;
+
+    //se a pesquisa falhar para alguma das palavras este flag sera 0
     int sucessoPesquisa = 1;
+
+    //guarda o numero de palavras a ser pesquisado
     int numPalavras = 0;
 
-    char *temp;
-    temp = proxPalavra(palavra);
-
+    //fila de documentos que guardara os documentos pesquisados
     FilaDoc filaD;
     esvaziaFilaDoc(&filaD);
-    while(temp != NULL && sucessoPesquisa)
+
+    //fara o loop enquanto ouver sucesso de pesquisa e enquanto nao pesquisar a ultima palavra enviada
+    for(i = 0; i < size && sucessoPesquisa; i++)
     {
         PFila celula = NULL;
-        if(!PesquisaPalavraDicionario(dic, temp, &tempoLatencia, &celula))
+        //se a palavra nao estiver presente no dicionario nao ha sucesso na pesquisa
+        if(!PesquisaPalavraDicionario(dic, palavra[i], &celula))
         {
             sucessoPesquisa = 0;
         }
+        //se recuperou a palavra
         else
         {
             FilaDoc filaDoc;
@@ -74,6 +61,8 @@ void PesquisaIndiceInvertido(char *palavra, DicionarioH *dic, char *ArqName)
             PFilaDoc celulaDoc = NULL;
             primeiroElementoFilaDoc(&filaDoc, &celulaDoc);
             proximaCelulaDoc(&celulaDoc);
+
+            //salva a fila de documentos da palavra na filaD
             while(celulaDoc != NULL)
             {
                 int idDoc = 0;
@@ -86,9 +75,20 @@ void PesquisaIndiceInvertido(char *palavra, DicionarioH *dic, char *ArqName)
             }
             sucessoPesquisa = 1;
         }
-        temp = proxPalavra(NULL);
         numPalavras++;
     }
+
+    //trava o acesso a impressao do arquivo
+    pthread_mutex_lock(&dic->hash->mutex);
+
+    //imprime no arquivo as palavras encontradas
+    for(i = 0; i < size; i++)
+    {
+        char *aux = strtok(palavra[i], "\n \r");
+        writeFile(ArqName, aux);
+    }
+
+    //se houve sucesso na pesquisa
     if(sucessoPesquisa)
     {
         PFilaDoc celulaDoc;
@@ -108,6 +108,7 @@ void PesquisaIndiceInvertido(char *palavra, DicionarioH *dic, char *ArqName)
             proximaCelulaDoc(&celulaDoc);
         }
     }
-    free(temp);
+
     writeFile(ArqName, "\n");
+    pthread_mutex_unlock(&dic->hash->mutex);
 }

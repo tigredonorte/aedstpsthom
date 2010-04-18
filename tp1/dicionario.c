@@ -83,16 +83,9 @@ void InserePalavraDicionario(Dicionario *dic, int idDoc, char *palavra)
 }
 
 //pesquisa uma palavra dentro do dicionario
-int PesquisaPalavraDicionario(Dicionario *dic, char *palavra, long *tempoLatencia, PFila *celula)
+int PesquisaPalavraDicionario(Dicionario *dic, char *palavra,  PFila *celula)
 {
-    long iniTime = 0;
-    long finalTime = 0;
-
     int idPalavra = Char2Indice(palavra, dic->tam);
-
-    iniTime = getTime();
     int flag = pesquisaPalavraFila(&dic->hash[idPalavra], celula, palavra);
-    finalTime = getTime();
-    *tempoLatencia = finalTime - iniTime;
     return flag;
 }
