@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 
     //cria uma nova t_struct
     t_struct estrutura_thread;
-    inicializaTStruct(&estrutura_thread, outFile, eFile, vocabularioFile, numTrabGerado, tamBuffer, &dic);
+    inicializaTStruct(&estrutura_thread, outFile, eFile, vocabularioFile, numTrabGerado, tamBuffer, &dic, numThreads);
 
     //cria um produtor
     pthread_t *produtors;
