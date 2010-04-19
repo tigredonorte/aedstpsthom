@@ -53,12 +53,13 @@ typedef struct t_struct_str
     char *statisticFile;
     char** terms;
     int produzindo;
+    int numThreads;
     FilaProc fila;
     DicionarioH *dic;
 }t_struct;
 
 //inicializa uma nova estrutura
-void inicializaTStruct(t_struct *estrutura, char* outfile, char* statisticFile, char* vocabularioFile, int numTrabGerado, int tamBuffer, DicionarioH *dic);
+void inicializaTStruct(t_struct *estrutura, char* outfile, char* statisticFile, char* vocabularioFile, int numTrabGerado, int tamBuffer, DicionarioH *dic, int numThreads);
 
 //inicializa um novo item
 void inicializaItemProc(FItemProc *it, termsT *buffer);

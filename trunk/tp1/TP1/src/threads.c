@@ -1,6 +1,6 @@
 #include "threads.h"
 
-void inicializaTStruct(t_struct *estrutura, char* outfile, char* statisticFile, char* vocabularioFile, int numTrabGerado, int tamBuffer, DicionarioH *dic)
+void inicializaTStruct(t_struct *estrutura, char* outfile, char* statisticFile, char* vocabularioFile, int numTrabGerado, int tamBuffer, DicionarioH *dic, int numThreads)
 {
     esvaziaFilaProc(&estrutura->fila, tamBuffer);
 
@@ -14,6 +14,7 @@ void inicializaTStruct(t_struct *estrutura, char* outfile, char* statisticFile, 
     // este flag indica se ainda tem mais itens a serem produzidos '1' ou se terminou a producao '0'
     estrutura->produzindo = 1;
 
+    estrutura->numThreads = numThreads;
     /*comeco da parte foda da especificacao*/
     //salvara as estatisticas do programa( parte fora da especificacao, criada para facilitar criacao de graficos
     estrutura->statisticFile = malloc(sizeof(char) * strlen(statisticFile));
@@ -156,8 +157,13 @@ void removeFilaProc(FItemProc *it, FilaProc *fila)
 
 void* consumidor(void * argumento)
 {
-    double iniTime = 0;
-    iniTime = getTime();
+    static double iT = 0;
+    double iniTime = getTime();
+    if(iniTime < iT || iT == 0)
+    {
+        iT = iniTime;
+    }
+    
 
     double finalTime = 0;
     double latenciaTotalPesquisa = 0;
@@ -235,28 +241,40 @@ void* consumidor(void * argumento)
     }
     latenciaMediaPesquisa = latenciaTotalPesquisa/numPesquisas;
     latenciaMediaInsercao = latenciaTotalInsercao/numInsercoes;
-    finalTime = getTime() - iniTime;
+    finalTime = getTime();
 
     pthread_mutex_lock(&estrutura_thread->fila.mutex);
     static int cid = 0;
     cid++;
-    printf("\nFim do consumidor id = (%d)"
+
+    static double ltp = 0;
+    static double lmp = 0;
+    static double lti = 0;
+    static double lmi = 0;
+    static double ft = 0;
+
+    ltp += latenciaTotalPesquisa;
+    lmp += latenciaMediaPesquisa;
+    lti += latenciaTotalInsercao;
+    lmi += latenciaMediaInsercao;
+    if(ft == 0 || ft < finalTime)
+    {
+        ft = finalTime - iT;
+    }
+    
+    if(cid == estrutura_thread->numThreads)
+    {
+        printf("\nNumero de threads = (%d)"
            "\nLatencia total de pesquisa = (%f)"
            "\nLatencia media de pesquisa = (%f)"
            "\nLatencia total de insercao = (%f)"
            "\nLatencia media de Insercao = (%f)"
-           "\nTempo de execussao da thread = (%f)\n\n",
-            cid,
-            latenciaTotalPesquisa,
-            latenciaMediaPesquisa,
-            latenciaTotalInsercao,
-            latenciaMediaInsercao,
-            finalTime);
-    
-    writeFileThread(estrutura_thread->statisticFile, cid, latenciaTotalPesquisa, latenciaMediaPesquisa, latenciaTotalInsercao, latenciaMediaInsercao, finalTime);
-    //garantia que vai destravar
-    pthread_mutex_unlock (&estrutura_thread->fila.mutex);
+           "\nTempo de execussao das threads = (%f)\n\n",cid, ltp, lmp, lti, lmi, ft);
+         writeFileThread(estrutura_thread->statisticFile, cid, ltp, lmp, lti, lmi, ft);
+        //garantia que vai destravar
+    }
 
+    pthread_mutex_unlock (&estrutura_thread->fila.mutex);
     pthread_exit(NULL);
 }
 
