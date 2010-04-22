@@ -1,0 +1,127 @@
+#!/bin/bash
+clear
+
+SMin="50"
+SMed="100"
+SMax="200"
+
+NMin="50"
+NMed="100"
+NMax="150"
+
+arquivos="fila.c main.c file.c"
+
+echo "compilando..."
+gcc -Wall -lm $arquivos -o aplicativo
+echo "compilado"
+
+i="1"
+echo "bateria de testes '$i'"
+S=$SMin
+N=$NMin
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="2"
+
+echo "bateria de testes '$i'"
+S=$SMin
+N=$NMed
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="3"
+
+echo "bateria de testes '$i'"
+S=$SMin
+N=$NMax
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="4"
+
+echo "bateria de testes '$i'"
+S=$SMed
+N=$NMin
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="5"
+
+echo "bateria de testes '$i'"
+S=$SMed
+N=$NMed
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="6"
+
+echo "bateria de testes '$i'"
+S=$SMed
+N=$NMax
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="7"
+
+echo "bateria de testes '$i'"
+S=$SMax
+N=$NMin
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="8"
+
+echo "bateria de testes '$i'"
+S=$SMax
+N=$NMed
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="9"
+
+echo "bateria de testes '$i'"
+S=$SMax
+N=$NMax
+echo "clustering"
+./aplicativo -i clustering.data -s $S -n $N -o result/clustering.$S.$N.txt
+echo "normal"
+./aplicativo -i normal.data 	-s $S -n $N -o result/normal.$S.$N.txt
+echo "uniform"
+./aplicativo -i uniform.data 	-s $S -n $N -o result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+
+echo "Baterias de testes concluida"
+wait

@@ -1,0 +1,107 @@
+#!/bin/bash
+clear
+
+SMin="50"
+SMed="100"
+SMax="200"
+
+NMin="50"
+NMed="100"
+NMax="150"
+
+dir_result="../resultados"
+arquivos="../src/fila.c ../src/file.c ../src/main.c"
+
+entrada1="../entradas/clustering.data"
+entrada2="../entradas/normal.data"
+entrada3="../entradas/uniform.data"
+echo "compilando..."
+gcc -Wall -lm $arquivos -o aplicativo
+echo "compilado"
+
+i="1"
+echo "bateria de testes '$i'"
+S=$SMin
+N=$NMin
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="2"
+
+echo "bateria de testes '$i'"
+S=$SMin
+N=$NMed
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="3"
+
+echo "bateria de testes '$i'"
+S=$SMin
+N=$NMax
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="4"
+
+echo "bateria de testes '$i'"
+S=$SMed
+N=$NMin
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="5"
+
+echo "bateria de testes '$i'"
+S=$SMed
+N=$NMed
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="6"
+
+echo "bateria de testes '$i'"
+S=$SMed
+N=$NMax
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="7"
+
+echo "bateria de testes '$i'"
+S=$SMax
+N=$NMin
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="8"
+
+echo "bateria de testes '$i'"
+S=$SMax
+N=$NMed
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+i="9"
+
+echo "bateria de testes '$i'"
+S=$SMax
+N=$NMax
+./aplicativo -i $entrada1 -s $S -n $N -o $dir_result/clustering.$S.$N.txt
+./aplicativo -i $entrada2 -s $S -n $N -o $dir_result/normal.$S.$N.txt
+./aplicativo -i $entrada3 -s $S -n $N -o $dir_result/uniform.$S.$N.txt
+echo "bateria '$i' Concluida"
+
+echo "Baterias de testes concluida"
+
+echo "Removendo arquivos criados durante a execussão.."
+rm HStatistic.txt TimeAnalisis.txt aplicativo
+wait
