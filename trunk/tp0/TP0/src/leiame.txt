@@ -1,0 +1,65 @@
+================TRABALHO PRÁTICO 0 DE AEDSIII=====================
+
+O programa implementado tem como objetivo aplicar uma tecnica muito usada em estatistica: analise de monte carlo, atravez de um score chamado hopkins statistic. Para tal o problema dado foi retirar estatistica de um conjunto de pontos dados como entrada, a ideia é descobrir atravez de retirada de amostragens do arquivo de entrada se os pontos dados sao agrupaveis ou nao com relacao aos pontos gerados. Para ser agrupavel a saida da amostragem deve ser superior a 50%.
+
+** Código-fonte:
+
+* Arquivos .c:
+
+ - main.c: Arquivo principal do programa que controla a execussao do aplicativo.
+ - fila.c: Define as funções relacionadas à estatistica do programa.
+ - file.c: Define funcoes relacionadas a leitura e escrita de arquivos.
+
+* Arquivos .h:
+
+ - fila.h: Define as estruturas de dados e cabecalhos de funcoes relacionadas a manipulacao da fila para alocacao dinamica e para o calculo das estatisticas do programa.
+ - file.h: Define os cabecalhos de funcoes relacionadas a leitura e escrita de arquivos.
+
+** Compilação
+
+O programa deve ser compilado utilizando-se o compilador GCC através de um makefile, atravez do script shell "geraTestes" na pasta script ou do seguinte comando:
+
+	gcc main.c fila.c file.c -o aplicativo
+
+** Execução
+
+A execução do programa tem como parâmetros:
+ - Um arquivo que contem pontos N-Dimensionais.
+ - Um arquivo de saída.
+ - Um numero S = numero de testes a ser execultado pelo programa
+ - Um numero N = Tamanho de cada amostra a ser execultada
+
+O comando para a execução do programa é da forma:
+
+ ./aplicativo -i <arquivo de entrada> -s <Numero de teste> -n <Tamanho das Amostras> -o <arquivo de saida> 
+
+Exemplo:
+ ./aplicativo -i ../entradas/normal.txt -s 50 -n 50 -o ../saidas/normal.txt
+
+
+** Formato da entrada
+
+O formato da entrada possui dois numeros na primeira linha, a saber: numero de pontos, numero de dimensoes
+E existirao outras (numero de pontos) linhas no arquivo, uma para cada ponto. Os valores de cada ponto devem ficar entre 0 e 1
+4 2
+0.00 0.21
+1.00 0.45
+0.54 0.89
+0.17 0.64
+
+** Formato da saída
+
+A saída do programa exibe as estatisticas feitas durante a execusaao, a saber:
+linha 1: valor minimo
+linha 2: valor maximo
+linha 3: valor medio
+linha 4: desvio padrao
+exemplo de saida:
+
+0.500319
+0.500341
+0.480330
+0.141421
+	
+08/03/2009
+Thompson moreira Filgueiras (thom@dcc.ufmg.br)
