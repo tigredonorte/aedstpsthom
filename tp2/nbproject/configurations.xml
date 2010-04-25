@@ -18,6 +18,15 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>file.c</itemPath>
+    <itemPath>file.h</itemPath>
+    <itemPath>guloso.c</itemPath>
+    <itemPath>guloso.h</itemPath>
+    <itemPath>hashaberto.c</itemPath>
+    <itemPath>hashaberto.h</itemPath>
+    <itemPath>main.c</itemPath>
+    <itemPath>tentativa.c</itemPath>
+    <itemPath>tentativa.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -28,11 +37,41 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cCompilerTool>
+          <commandLine>-Wall -g -lm</commandLine>
+        </cCompilerTool>
         <linkerTool>
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="file.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="file.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="guloso.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="guloso.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="hashaberto.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="hashaberto.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="main.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="tentativa.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="tentativa.h">
+        <itemTool>3</itemTool>
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -55,6 +94,33 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="file.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="file.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="guloso.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="guloso.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="hashaberto.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="hashaberto.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="main.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="tentativa.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="tentativa.h">
+        <itemTool>3</itemTool>
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
