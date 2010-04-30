@@ -32,15 +32,15 @@ void inicializaHash(Hash *hash, int tamanho)
 {
     hash->tamanho = tamanho;
     hash->hash = malloc(tamanho * sizeof(itemH));
-    hash->termosDiferentes = 0;
+    hash->termosDif = 0;
 
     int i;
     for(i = 0; i < tamanho; i++)
     {
-        hash->hash[i].status = 1;
-        hash->hash[i].popularidade = 0;
-        hash->hash[i].popularidadeDiferente = 0;
-        hash->hash[i].numOcorrencias = 1;
+        hash->hash[i].status = VAZIO;
+        hash->hash[i].pop = 0;
+        hash->hash[i].popD = 0;
+        hash->hash[i].nOcorrencias = 0;
     }
 }
 
@@ -58,25 +58,30 @@ int PesquisaHash(Hash *hash, char *chave)
         i++;
     }
 
-    //se as palavras forem iguais, encontrou
-    if(strcmp(hash->hash[(ini + i) % m].chave, chave) == 0)
+    //se a posicao e vazia, entao nao pode comparar strings
+    if(hash->hash[(ini + i) % m].status != VAZIO)
     {
-        return (ini + i) % m;
+        //se as palavras forem iguais, encontrou
+        if(strcmp(hash->hash[(ini + i) % m].chave, chave) == 0)
+        {
+            return (ini + i) % m;
+        }
     }
+
     return m;
 }
 
 void InsereHash(Hash *hash, char *chave)
 {
-    int i, ini, m;
-    ini = H(hash->tamanho, chave);
+    int i, ini, m, inserido;
+    inserido = PesquisaHash(hash, chave);
     m = hash->tamanho;
-
     //se nao encontrou o elemento
-    if(ini == m)
+    if(inserido == m)
     {
+        ini = H(hash->tamanho, chave);
         i = 0;
-        hash->termosDiferentes++;
+        hash->termosDif++;
         //enquanto nao encontrar uma posicao vazia ou retirada, nao ha lugar para colocar o elemento
         while((hash->hash[(ini + i) % m].status == CHEIO) && (i < m))
         {
@@ -88,6 +93,8 @@ void InsereHash(Hash *hash, char *chave)
         {
             hash->hash[(ini + i)%m].chave = malloc(sizeof(char) * strlen(chave));
             strcpy(hash->hash[(ini + i)%m].chave, chave);
+            hash->hash[(ini + i)%m].status = CHEIO;
+            hash->hash[(ini + i)%m].nOcorrencias++;
         }
         else
         {
@@ -98,25 +105,99 @@ void InsereHash(Hash *hash, char *chave)
     //se encontrou o elemento
     else
     {
-        hash->hash[ini % m].numOcorrencias++;
-        hash->hash[ini % m].popularidade = hash->hash[ini % m].numOcorrencias/hash->tamanho;
-        hash->hash[ini % m].popularidadeDiferente = hash->hash[ini % m].numOcorrencias/hash->termosDiferentes;
+        hash->hash[ini % m].nOcorrencias++;
+        //hash->hash[ini % m].popularidade = hash->hash[ini % m].numOcorrencias/hash->tamanho;
+        //hash->hash[ini % m].popularidadeDiferente = hash->hash[ini % m].numOcorrencias/hash->termosDiferentes;
     }
 }
 
-int getTamanhoHash(Hash *hash)
+void calculaPopularidade(Hash *hash)
 {
-
+    int i, tam;
+    tam = hash->tamanho;
+    for(i = 0; i < tam; i++)
+    {
+        if(hash->hash[i].status == CHEIO)
+        {
+            int nO = hash->hash[i].nOcorrencias;
+            int tDiff = hash->termosDif;
+            hash->hash[i].pop = (double)nO/tam;
+            hash->hash[i].popD = (double)nO/tDiff;
+        }
+    }
 }
 
-/*retorna o elemento da posicao i do hash*/
-itemH getPositionHash(Hash *hash, int i)
+/*Retorna a popularidade do i-ezimo termo do hash*/
+double getPopularidade(Hash *hash, int i)
 {
+    //return(hash->hash[i].popularidade);
+    return(hash->hash[i].popD);
+}
 
+int getTermosDiferentes(Hash *hash)
+{
+    return(hash->termosDif);
 }
 
 /*verifica se uma posicao do hash eh nula*/
-int positionIsFull(Hash *hash, int i)
+int getStatus(Hash *hash, int i)
 {
+    return(hash->hash[i].status);
+}
 
+int comparaChave(itemH *k1, itemH *k2)
+{
+    return(strcmp(k1->chave, k2->chave));
+}
+
+int comparaPopularidadeChave(itemH *k1, itemH *k2)
+{
+    /*popularidades iguais*/
+    if(k1->pop == k2->pop)
+    {
+        return 0;
+    }
+    /*popularidade do primeiro maior do que do segundo*/
+    if(k1->pop > k2->pop)
+    {
+        return 1;
+    }
+    /*popularidade do primeiro menor do que do segundo*/
+    return -1;
+}
+
+char *getChave(itemH *k1)
+{
+    return(k1->chave);
+}
+
+void criaVetor(Hash *hash, itemH **vetor, int *size)
+{
+    *size = 0;
+    int i;
+    int j = 0;
+
+    //descobre o tamanho a ser alocado do vetor
+    int tHash = hash->tamanho;
+    for(i = 0; i < tHash; i++)
+    {
+        if(hash->hash[i].status == CHEIO)
+        {
+            j++;
+        }
+    }
+
+    (*vetor) = malloc(sizeof(itemH) * j);
+
+    j = 0;
+    //copia as posicoes oculpadas do hash
+    for(i = 0; i < tHash; i++)
+    {
+        if(hash->hash[i].status == CHEIO)
+        {
+            (*vetor)[j++] = hash->hash[i];
+        }
+    }
+
+    *size = j;
 }

@@ -11,34 +11,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "hashaberto.h"
-
-/*
- * Arvore propriamente dita
- */
-typedef struct nodoGuloso *nodoG;
-
-typedef struct item_guloso
-{
-    char *chave;
-}itemG;
-
-typedef struct nodoGuloso
-{
-    itemG it;
-    nodoG esq;
-    nodoG dir;
-}nodoGuloso;
-
-typedef struct arvore_gulosa
-{
-    nodoG nodo; //primeiro nodo da arvore
-}arvoreG;
+#include "arvore.h"
 
 /*Insere um novo elemento na arvore*/
-void insereArvoreGulosa(arvoreG *ar, itemG it);
+void insereArvoreGulosa(Arvore *ar, Hash *hash);
 
-/*Encaixara o item no nodo correspondente*/
-nodoG insereElementoG(nodoG n, itemG it);
+/*particao*/
+void quickSortOrdena(itemH* vetor, int esq, int dir);
+
+/*chamada do metodo quick sort*/
+void quickSort( itemH* vetor, int N);
 
 #endif	/* _GULOSO_H */
 
