@@ -12,21 +12,21 @@
 #include "guloso.h"
 #include "tentativa.h"
 #include "dinamica.h"
+#include "arvore.h"
 
 #define TENTATIVA 1
 #define DINAMICA  2
 #define GULOSO    3
 
 int main(int argc, char** argv)
-{
+{ //Começa a função "main"
     Hash hash; //estrutura do hash, que calculara as popularidades
     char *entrada; //arquivo de entrada
     char *saida; //arquivo de saida
-    char *bufferAux; //buffer auxiliar que contera as palavras do arquivo
     int algoritmo; //qual o algoritmo que sera escolhido
     int numPalavras; //numero de palavras que contem o arquivo
     int c; //variavel provisoria para a funcao get opt
-    
+
     c =0;
 
     if(argc < 7)
@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 
     char **Buffer;
     numPalavras = 0;
-    Buffer = leArquivo(entrada, &bufferAux, &numPalavras);
+    Buffer = leArquivo(entrada, &numPalavras);
 
     //o hash tera o tamanho exato do numero de palavras
     inicializaHash(&hash, numPalavras);
@@ -72,20 +72,40 @@ int main(int argc, char** argv)
     {
         InsereHash(&hash, Buffer[i]);
     }
+    calculaPopularidade(&hash);
 
+    Arvore arT;
+    InicializaArvore(&arT);
+    insereArvoreTentativa(&arT, &hash);
+
+    Arvore arD;
+    InicializaArvore(&arD);
+    insereArvoreDinamica(&arD, &hash);
+
+    Arvore arG;
+    InicializaArvore(&arG);
+    insereArvoreGulosa(&arG, &hash);
+
+    /*
+    Arvore ar;
+    InicializaArvore(&ar);
     switch(algoritmo)
     {
         case TENTATIVA:
+
+                    insereArvoreTentativa(&ar, &hash);
                     break;
         case DINAMICA:
+                    insereArvoreDinamica(&ar, &hash);
                     break;
         case GULOSO:
+                    insereArvoreGulosa(&ar, &hash);
                     break;
         default:
             printf("nao existe o algoritmo com id %d, por favor consulte o arquivo leiame.txt", algoritmo);
     }
+    //Chama a função com nível 1.
     
-    
+     */
     return (EXIT_SUCCESS);
-}
-
+} //Fim-função

@@ -18,6 +18,10 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>arvore.c</itemPath>
+    <itemPath>arvore.h</itemPath>
+    <itemPath>dinamica.c</itemPath>
+    <itemPath>dinamica.h</itemPath>
     <itemPath>file.c</itemPath>
     <itemPath>file.h</itemPath>
     <itemPath>guloso.c</itemPath>
@@ -45,6 +49,18 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="arvore.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="arvore.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="dinamica.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="dinamica.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="file.c">
         <itemTool>0</itemTool>
       </item>
@@ -94,6 +110,18 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="arvore.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="arvore.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="dinamica.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="dinamica.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="file.c">
         <itemTool>0</itemTool>
       </item>

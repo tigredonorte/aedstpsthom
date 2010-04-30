@@ -8,37 +8,20 @@
 #ifndef _TENTATIVA_H
 #define	_TENTATIVA_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "hashaberto.h"
+#include "arvore.h"
 
-typedef struct nodoTentativa *nodoT;
+#define MAX_SIZE 8
 
-typedef struct item_tentativa
-{
-    char *chave;
-}itemT;
+/*insere os elementos do hash na arvore tentativa*/
+void insereArvoreTentativa(Arvore *ar, Hash *hash);
 
-typedef struct nodoTentativa
-{
-    itemT it;
-    nodoT esq;
-    nodoT dir;
-}nodoTentativa;
+//Permuta um elemento do vSrc e copia no vDst
+void permutacaoN(itemH *vSrc, itemH **vDst, int size, int k);
 
-typedef struct arvore_tentativa
-{
-    nodoT nodo; //primeiro nodo da arvore
-    itemH *vetorMelhor;
-    int tamanho;
-}arvoreT;
-
-/*inicializa arvore de tentativa e erro*/
-void inicializaArvoreTentativa(arvoreT *ar, int tamanho);
-
-/*Insere um novo elemento na arvore*/
-void insereArvoreTentativa(arvoreT *ar, Hash *hash);
-
-/*Encaixara o item no nodo correspondente*/
-nodoT insereElementoT(nodoT n, itemT it);
-
+/*calcula o fatorial de n*/
+int fatorial(int n);
 #endif	/* _TENTATIVA_H */
 

@@ -9,6 +9,9 @@
 #define	_DINAMICA_H
 
 #include "hashaberto.h"
+#include "arvore.h"
+
+void insereArvoreDinamica(Arvore *ar, Hash *hash);
 
 #endif	/* _DINAMICA_H */
 
