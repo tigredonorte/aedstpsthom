@@ -59,16 +59,19 @@ void insereArvoreTentativa(Arvore *ar, Hash *hash)
         }
     }
 
-    int lol;
-    char **vS = malloc(sizeof(char*) * size);
-    int *vN = malloc(size * sizeof(int));
-    criaVetorProfundidadeArvore(ar, &vS, &vN);
-    for(lol = 0; lol < size; lol++)
-    {
-        printf("%d ",vN[lol]);
-    }
-    PrintArvore(ar);
-    printf("\n\n ");
+    #ifndef _DEBUG_
+    #define _DEBUG_
+        int lol;
+        char **vS = malloc(sizeof(char*) * size);
+        int *vN = malloc(size * sizeof(int));
+        criaVetorProfundidadeArvore(ar, &vS, &vN);
+        for(lol = 0; lol < size; lol++)
+        {
+            printf("%d ",vN[lol]);
+        }
+        PrintArvore(ar);
+        printf("\n\n ");
+    #endif
 }
 
 int fatorial(int n)

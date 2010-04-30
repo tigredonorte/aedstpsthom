@@ -74,9 +74,9 @@ int main(int argc, char** argv)
     }
     calculaPopularidade(&hash);
 
-    Arvore arT;
-    InicializaArvore(&arT);
-    insereArvoreTentativa(&arT, &hash);
+    //Arvore arT;
+    //InicializaArvore(&arT);
+    //insereArvoreTentativa(&arT, &hash);
 
     Arvore arD;
     InicializaArvore(&arD);
