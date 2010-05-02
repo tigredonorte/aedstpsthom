@@ -127,6 +127,12 @@ void calculaPopularidade(Hash *hash)
     }
 }
 
+//retorna popularidade de um item
+double getPop(itemH *k1)
+{
+    return(k1->popD);
+}
+
 /*Retorna a popularidade do i-ezimo termo do hash*/
 double getPopularidade(Hash *hash, int i)
 {

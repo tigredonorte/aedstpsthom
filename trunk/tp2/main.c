@@ -82,9 +82,9 @@ int main(int argc, char** argv)
     InicializaArvore(&arD);
     insereArvoreDinamica(&arD, &hash);
 
-    Arvore arG;
-    InicializaArvore(&arG);
-    insereArvoreGulosa(&arG, &hash);
+    //Arvore arG;
+    //InicializaArvore(&arG);
+    //insereArvoreGulosa(&arG, &hash);
 
     /*
     Arvore ar;
