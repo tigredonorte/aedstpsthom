@@ -13,11 +13,13 @@ char* proxPalavra(char *buffer)
 
 /* lê arquivo da lista e retorna primeira palavra, as próximas palavras são
  * capturadas chamando "proxPalavra( NULL )" */
-char** leArquivo(char *nomeArquivo, int *numPalavras)
+char** leArquivo(char *nomeArquivo, int *numPalavras, int *numLinhas)
 {
     FILE *arquivo; // arquivo lido
     long   tamArquivo; // tamanho do arquivo de entrada
     size_t tamCopiado; // tamanho da memória lida do arquivo de entrada
+    int nLinhas, nPalavras;//numero de linhas e de palavras do arquivo
+    contaLinhas(nomeArquivo, &nLinhas);
 
     // abre o arquivo de entrada
     arquivo = fopen (nomeArquivo , "r");
@@ -30,8 +32,7 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     // descobre o tamanho do arquivo
     fseek( arquivo , 0 , SEEK_END );
     tamArquivo = ftell( arquivo );//retorna o valor de bits em relacao ao inicio do arquivo
-
-
+    
     /*
      *  Descobre tamanho do buffer
      */
@@ -55,19 +56,20 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
 
     //descobre o tamanho numero de palavras relevantes do buffer
     char *auxCpy = strtok(buff, IGNORA_CHAR);
-    int nPalavras = 0;
+    nPalavras = 0;
     while(auxCpy)
     {
         nPalavras++;
         auxCpy = strtok(NULL, IGNORA_CHAR);
     }
-    *numPalavras = nPalavras;
+    
     free(buff);
     /*
      * Fim descobre tamanho
      */
 
-
+    *numLinhas = nLinhas;
+    *numPalavras = nPalavras;
     rewind( arquivo );//coloca o ponteiro no inicio do arquivo
     // aloca memória para conteúdo do arquivo
     char *buffer;
@@ -103,5 +105,37 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
         aux = strtok(NULL, IGNORA_CHAR);
     }
     free(buffer);
+
     return (Buffer);
+}
+
+void contaLinhas(char *nome_arquivo, int *nLinhas)
+{
+    FILE *arquivo; // arquivo lido
+    //Variáveis de contagem
+    int numLinhas = 0;
+
+    // abre o arquivo de entrada
+    arquivo = fopen (nome_arquivo , "r");
+    if (arquivo == NULL)
+    {
+        printf("leArquivo: arquivo %s nao encontrado. \n", nome_arquivo);
+        return;
+    }
+
+
+    //Variável que armazena caracter para processamento
+    char caracter;
+    while (!feof(arquivo))
+    {
+          fread(&caracter, 1, 1, arquivo);
+          if (caracter=='\n')
+          {
+             numLinhas++;
+          }
+
+   }
+    fclose(arquivo);
+    numLinhas--; //contou uma linha a mais antes do final do arquivo
+    *nLinhas = numLinhas;
 }

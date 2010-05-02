@@ -14,7 +14,7 @@
 #include "arvore.h"
 
 /*Insere um novo elemento na arvore*/
-void insereArvoreGulosa(Arvore *ar, Hash *hash);
+void insereArvoreGulosa(Arvore *ar, Hash *hash, int *Size);
 
 /*particao*/
 void quickSortOrdena(itemH* vetor, int esq, int dir);

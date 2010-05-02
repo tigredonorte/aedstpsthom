@@ -23,22 +23,21 @@ typedef struct itemHash
     char *chave;
     int status;
     int nOcorrencias;
-    double pop;    //popularidade = numero total de ocorrencias/ numero total de termos
-    double popD; //popularidade = numero total de ocorrencias/ numero de termos distintos
+    double pop;    //popularidade = numero total de ocorrencias/ numero de linhas
 }itemH;
 
 typedef struct Hash_str
 {
     itemH *hash;
     int tamanho;
-    int termosDif;
+    int numLinhas;
 }Hash;
 
 /*funcao que calcula a posicao da palavra no hash*/
 int H(int m, char *palavra);
 
 /*inicializa a estrutura do hash, a variavel tamanho eh o tamanho deste hash*/
-void inicializaHash(Hash *hash, int tamanho);
+void inicializaHash(Hash *hash, int tamanho, int numLinhas);
 
 /*Pesquisa a chave no hash, retorna a posicao desta chave no mesmo*/
 int PesquisaHash(Hash *hash, char *chave);
@@ -48,9 +47,6 @@ void InsereHash(Hash *hash, char *chave);
 
 /*calcula a popularidade dos termos do hash*/
 void calculaPopularidade(Hash *hash);
-
-/*retorna o status da posicao i do hash*/
-int getStatus(Hash *hash, int i);
 
 /*compara duas chaves, se forem iguais retorna0,
  * se a primeira maior que a segunda retorna 1
@@ -65,9 +61,6 @@ double getPopularidade(Hash *hash, int i);
 
 /*Retorna a popularidade do i-ezimo termo do hash*/
 double getPop(itemH *k1);
-
-/*Retorna o numero de termos distintos do */
-int getTermosDiferentes(Hash *hash);
 
 /*retorna a chave de um item*/
 char *getChave(itemH *k1);

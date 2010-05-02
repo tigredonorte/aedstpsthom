@@ -1,11 +1,12 @@
 #include "guloso.h"
 
-void insereArvoreGulosa(Arvore *ar, Hash *hash)
+void insereArvoreGulosa(Arvore *ar, Hash *hash, int *Size)
 {
     int i;
     int size = 0;
     itemH *vetor;
     criaVetor(hash, &vetor, &size);
+    *Size = size;
 
     quickSort(vetor, size);
 
@@ -15,20 +16,6 @@ void insereArvoreGulosa(Arvore *ar, Hash *hash)
         InicializaRegistro(&x, vetor[i].chave);
         InsereArvore(ar, x);
     }
-
-    #ifndef _DEBUG_
-    #define _DEBUG_
-        int lol;
-        char **vS = malloc(sizeof(char*) * size);
-        int *vN = malloc(size * sizeof(int));
-        criaVetorProfundidadeArvore(ar, &vS, &vN);
-        for(lol = 0; lol < size; lol++)
-        {
-            printf("%d ",vN[lol]);
-        }
-        PrintArvore(ar);
-        printf("\n\n ");
-    #endif
 }
 
 void quickSort( itemH* vetor, int N)

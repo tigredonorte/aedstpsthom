@@ -3,14 +3,15 @@
 
 #include "dinamica.h"
 
-void insereArvoreDinamica(Arvore *ar, Hash *hash)
+void insereArvoreDinamica(Arvore *ar, Hash *hash, int *Size)
 {
     int i;
-    int size = 5;
+    int size = 0;
 
     itemH *vetor;
     criaVetor(hash, &vetor, &size);
 
+    *Size = size;
     //aloca Espaço para A
     Dinamica **A;
     A = (Dinamica**)calloc( size, (sizeof(Dinamica*)));
@@ -31,14 +32,6 @@ void insereArvoreDinamica(Arvore *ar, Hash *hash)
         A[0][i].esqY = -1;
     }
 
-    /*teste*/
-   A[0][0].pop = 10;
-   A[0][1].pop = 4;
-   A[0][2].pop = 20;
-   A[0][3].pop = 16;
-   A[0][4].pop = 2;
-    /*fim teste*/
-
    //calcula A
    CalculaA(&A, size);
    char **vArvore;
@@ -50,21 +43,6 @@ void insereArvoreDinamica(Arvore *ar, Hash *hash)
        InicializaRegistro(&x, vetor[i].chave);
        InsereArvore(ar, x);
    }
-
-   PrintArvore(ar);
-    #ifndef _DEBUG_
-    #define _DEBUG_
-        int lol;
-        char **vS = malloc(sizeof(char*) * size);
-        int *vN = malloc(size * sizeof(int));
-        criaVetorProfundidadeArvore(ar, &vS, &vN);
-        for(lol = 0; lol < size; lol++)
-        {
-            printf("%d ",vN[lol]);
-        }
-        PrintArvore(ar);
-        printf("\n\n ");
-    #endif
 }
 
 void CalculaA(Dinamica ***A, int size)

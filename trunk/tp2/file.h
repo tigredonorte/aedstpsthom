@@ -18,10 +18,13 @@
 #define IGNORA_CHAR " 0123456789!@#$&%*()_+{}´`'][~;:/?,|'*-/+\"\t\n\0"
 
 /* lê arquivo da lista e retorna uma string que contem o conteudo do mesmo*/
-char** leArquivo(char *nomeArquivo, int *numPalavras);
+char** leArquivo(char *nomeArquivo, int *numPalavras, int *numLinhas);
 
 /*Retorna a próxima palavra do arquivo ou NULL se não existirem mais palavras*/
 char* proxPalavra(char *buffer);
+
+/*conta o numero de linhas e de palavras de um arquivo passado por parametro*/
+void contaLinhas(char *nome_arquivo, int *nPalavras);
 
 #endif	/* _FILE_H */
 
