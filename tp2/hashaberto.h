@@ -63,6 +63,9 @@ int comparaPopularidadeChave(itemH *k1, itemH *k2);
 /*Retorna a popularidade do i-ezimo termo do hash*/
 double getPopularidade(Hash *hash, int i);
 
+/*Retorna a popularidade do i-ezimo termo do hash*/
+double getPop(itemH *k1);
+
 /*Retorna o numero de termos distintos do */
 int getTermosDiferentes(Hash *hash);
 
