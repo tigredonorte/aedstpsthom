@@ -3,7 +3,7 @@
 
 #include "dinamica.h"
 
-void insereArvoreDinamica(Arvore *ar, Hash *hash, int *Size)
+void insereArvoreDinamica(Arvore *ar, Hash *hash)
 {
     int i;
     int size = 0;
@@ -11,7 +11,6 @@ void insereArvoreDinamica(Arvore *ar, Hash *hash, int *Size)
     itemH *vetor;
     criaVetor(hash, &vetor, &size);
 
-    *Size = size;
     //aloca Espaço para A
     Dinamica **A;
     A = (Dinamica**)calloc( size, (sizeof(Dinamica*)));

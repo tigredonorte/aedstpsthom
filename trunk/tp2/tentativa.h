@@ -16,7 +16,7 @@
 #define MAX_SIZE 8
 
 /*insere os elementos do hash na arvore tentativa*/
-void insereArvoreTentativa(Arvore *ar, Hash *hash, int *Size);
+void insereArvoreTentativa(Arvore *ar, Hash *hash);
 
 //Permuta um elemento do vSrc e copia no vDst
 void permutacaoN(itemH *vSrc, itemH **vDst, int size, int k);

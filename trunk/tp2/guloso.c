@@ -1,12 +1,11 @@
 #include "guloso.h"
 
-void insereArvoreGulosa(Arvore *ar, Hash *hash, int *Size)
+void insereArvoreGulosa(Arvore *ar, Hash *hash)
 {
     int i;
     int size = 0;
     itemH *vetor;
     criaVetor(hash, &vetor, &size);
-    *Size = size;
 
     quickSort(vetor, size);
 

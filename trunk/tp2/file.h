@@ -26,5 +26,8 @@ char* proxPalavra(char *buffer);
 /*conta o numero de linhas e de palavras de um arquivo passado por parametro*/
 void contaLinhas(char *nome_arquivo, int *nPalavras);
 
+/*salva uma string no arquivo passado como parametro*/
+void saveFile(char *nome_arquivo, char *string);
+
 #endif	/* _FILE_H */
 

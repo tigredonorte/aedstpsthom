@@ -4,13 +4,12 @@
 #include "tentativa.h"
 
 /*Insere o indice invertido na arvore*/
-void insereArvoreTentativa(Arvore *ar, Hash *hash, int *Size)
+void insereArvoreTentativa(Arvore *ar, Hash *hash)
 {
     int i, j;
     int size = 0;
     itemH *vetor;
     criaVetor(hash, &vetor, &size);
-    *Size = size;
 
     if(size > MAX_SIZE)
     {
@@ -44,7 +43,8 @@ void insereArvoreTentativa(Arvore *ar, Hash *hash, int *Size)
             InsereArvore(&aTemp, x);
         }
         char **vString = malloc(sizeof(char*) * size);
-        criaVetorProfundidadeArvore(&aTemp, &vString, &vProfundidade);
+        int numeroNos = 0;
+        criaVetorProfundidadeArvore(&aTemp, &vString, &vProfundidade, &numeroNos);
         //PrintArvore(&aTemp);
         double pesoArvore = 0;
         for(j = 0; j < size; j++)

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include <sys/time.h>
 #include "file.h"
 #include "hashaberto.h"
 #include "guloso.h"
@@ -18,17 +19,20 @@
 #define DINAMICA  2
 #define GULOSO    3
 
+double getTime();
+
 int main(int argc, char** argv)
 { //Começa a função "main"
     Hash hash; //estrutura do hash, que calculara as popularidades
     char *entrada; //arquivo de entrada
     char *saida; //arquivo de saida
+    char *fileTeste; //arquivo de saida
     int algoritmo; //qual o algoritmo que sera escolhido
     int numPalavras; //numero de palavras que contem o arquivo
     int numLinhas; //numero de linhas do arquivo, para estatisticas
     int c; //variavel provisoria para a funcao get opt
 
-    c =0;
+    c = 0;
 
     if(argc < 7)
     {
@@ -40,7 +44,8 @@ int main(int argc, char** argv)
                "O Programa sera fechado");
        return EXIT_FAILURE;
     }
-    while((c = getopt (argc, argv, ":s:i:o:")) != -1)
+   
+    while((c = getopt (argc, argv, ":s:i:o:t:")) != -1)
     {
         switch (c)
         {
@@ -53,7 +58,12 @@ int main(int argc, char** argv)
             case 'o':
                     saida = optarg;
                     break;
+            case 't':
+                    fileTeste = optarg;
+                    break;
             case '?':
+                     printf("Parametros de entrada incorretos, por favor cheque o arquivo leiame.txt para mais informacoes\n"
+                            "o programa sera fechado\n");
                     return EXIT_FAILURE;
             default:
             abort ();
@@ -75,36 +85,85 @@ int main(int argc, char** argv)
     }
     calculaPopularidade(&hash);
 
-    int size = 0;
     Arvore ar;
     InicializaArvore(&ar);
+    
+    //pega o tempo inicial
+    double timeIni = getTime();
     switch(algoritmo)
     {
         case TENTATIVA:
-
-                    insereArvoreTentativa(&ar, &hash, &size);
+                    insereArvoreTentativa(&ar, &hash);
                     break;
         case DINAMICA:
-                    insereArvoreDinamica(&ar, &hash, &size);
+                    insereArvoreDinamica(&ar, &hash);
                     break;
         case GULOSO:
-                    insereArvoreGulosa(&ar, &hash, &size);
+                    insereArvoreGulosa(&ar, &hash);
                     break;
         default:
             printf("nao existe o algoritmo com id %d, por favor consulte o arquivo leiame.txt", algoritmo);
     }
+    double timeFinal = getTime() - timeIni;
 
+    int size = getInseridos(&hash);
     char **vString = (char**)malloc(sizeof(char*) * size);
     int *vProfundidade = (int*)malloc(size * sizeof(int));
-    criaVetorProfundidadeArvore(&ar, &vString, &vProfundidade);
-    free(vProfundidade);
-    for(i = 0; i < size; i++)
+    int alturaArvore = -1;
+    int numeroNos = 0;
+    criaVetorProfundidadeArvore(&ar, &vString, &vProfundidade, &numeroNos);
+    double custo = 0;
+    for(i = 0; i < numeroNos; i++)
     {
+        //pesquisa no hash a popularidade da palavra
         int id = PesquisaHash(&hash, vString[i]);
         double pop = getPopularidade(&hash, id);
-        printf("%s %f\n", vString[i], pop);
+
+        //salva no arquivo a palavra
+        printf("%s %f %d\n", vString[i], pop, vProfundidade[i]);
+        saveFile(saida, vString[i]);
+
+        //salva no arquivo a popularidade da palavra
+        char string[32];
+        sprintf(string, " %f", pop); //converte de double pra char
+        saveFile(saida, string);
+
+        //salva no arquivo a popularidade da palavra
+        sprintf(string, " %d\n", vProfundidade[i]); //converte de double pra char
+        saveFile(saida, string);
+
+        //encontra a altura da arvore
+        int profundidade = vProfundidade[i];
+        if(alturaArvore < profundidade)
+        {
+            alturaArvore = profundidade;
+        }
+
+        //calcula o custo da arvore
+        custo += pop * profundidade;
     }
+    printf("\nNumero de Nos = %d", numeroNos);
+    printf("\nCusto da Arvore = %f", custo);
+    printf("\nAltura da Arvore = %d", alturaArvore);
+    printf("\n\n");
     
+    char string[32]; //tamanho de um double em bytes
+    sprintf(string, "%f", timeFinal); //converte de double pra char
+    if(fileTeste != NULL)
+    {
+        saveFile(fileTeste, string);
+        saveFile(fileTeste, "\n");
+    }
     
     return (EXIT_SUCCESS);
 } //Fim-função
+
+//retorna o tempo de relogio
+double getTime()
+{
+    struct timeval tv;
+    double curtime;
+    gettimeofday(&tv, NULL);
+    curtime = (double) tv.tv_sec + 1.e-6 * (double) tv.tv_usec;
+    return(curtime);
+}

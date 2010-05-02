@@ -1,0 +1,348 @@
+%	Documentação do Trabalho Prático 0 de AEDSIII
+%	@Thompson Moreira Filgueiras
+%
+%	* Você pode identificar erros de grafia através do seguinte comando linux:
+%		aspell --encoding="iso8859-1" -c -t=tex --lang="pt_BR" tp0.tex
+%	
+%	Tenha cuidado com problemas de codificação, você pode perder muito tempo com isso (ter que reescrever o texto por que os caracteres % acendutados não aparecem corretamento no pdf, por exemplo). Se você usa Vi/Vim, ele identifica a codificação sozinho, em editores do tipo % Kate/Kwrite você pode definir a codificação em Ferramentas/Codificação, escolha a opção Oeste Europeu (iso8859-1).
+%	Para compilar o texto utilize o comando make (foi criado um Makefile)
+%	Para maiores informações consulte referências sobre Latex
+
+\documentclass[12pt]{article}
+\usepackage{sbc-template}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfigure}
+\usepackage{times,amsmath,epsfig}
+\usepackage{graphicx,url}
+ \makeatletter
+ \newif\if@restonecol
+ \makeatother
+ \let\algorithm\relax
+ \let\endalgorithm\relax 
+\usepackage[lined,algonl,ruled]{algorithm2e}
+\usepackage{multirow}
+\usepackage[brazil]{babel}   
+\usepackage[latin1]{inputenc}  
+
+\sloppy
+
+\title{TRABALHO PRÁTICO 2: \\ Árvores de pesquisa Ótima}
+
+\author{Thompson Moreira Filgueiras}
+
+\address{Departamento de Ciência da Computação -- Universidade Federal de Minas Gerais (UFMG)
+\email{thom@dcc.ufmg.br}
+}
+
+\begin{document} 
+
+\maketitle
+
+\begin{resumo}Este relatório descreve como criar uma árvore de pesquisa ótima atravéz de chaves conhecidas e com a frequência de acesso a estas chaves também conhecidas. Descreve também o funcionamento e o comparativo entre três estratégias de programação para resolver o problema de criar uma árvore de pesquisa ótima. Mostra ainda um comparativo 
+\end{resumo}
+
+\section{INTRODUÇÃO}
+
+Neste trabalho prático foi implementada uma máquina de busca simples, que consiste em inserir em uma estrutura de dados todas as palavras de vários documentos. No caso específico deste trabalho os documentos inseridos eram randômicos, criados por um processo à parte(thread) durante a execussão do código. Os principais objetivos do trabalho são: implementar uma máquina de busca e utilizar as chamadas pthreads.
+
+	O problema específico de implementar uma máquina de busca, consiste em criar uma estrutura de dados na qual possa ser inseridas várias palavras, esta estrutura pode variar dependendo da aplicação: pode ser uma fila, uma arvore binária (ou outra arvore qualquer), um hash e suas variações, dentre outros. Esta estrutura deve suportar inserções e pesquisas de termos, sendo que estes podem ocorrer simultaneamente no mudo real. Neste trabalho a tarefa de inserir e pesquisar simultaneamente foi realizada pela criação de várias threads, o que tornou o programa um pouco mais proximo desta realidade. Uma explicação mais detalhada sobre máquina de busca pode ser encontrada: \cite{Motor de Busca} 
+
+	A criação de um índice invertido deve permitir a busca por frases que mostre dentro do conjunto de documentos, qual o documento que possui aquelas palavras. Estes índices fazem com que a busca de termos seja mais eficiente, com o overhead de necessitar de uma memoria adicional que pode chegar a atingir o tamanho dos documentos. No programa implementado, esta memória é igual a soma de todos os documentos. O indice invertido, necessita ainda que sua resposta seja a mais atualizada possível, pois, os documentos podem ser criados, alterados ou simplesmente excluídos e para que uma busca seja eficaz o retorno desta pesquisa tem que levar em conta essas modificações em tempo real. Uma explicação mais detalhada sobre índice invertido pode ser encontrada: \cite{Indice} 
+
+	O outro problema abordado consiste na implementação dessas threads, assim como seu controle, para evitar que vários problemas possíveis ocorram, tais como: duas threads criarem ponteiros simultaneamente para uma nova posição e uma destas posições se perder; uma thread adiquirir o fluxo de execussão e não liberar para que as outras possam acessar as areas críticas (deathlock), enfim como gerenciar as threads. Uma thread pode ser considerada como um processo a parte em um programa, ou ainda um fluxo de execussão concorrente, com a diferença que as threads compartilham memoria entre si, diferentemente dos processos (a não ser em casos exepcionais em que utilizando algum mecanismo de leitura de memoria isso seja feito). Para mais informações sobre pthreads consulte este tuturial: \cite{PThreads}
+
+	O restante deste relatório é organizado da seguinte forma. A Seção~\ref{trabalhos_relacionados} discute alguns temas relacionados ao trabalho. A Seção~\ref{solucao_proposta} descreve a máquina de busca e a solução proposta. A Seção~\ref{implementacao} trata de detalhes específicos da implementação do trabalho. A Seção~\ref{avaliacao_experimental} contém a avaliação experimental do tempo de latencia das pesquisas. A Seção~\ref{conclusao} conclui o trabalho.
+
+\section{REFERÊNCIAS RELACIONADAS}
+\label{trabalhos_relacionados}
+
+Podemos dividir as referências associadas ao problema estudado e à solução proposta dentre os seguintes grupos:
+\begin{itemize}
+\item \textbf{Técnicas de Compressão Aplicadas à Recuperação de Informação} Estas técnicas permitem que a busca seja feita diretamente sobre o texto comprimido. A principal vantagem disto deve-se ao fato de reduzir o espaço de armazenamento em disco dos termos presentes por exemplo em um índice invertido. Desta forma, o overhead citado na introdução, não será solucionado, mas pelo menos será minimizado com pouca perda ou até nenhuma na eficiência do algoritmo de busca e indexação. Algoritmos para este tipo de busca podem chegar a ser até 8 vezes mais rápidos que o melhor algoritmo de busca encontrado na literatura para busca em textos não comprimidos. Um exemplo de método de compressão é chamado BH (Byte-Huffman) desenvolvido para sistemas de recuperação de informações ou ainda compressões da família Ziv-Lampel. O google por exemplo utiliza algoritmos para reduzir o espaço armazenado em seus índices invertidos, embora não digam qual a técnica utilizada (segredo profissional).
+\end{itemize}
+
+\section{SOLUÇÃO PROPOSTA}
+\label{solucao_proposta}
+
+A solução proposta para implementar o índice invertido utilizou uma estrura de dados hash e duas filas, a saber: a primeira guarda o cada termo dentro de uma posição do hash, ou seja, a solução para conflitos adotada for o emprego desta primeira fila. A segunda fila usada guarda os identificadores dos documentos que as possuem. A função H, que calcula o indice do termo foi uma adaptação de duas outras funções. Uma delas leva em conta que quanto mais proximo a letra está do inicio da string, maior é a relevância dada à esta string, de tal forma que a soma das outras relevâncias não possa alcançar a relevancia desta. Em outras palavras a função h da um peso a cada elemento igual a 2^(tamanho da string - id em relacao a primeira letra). O segundo método transforma cada chave em um identificador numérico e multiplica cada letra por um peso, neste caso foi multiplicado pelo peso da primeira funcao e a posicao do hash na qual o termo pertencerá sera essa multiplicação (mod n) onde n é o tamanho do hash utilizado. Este tamanho do hash foi arbitrado como um numero primo cerca de 10 vezes maior do que o tamanho máximo da entrada, que no programa é conhecido (aproximadamente 109 mil palavras). Mas mesmo que fosse estourado este tamanho, a estrutura suportaria tranquilamente, no entanto o número de colisões aumentaria e o tempo de latência de uma pesquisa seria aumentado.
+
+Ao solucionar o hash com uma fila um problema foi criado: para um grande número de colisões este hash pode se tornar uma estrutura extremamente lenta. No entanto implementar uma fila é bem simplório e como o tamanho da entrada era conhecido este número grande de colisões não ocorre. 
+
+Ao criar uma fila contendo os ids dos documentos ocorre um certo atraso para recuperar a pesquisa pois esta é sequencial e um outro atraso é criado ao unir duas ou mais filas de uma mesma pesquisa. A inserção na fila de ids de documentos é feita de tal forma que os elementos inseridos estejam em ordem, desta forma ao realizar uma busca de duas palavras, basta inserir todos os elementos das duas filas em uma terceira fila de ids e verificar quantos ids foram inseridos mais de uma vez. Para todo id inserido mais de uma vez, temos um sucesso na pesquisa, pois este elemento foi encontrado na primeira e na segunda fila.
+
+As tarefas geradas pelo gen_data são guardadas em uma fila pela thread produtora e inseridas ou pesquisadas pelas threads consumidoras. A inserção e a remoção de elementos desta fila foi trancada para evitar os problemas gerados pelo uso de threads. O código ainda possui um lock para cada inserção na fila de documentos e para cada inserção na fila de ids dos documentos, pelos mesmos motivos citados.
+
+A seguir, serão descritas as estruturas de dados e algoritmos propostos, assim como a análise de complexidade dos algoritmos:
+
+\subsection{Estruturas de dados}
+
+\subsubsection{fila de tarefas:} 
+
+Armazena todas as tarefas geradas pelo gen_doc. A thread produtora a coloca nesta fila, as threads consumidoras retiram desta fila as tarefas e insere no indice invertido. Esta estrutura so possui as operacoes de inserção e remoção, não realiza a pesquisa. Logo para todas as tarefas desta estrutura ela é $O(1)$. Cada fila possui uma celula que por sua vez possui um item que finalmente possui um terms_t, que é o trabalho gerado pela gen_doc
+\begin{algorithm}[h!]
+\begin{footnotesize}
+
+	fila
+	{
+		celula
+		{
+			termsT
+		}
+	}
+	
+\end{footnotesize}
+\end{algorithm}
+
+\subsubsection{Dicionario:} 
+
+O dicionario possui dois elementos, o tamanho que o hash possui e o proprio hash. O hash é utilizado para inserir e pesquisar palavras em uma estrutura com complexidade aproximadamente $O(1)$ para inserções e para pesquisas de termos. Cada indice do hash é o pronteiro para a celula cabeça de uma fila de palavras
+\begin{algorithm}[h!]
+\begin{footnotesize}
+
+	Dicionario
+	{
+		Hash 
+  		tamanho
+	}
+	
+\end{footnotesize}
+\end{algorithm}
+
+\subsubsection{Fila de palavras:} 
+
+A fila de palavras guarda todas as palavras nas quais a funcao H do hash calculou para aquela posição. Por ser uma fila a complexidade de pesquisa da mesma é $O(n)$, mas para um hash balanceado espera-se que esta fila possua poucos elementos, ou seja tenha acesso praticamente constante. Cada celula da fila de palavras possui um item que por sua vez contém a palavra inserida e uma fila de documentos que possui aquela palavra.
+\begin{algorithm}[h!]
+\begin{footnotesize}
+
+	Fila de palavras
+	{
+		Item
+		{
+			Fila de documentos 
+	  		palavra
+		}
+	}
+	
+\end{footnotesize}
+\end{algorithm}
+
+\subsubsection{Fila de documentos:} 
+
+A fila de documentos guarda todos os ids dos documentos inseridos e o número de vezes que este documento foi inserido para cada palavra, este parametro é utilizado para descobrir quais elementos estão presentes em duas pesquisas.
+\begin{algorithm}[h!]
+\begin{footnotesize}
+
+	Fila de documentos
+	{
+		Item
+		{
+			int idDoc;
+    			int numInsercoes;
+		}
+	}
+	
+\end{footnotesize}
+\end{algorithm}
+
+\subsection{Algoritmos}
+\subsubsection{Insercao no indice invertido}
+
+Para inserir no indice invertido, e necessario calcular a funcao H do hash, que e aproximadamente {O(1)} (uma ressalva deve ser feita pois, esta funcao varia de acordo com o numero de letras da palavra, mas considerando que a maior palavra em lingua portuguesa tem menos de 60 letras e que na media serao inseridas palavras menores do que 10 caracteres, podemos assumir que esta funcao e {O(1)}). Apos o calculo da funcao do hash, a palavra ainda e inserida na fila de palavras. O algoritmo de insercao em uma fila tambem e {O(1)}. Desta forma a insercao final deste algoritmo e {O(1)}.
+
+Nao faz sentido no entanto fazer somente uma insercao por vez no indice invertido, uma vez que um documento possui mais do que 1 palavra. Para inserir todas a PD palavras de um documento o algoritmo e {O(PD)}.
+
+\subsubsection{Pesquisa no indice invertido}
+
+Para pesquisar no indice invertido, calcula-se a posicao da palavra no hash com a funcao H, que como discutido acima e {O(1)}. Depois e realizada uma pesquisa sequencial na fila de palavras, comparando chave por chave. Para uma funcao H que gere muitas colisoes este Hash pode se tornar uma pesquisa sequencial em uma fila sendo {O(n)}, onde n e o numero de palavras da estrutura. No entanto esta complexidade dificilmente sera atingida, pois a funcao H usada tenta gerar um peso tal que a primeira letra da palavra tenha um peso maior do que a soma de todas as outras, a segunda letra maior do que a soma de todas as outras e assim sussessivamente e o resultado mod h, onde h e o tamanho do hash. Para um h relativamente grande em relacao a entrada, como no caso desta implementacao foi, o numero de colisoes sera reduzido e a pesquisa sequencial ocorrera para poucos termos, mesmo para um numero de trabalhos grande. Logo, o algoritmo de pesquisa e {O(1) + O(ph)} = {O(ph)}, onde ph e o numero de palavras concentradas em uma fila do hash. com ph << n.
+
+Para pesquisar P palavras o algoritmo fara P pesquisas, e seja `d` o numero de documentos que possuem uma palavra a ser pesquisada. Seja D = somatorio(d), ou seja, D = a soma de todas as ocorrencias das P pesquisas. Serao inseridas D elementos na fila provisoria de documentos. Depois serao feitas mais D comparacoes em um loop para encontrar a intercessao entre os documentos que tem ocorrencia das P palavras. Logo esta funcao e {O(D)}. 
+
+\subsubsection{Produtor}
+
+O produtor e o algoritmo que pega os trabalhos gerados da funcao gen_data e insere em uma fila de tarefas. A complexidade da funcao gen_data esta fora do escopo desta documentacao, uma vez que sua utilizacao e obrigatoria. O produtor ira inserir na fila de tarefas N trabalhos, passados como parametro do programa. Para inserir na fila, o algoritmo e {O(1)}, logo o produtor e um algoritmo {O(N)}, onde N e o numero de trabalhos a serem gerados.
+
+\subsubsection{Consumidor}
+
+O consumidor retira os trabalhos da fila de tarefas e insere ou pesquisa estas palavras no hash. Ele consumira todas as tarefas geradas pelo produtor, neste caso ele execultara em media N/2 vezes insercoes e N/2 vezes pesquisas no hash. Este numero N/2 esta associado a funcao gen_data que tem uma probabilidade de 50 por cento de serem palavras a inserir e o restante de palavras a pesquisar. Para as N/2 vezes em que serao feitas insercoes de PD palavras em cada documento, o algoritmo e {O(N * PD)} onde {O(PD)} e a complexidade para inserir as PD palavras de um documento no indice invertido.
+
+Para o caso em que sao realizadas pesquisa, o algoritmo sera {O(N * D)}, onde D = todos os documentos onde ocorre pelo menos uma das palavras pesquisada. A complexidade {O(D)} e a complexidade de pesquisar P palavras com D ocorrencias em documentos.
+
+
+\subsubsection{Programa}
+
+O aplicativo cria t + 1 threads, onde t e o numero de threads consumidoras passadas por parametro + 1 produtora. Mas o fato de criar uma thread nao reduz a ordem de complexidade dos algoritmos produtor e consumidor, o que ocorre e que as threads balanceiam o trabalho para processadores multi core, ou no minimo criam outras tarefas para o processador aproveitando melhor o recurso. Neste caso a complexidade todal do algoritmo e {O(t) + O(N * D) + O(N)}, onde t = numero de threads, N = numero de trabalhos passados por parametro e D = ocorrencias de todos os documentos pesquisados.
+
+\section{IMPLEMENTAÇÃO}
+\label{implementacao}
+
+\subsection{Código}
+
+\subsubsection{Arquivos .c}
+
+\begin{itemize}
+\item \textbf{main.c:} Arquivo principal, ele inicializa todas as funções necessárias para o fluxo de execussão e cria todas as threads que execultarão a tarefa princiapal
+\item \textbf{file.c:} Define as funções relacionadas salvar informações nos arquivos
+\item \textbf{fila.c:} Realiza opeações de inserção e pesquisa na fila de documentos. 
+\item \textbf{filaP.c:} Realiza opeações de inserção e pesquisa na fila de palavras. 
+\item \textbf{dicionario.c:} Contém as funções relacionadas ao hash: função H, inserção e pesquisa.
+\item \textbf{data.c:} Funciona como uma interface com suporte a várias palavras para as funções do dicionário, ou seja, Realiza as operações de inserção e pesquisa dentro do dicionário tantas vezes quantas forem as palavras.
+\item \textbf{threads.c:} Contém funções de inserção e remoção de uma fila de tarefas, assim como duas funções criadas para execussão de threads, o produtor e o consumidor.
+\end{itemize}
+
+\subsubsection{Arquivos .h}
+
+\begin{itemize}
+
+\item \textbf{fila.h:} Define a estrutura da fila de documentos
+\item \textbf{filaP.h:}  Define a estrutura da fila de processos
+\item \textbf{dicionario.h:} Define a estrutura do hash.
+\item \textbf{threads.h:} Define a estrutura da fila de processos
+
+\end{itemize}
+
+\subsection{Compilação}
+
+O programa deve ser compilado através do compilador GCC através de um makefile ou atravéz do seguinte comando:
+
+\begin{footnotesize}
+\begin{verbatim} gcc -Wall -g -lpthread -lgsl -lgslcblas -lm main.c file.c fila.c filaP.c dicionario.c data.c threads.c -o tp1 \end{verbatim}
+\end{footnotesize}
+
+\subsection{Execução}
+
+A execução do programa tem como parâmetros:
+\begin{itemize}
+\item Um arquivo de vocabulario, contendo varias palavras, uma por linha. 
+\item O nome do arquivo de saida.
+\item O número de threads a serem execultadas.
+\item O tamanho máximo que o buffer da fila de tarefas pode atingir.
+\item O numero de trarefas a serem geradas.
+\item O nome do arquivo de saida para estatisticas -- este parâmetro não é obrigatório.
+\end{itemize}
+
+O comando para a execução do programa é da forma:
+
+\begin{footnotesize}
+\begin{verbatim} ./tp1 -i<arquivo de entrada> -o <arquivo de saida> -n <número de tarefas> -t <número de threads> -k <tamanho máximo do buffer> -e <arquivo de estatisticas> \end{verbatim}
+\end{footnotesize}
+
+\subsubsection{Formato da entrada}
+
+O formato da entrada possui n palavras, uma a cada linha, sem pular nenhuma linha.
+\begin{footnotesize}
+\begin{verbatim}
+palavra 1
+palavra 2
+   .
+   .
+   .
+palavra N
+\end{verbatim}
+\end{footnotesize}
+
+\subsubsection{Formato da saída}
+
+A saída do programa exibe as consultas realizadas no programa, sendo uma consulta por linha com as palavras a serem consultadas, seguidas dos ids dos documentos em ordem que contém essas palavras.
+exemplo de saida:
+
+\begin{footnotesize}
+\begin{verbatim}
+bla blu 1 2 3
+kin kinn 5
+sada duda
+kir 5 6 14 
+dxaux 1 12
+\end{verbatim}
+
+Uma segunda saída do programa são as estatísticas geradas durante sua execussão:
+\begin{itemize}
+\item Numero de threads
+\item Latencia total de pesquisa
+\item Latencia media de pesquisa
+\item Latencia total de insercao
+\item Latencia media de Insercao 
+\item Tempo de execussao das threads
+\end{itemize}
+Exemplo de saida:
+
+\begin{footnotesize}
+\begin{verbatim}
+Numero de threads = (2)
+Latencia total de pesquisa = (0.000710)
+Latencia media de pesquisa = (0.000179)
+Latencia total de insercao = (0.001267)
+Latencia media de Insercao = (0.000299)
+Tempo de execussao das threads = (0.004421)
+\end{verbatim}
+\end{footnotesize}
+
+\section{AVALIAÇÃO EXPERIMENTAL}
+\label{avaliacao_experimental}
+
+Foram realizados três tipos de experimento: 
+\begin{itemize}
+\item Variação do numero de threads
+\item Variação do numero de tarefas
+\item Variação do tamanho do buffer
+\end{itemize}
+
+Cada experimento realizado visava calcular a latencia média de pesquisa e o tempo de execussão das threads variando cada uma destas entradas. Para realizar os mesmos testes feitos neste trabalho basta usar o comando do makefile: make gerar. Este comando faz um total de 15 testes, variando cada uma destas entradas e mantendo as outras. Os arquivos gerados ficam dentro da pasta testes/planília ou testes/saida, para as estatisticas e as palavras encontradas respectivamente.
+
+Os testes foram realizados em um sistema operacional Ubuntu 9.10 processador: pentium core 2 duo, com 2gb de memoria ram.
+
+\subsubsection{Variação do numero de threads}
+
+Ao variar o número de threads espera-se que até determinado ponto a tarefa tenha uma ganho de performance com as threads, a partir deste ponto o desempenho do programa deverá começar a cair novamente. Isto se deve ao fato de que com um número crescente de threads tenha o benefício de dividir melhor as tarefas entre os dois processadores, tirando o máximo possível de ambos. A partir de certo momento, esta performance começa a cair pois são muitas threads tentando ter acesso aos pontos críticos, mas somente uma de cada vez pode acessar, desta forma teremos um número crescente de threads ociosas, pois cada uma pegou um trabalho para fazer e esta fila de espera tornou-se o gargalo do programa.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\textwidth]{../graficos/threads.eps}
+\caption{Gráfico}
+\end{figure}
+
+Pelo gráfico, percebemos que o tempo de execussão do programa cresce exponencialmente ao número de threads e com um número de threads acima de 50 há uma perda significativa na performace, não foi observado no entanto, o ganho esperado. Isto pode ser explicado pois o teste com 2 threads apenas não havia sido concluido em 5 minutos e foi desconsiderado. Com este dado podemos supor que este ganho esteja abaixo de 10 threads. 
+
+\subsubsection{Variação do numero de tarefas}
+
+Ao variar o número de tarefas, é esperado que o tempo de execussão do programa aumente bastante. Principalmente a partir do ponto em que as tarefas atingirem o tamanho do buffer, a partir deste ponto o tempo do programa crescerá acima da latência média de pesquisa, pois haverão muitas tarefas sem serem atendidas na fila, e uma tarefa na fila não conta como latência, mas somente a partir do momento em que é feita a requisição.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\textwidth]{../graficos/tarefas.eps}
+\caption{Gráfico}
+\end{figure}
+
+
+Pelo gráfico, percebemos que até um número de trabalhos = 10.000, o tempo de latência e o tempo de execussao crescem juntos. A partir deste ponto o tempo de execussao supera o de latencia. E ainda este crecimento passa a ser linear ao número de tarefas a partir de 10.000.
+
+\subsubsection{Variação do tamanho do buffer}
+
+Ao variar o tamanho do buffer é esperado um ganho na performance, pois um dos gargalos deste programa é que só existe um produtor que está limitado ao tamanho do buffer. Logo, quanto maior for este buffer mais rápido este programa deve execultar. A latência não deve variar de acordo com o buffer, uma vez que a latência só passa a ser contada uma vez que o item foi retirado da fila e execultado. A partir de um determinado tamanho do buffer é esperado que o tempo da tarefa não varie mais e fique por volta de uma constante, isto pois superado o problema do produtor ficar esperando, a execussão independerá do buffer.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\textwidth]{../graficos/buffer.eps}
+\caption{Gráfico}
+\end{figure}
+
+Pelo gráfico tanto a latência quanto o tempo de execussão flutuam sobre um valor tendendo a ele, o que condiz com a previsão da segunda parte citada acima. No entanto seria necessário um teste com um buffer menor para perceber a previsão acima. Este teste foi realizado com um buffer = 10mb, mas em 5 minutos o programa não concluiu a execussão, o que impossibilitou mostrar o seu resultado.
+
+\section{CONCLUSÃO}
+\label{conclusao}
+
+Foi descrito neste trabalho o funcionamento de um índice invertido, assim como uma breve abordagem de pthreads. A utilização de estrutura de dados para indexação de arquivos é uma tarefa muito relevante, sem ela não seria possível realizar uma pesquisa na internet em tão pouco tempo. 
+
+A utilização de pthreads é uma tarefa de difícil depuração, ao utilizar o programador deve ser capaz de prever onde ocorrerão os erros para evitá-los, ou seja, para utilizar pthreads é necessário que o programador gaste um tempo relevante no projeto de seu algoritmo antes de partir para a implementação.
+
+Esta tarefa específica foi de certa forma uma experiência do que acontece na realidade com as pesquisas em índices invertidos. Onde temos milhares de robots indexando novas páginas ou alterando as indexações de páginas antigas e milhões de pessoas realizando pesquisas simultaneamente.
+
+Algumas melhorias que poderiam ser consideradas neste trabalho são:
+\begin{itemize}
+\item Utilização de uma função hash mais eficiente, pois quanto menos colisões, mais rápida fica a estrutura.
+\item Se o número de arquivos ficar muito grande, será necessário o emprego de uma estrutura do tipo árvore para indexar os documentos, pois assim a pesquisa ficará mais rápida.
+\end{itemize}
+\bibliographystyle{sbc}
+\bibliography{tp1}
+
+\end{document}

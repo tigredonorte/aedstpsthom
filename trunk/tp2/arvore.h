@@ -53,10 +53,10 @@ void PrintNodos(PNodo *n);
 
 /*recebe uma arvore e um vetor de inteiros com o numero de elementos da arvore
  retorna este vetor com a profundidade dos elementos em ordem de profundidade*/
-void criaVetorProfundidadeArvore(Arvore *ar, char ***vString, int **vetor);
+void criaVetorProfundidadeArvore(Arvore *ar, char ***vString, int **vetor, int *numeroNos);
 
 /*retorna um vetor com a progundidade ordenada e um vetor de string ordenado*/
-void criaVetorProfundidade(PNodo *n, char ***vString, int **vProf, int *prof, int *i);
+void criaVetorProfundidade(PNodo *n, char ***vString, int **vProf, int *prof, int *i, int *numeroNos);
 
 #endif	/* _ARVORE_H */
 

@@ -119,7 +119,7 @@ void contaLinhas(char *nome_arquivo, int *nLinhas)
     arquivo = fopen (nome_arquivo , "r");
     if (arquivo == NULL)
     {
-        printf("leArquivo: arquivo %s nao encontrado. \n", nome_arquivo);
+        printf("contaLinhas: arquivo %s nao encontrado. \n", nome_arquivo);
         return;
     }
 
@@ -138,4 +138,20 @@ void contaLinhas(char *nome_arquivo, int *nLinhas)
     fclose(arquivo);
     numLinhas--; //contou uma linha a mais antes do final do arquivo
     *nLinhas = numLinhas;
+}
+
+void saveFile(char *nome_arquivo, char *string)
+{
+    FILE *arquivo; // arquivo lido
+
+    // abre o arquivo de entrada se ele ja existir
+    arquivo = fopen (nome_arquivo , "a");
+    if (arquivo == NULL)
+    {
+        printf("saveFile: arquivo %s nao encontrado. \n", nome_arquivo);
+        return;
+    }
+    fprintf (arquivo, "%s", string);
+
+    fclose(arquivo);
 }
