@@ -4,12 +4,14 @@
 #include "tentativa.h"
 
 /*Insere o indice invertido na arvore*/
-void insereArvoreTentativa(Arvore *ar, Hash *hash)
+void insereArvoreTentativa(Arvore *ar, Hash *hash, int *Size)
 {
     int i, j;
     int size = 0;
     itemH *vetor;
     criaVetor(hash, &vetor, &size);
+    *Size = size;
+
     if(size > MAX_SIZE)
     {
         printf("\nNumero muito elevado, nao eh possivel calcular uma arvore tentativa e erro"
@@ -55,23 +57,8 @@ void insereArvoreTentativa(Arvore *ar, Hash *hash)
         {
             melhorArvore = pesoArvore;
             (*ar) = aTemp;
-            //CopiaArvore(aTemp, ar);
         }
     }
-
-    #ifndef _DEBUG_
-    #define _DEBUG_
-        int lol;
-        char **vS = malloc(sizeof(char*) * size);
-        int *vN = malloc(size * sizeof(int));
-        criaVetorProfundidadeArvore(ar, &vS, &vN);
-        for(lol = 0; lol < size; lol++)
-        {
-            printf("%d ",vN[lol]);
-        }
-        PrintArvore(ar);
-        printf("\n\n ");
-    #endif
 }
 
 int fatorial(int n)

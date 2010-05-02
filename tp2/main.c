@@ -25,6 +25,7 @@ int main(int argc, char** argv)
     char *saida; //arquivo de saida
     int algoritmo; //qual o algoritmo que sera escolhido
     int numPalavras; //numero de palavras que contem o arquivo
+    int numLinhas; //numero de linhas do arquivo, para estatisticas
     int c; //variavel provisoria para a funcao get opt
 
     c =0;
@@ -61,10 +62,10 @@ int main(int argc, char** argv)
 
     char **Buffer;
     numPalavras = 0;
-    Buffer = leArquivo(entrada, &numPalavras);
+    Buffer = leArquivo(entrada, &numPalavras, &numLinhas);
 
     //o hash tera o tamanho exato do numero de palavras
-    inicializaHash(&hash, numPalavras);
+    inicializaHash(&hash, numPalavras, numLinhas);
 
     int i;
     //insere todas as palavras no hash
@@ -74,38 +75,36 @@ int main(int argc, char** argv)
     }
     calculaPopularidade(&hash);
 
-    //Arvore arT;
-    //InicializaArvore(&arT);
-    //insereArvoreTentativa(&arT, &hash);
-
-    Arvore arD;
-    InicializaArvore(&arD);
-    insereArvoreDinamica(&arD, &hash);
-
-    //Arvore arG;
-    //InicializaArvore(&arG);
-    //insereArvoreGulosa(&arG, &hash);
-
-    /*
+    int size = 0;
     Arvore ar;
     InicializaArvore(&ar);
     switch(algoritmo)
     {
         case TENTATIVA:
 
-                    insereArvoreTentativa(&ar, &hash);
+                    insereArvoreTentativa(&ar, &hash, &size);
                     break;
         case DINAMICA:
-                    insereArvoreDinamica(&ar, &hash);
+                    insereArvoreDinamica(&ar, &hash, &size);
                     break;
         case GULOSO:
-                    insereArvoreGulosa(&ar, &hash);
+                    insereArvoreGulosa(&ar, &hash, &size);
                     break;
         default:
             printf("nao existe o algoritmo com id %d, por favor consulte o arquivo leiame.txt", algoritmo);
     }
-    //Chama a função com nível 1.
+
+    char **vString = (char**)malloc(sizeof(char*) * size);
+    int *vProfundidade = (int*)malloc(size * sizeof(int));
+    criaVetorProfundidadeArvore(&ar, &vString, &vProfundidade);
+    free(vProfundidade);
+    for(i = 0; i < size; i++)
+    {
+        int id = PesquisaHash(&hash, vString[i]);
+        double pop = getPopularidade(&hash, id);
+        printf("%s %f\n", vString[i], pop);
+    }
     
-     */
+    
     return (EXIT_SUCCESS);
 } //Fim-função

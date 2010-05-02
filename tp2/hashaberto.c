@@ -28,18 +28,17 @@ int H(int m, char *palavra)
     // retorna resultado acumulado (mod m)
 
 }
-void inicializaHash(Hash *hash, int tamanho)
+void inicializaHash(Hash *hash, int tamanho, int numLinhas)
 {
     hash->tamanho = tamanho;
+    hash->numLinhas = numLinhas;
     hash->hash = malloc(tamanho * sizeof(itemH));
-    hash->termosDif = 0;
 
     int i;
     for(i = 0; i < tamanho; i++)
     {
         hash->hash[i].status = VAZIO;
         hash->hash[i].pop = 0;
-        hash->hash[i].popD = 0;
         hash->hash[i].nOcorrencias = 0;
     }
 }
@@ -76,12 +75,11 @@ void InsereHash(Hash *hash, char *chave)
     int i, ini, m, inserido;
     inserido = PesquisaHash(hash, chave);
     m = hash->tamanho;
+    ini = H(hash->tamanho, chave);
     //se nao encontrou o elemento
     if(inserido == m)
     {
-        ini = H(hash->tamanho, chave);
         i = 0;
-        hash->termosDif++;
         //enquanto nao encontrar uma posicao vazia ou retirada, nao ha lugar para colocar o elemento
         while((hash->hash[(ini + i) % m].status == CHEIO) && (i < m))
         {
@@ -120,9 +118,8 @@ void calculaPopularidade(Hash *hash)
         if(hash->hash[i].status == CHEIO)
         {
             int nO = hash->hash[i].nOcorrencias;
-            int tDiff = hash->termosDif;
-            hash->hash[i].pop = (double)nO/tam;
-            hash->hash[i].popD = (double)nO/tDiff;
+            int nLinhas = hash->numLinhas;
+            hash->hash[i].pop = (double)nO/nLinhas;
         }
     }
 }
@@ -130,25 +127,14 @@ void calculaPopularidade(Hash *hash)
 //retorna popularidade de um item
 double getPop(itemH *k1)
 {
-    return(k1->popD);
+    return(k1->pop);
 }
 
 /*Retorna a popularidade do i-ezimo termo do hash*/
 double getPopularidade(Hash *hash, int i)
 {
     //return(hash->hash[i].popularidade);
-    return(hash->hash[i].popD);
-}
-
-int getTermosDiferentes(Hash *hash)
-{
-    return(hash->termosDif);
-}
-
-/*verifica se uma posicao do hash eh nula*/
-int getStatus(Hash *hash, int i)
-{
-    return(hash->hash[i].status);
+    return(hash->hash[i].pop);
 }
 
 int comparaChave(itemH *k1, itemH *k2)
