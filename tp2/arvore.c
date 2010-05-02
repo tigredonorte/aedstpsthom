@@ -87,22 +87,23 @@ void PrintNodos(PNodo *n)
     }
 }
 
-void criaVetorProfundidadeArvore(Arvore *ar, char ***vString, int **vetor)
+void criaVetorProfundidadeArvore(Arvore *ar, char ***vString, int **vetor, int *numeroNos)
 {
     int i = 0;
     int profundidade = 0;
-    criaVetorProfundidade(ar, vString, vetor, &profundidade, &i);
+    criaVetorProfundidade(ar, vString, vetor, &profundidade, &i, numeroNos);
 }
 
-void criaVetorProfundidade(PNodo *n, char ***vString, int **vProf, int *prof, int *i)
+void criaVetorProfundidade(PNodo *n, char ***vString, int **vProf, int *prof, int *i, int *numeroNos)
 {
     if(*n == NULL){return;}
 
+    (*numeroNos)++;
     (*prof)++;
     
     if((*n)->esq != NULL)
     {
-        criaVetorProfundidade(&(*n)->esq,vString, vProf, prof, i);
+        criaVetorProfundidade(&(*n)->esq,vString, vProf, prof, i, numeroNos);
     }
 
     (*vString)[(*i)] = malloc(sizeof(char) * strlen((*n)->reg.chave));
@@ -114,7 +115,7 @@ void criaVetorProfundidade(PNodo *n, char ***vString, int **vProf, int *prof, in
     (*prof)++;
     if((*n)->dir != NULL)
     {
-        criaVetorProfundidade(&(*n)->dir, vString, vProf, prof, i);
+        criaVetorProfundidade(&(*n)->dir, vString, vProf, prof, i, numeroNos);
     }
     (*prof)--;
 }

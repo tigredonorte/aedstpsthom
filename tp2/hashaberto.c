@@ -3,27 +3,31 @@ int H(int m, char *palavra)
 {
        //escolhida uma base menor do que 11
     int base = (m  % 11);
-
+    int resultado = 0;
     //numero de letras da palavra (tamanho da palavra)
-    int tam = strlen(palavra);
-
-    double total = 0; // acumula resultados de cada iteração
-
-    int i;
-    for(i = 0; i < tam; i++)
+    if(palavra != NULL)
     {
-        /* multiplica caracter pelo indice como peso
-         * onde palavra + 0, representa o primeiro caracter da palavra, palvra + 1, o segundo, ...
-         *tam - i = tamanho da palavra - posicao da letra, desta forma palavras que possuam as mesmas
-         *      letras em posicoes diferentes nao ocuparao o mesmo lugar no hash
-        */
-        double n = pow(base , (tam - i));
-        total += ((*(palavra + i)) * n) ;
-    }
-    int resultado = (int)total % (m);
+        int tam = strlen(palavra);
 
-    //se der buffer overflow nesta divisao
-    if(resultado < 0) resultado = resultado * (-1);
+        double total = 0; // acumula resultados de cada iteração
+
+        int i;
+        for(i = 0; i < tam; i++)
+        {
+            /* multiplica caracter pelo indice como peso
+             * onde palavra + 0, representa o primeiro caracter da palavra, palvra + 1, o segundo, ...
+             *tam - i = tamanho da palavra - posicao da letra, desta forma palavras que possuam as mesmas
+             *      letras em posicoes diferentes nao ocuparao o mesmo lugar no hash
+            */
+            double n = pow(base , (tam - i));
+            total += ((*(palavra + i)) * n) ;
+        }
+        resultado = (int)total % (m);
+
+        //se der buffer overflow nesta divisao
+        if(resultado < 0) resultado = resultado * (-1);
+    }
+
     return resultado;
     // retorna resultado acumulado (mod m)
 
@@ -33,7 +37,7 @@ void inicializaHash(Hash *hash, int tamanho, int numLinhas)
     hash->tamanho = tamanho;
     hash->numLinhas = numLinhas;
     hash->hash = malloc(tamanho * sizeof(itemH));
-
+    hash->inseridos = 0;
     int i;
     for(i = 0; i < tamanho; i++)
     {
@@ -79,6 +83,7 @@ void InsereHash(Hash *hash, char *chave)
     //se nao encontrou o elemento
     if(inserido == m)
     {
+        hash->inseridos++;
         i = 0;
         //enquanto nao encontrar uma posicao vazia ou retirada, nao ha lugar para colocar o elemento
         while((hash->hash[(ini + i) % m].status == CHEIO) && (i < m))
@@ -109,6 +114,10 @@ void InsereHash(Hash *hash, char *chave)
     }
 }
 
+int getInseridos(Hash *hash)
+{
+    return(hash->inseridos);
+}
 void calculaPopularidade(Hash *hash)
 {
     int i, tam;
@@ -187,7 +196,8 @@ void criaVetor(Hash *hash, itemH **vetor, int *size)
     {
         if(hash->hash[i].status == CHEIO)
         {
-            (*vetor)[j++] = hash->hash[i];
+            (*vetor)[j] = hash->hash[i];
+            j++;
         }
     }
 

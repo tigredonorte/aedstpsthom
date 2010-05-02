@@ -67,7 +67,7 @@ typedef struct dinamica_stc
     int dirY;
 }Dinamica;
 
-void insereArvoreDinamica(Arvore *ar, Hash *hash, int *Size);
+void insereArvoreDinamica(Arvore *ar, Hash *hash);
 
 //calcula a menor arvore
 double calculaMenor(Dinamica ***A, int i, int j, int size);

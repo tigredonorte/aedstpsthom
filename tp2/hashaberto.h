@@ -31,6 +31,7 @@ typedef struct Hash_str
     itemH *hash;
     int tamanho;
     int numLinhas;
+    int inseridos;
 }Hash;
 
 /*funcao que calcula a posicao da palavra no hash*/
@@ -67,5 +68,8 @@ char *getChave(itemH *k1);
 
 /*transforma o hash(vetor esparço) em um vetor denso. Retorna size, o tamanho deste vetor*/
 void criaVetor(Hash *hash, itemH **vetor, int *size);
+
+/*retorna o numero de elementos inseridos no hash*/
+int getInseridos(Hash *hash);
 #endif	/* _HASHABERTO_H */
 
