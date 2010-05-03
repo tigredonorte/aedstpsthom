@@ -44,6 +44,7 @@ int main(int argc, char** argv)
                "O Programa sera fechado");
        return EXIT_FAILURE;
     }
+    int t = 0;
    
     while((c = getopt (argc, argv, ":s:i:o:t:")) != -1)
     {
@@ -59,6 +60,7 @@ int main(int argc, char** argv)
                     saida = optarg;
                     break;
             case 't':
+                    t = 1;
                     fileTeste = optarg;
                     break;
             case '?':
@@ -69,7 +71,11 @@ int main(int argc, char** argv)
             abort ();
         }
     }
-
+    if(t == 0)
+    {
+        fileTeste = malloc(sizeof(char) * 9);
+        strcpy(fileTeste,"saida.ods");
+    }
     char **Buffer;
     numPalavras = 0;
     Buffer = leArquivo(entrada, &numPalavras, &numLinhas);
