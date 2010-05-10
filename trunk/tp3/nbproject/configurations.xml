@@ -13,11 +13,18 @@
                    displayName="Arquivos de recurso"
                    projectFiles="true">
     </logicalFolder>
+    <logicalFolder name="src" displayName="src" projectFiles="true">
+    </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Arquivos importantes"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>TP3/src/file.c</itemPath>
+    <itemPath>TP3/src/file.h</itemPath>
+    <itemPath>TP3/src/grafo.c</itemPath>
+    <itemPath>TP3/src/grafo.h</itemPath>
+    <itemPath>TP3/src/main.c</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -28,11 +35,29 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cCompilerTool>
+          <commandLine>-Wall</commandLine>
+        </cCompilerTool>
         <linkerTool>
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP3/src/file.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/file.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP3/src/grafo.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/grafo.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP3/src/main.c">
+        <itemTool>0</itemTool>
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -55,6 +80,21 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP3/src/file.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/file.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP3/src/grafo.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/grafo.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP3/src/main.c">
+        <itemTool>0</itemTool>
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
