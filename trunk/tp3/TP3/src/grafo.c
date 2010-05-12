@@ -21,31 +21,13 @@ void Insere(LItem *x, Lista *lista)
     lista->Ultimo->Prox = NULL;
 }
 
-/*--Obs.: item a ser retirado e o seguinte ao apontado por p--*/
-void Retira(PLista p, Lista *lista, LItem *Item)
-{
-    PLista q;
-    if (Vazia(*lista) || p == NULL || p->Prox == NULL)
-    {
-        printf("Erro: Lista vazia ou posicao nao existe\n");
-        return;
-    }
-    q = p->Prox;
-    *Item = q->Item;
-    p->Prox = q->Prox;
-
-    if (p->Prox == NULL)
-    {
-        lista->Ultimo = p;
-    }
-    free(q);
-}
-
 void inicializaGrafo(Grafo *grafo, int nArestas, int nVertices)
 {
-    grafo->NumVertices = nVertices + 1;
+    grafo->NumVertices = nVertices;
     grafo->NumArestas = nArestas;
     grafo->Adj = calloc(grafo->NumVertices, sizeof(Lista));
+    grafo->NumCores = 0;
+    grafo->maxArestas = 0;
     FGVazio(grafo);
 }
 
@@ -55,6 +37,7 @@ void FGVazio(Grafo *grafo)
     for (i = 0; i < grafo->NumVertices; i++)
     {
         FLVazia(&grafo->Adj[i]);
+        grafo->Adj[i].cor = 0;
     }
 }
 
@@ -62,85 +45,7 @@ void InsereAresta(Grafo *grafo, int V1, int V2)
 {
     LItem x;
     x.Vertice = V2;
-    Insere(&x, &grafo->Adj[V1-1]);
-}
-
-short ExisteAresta(ValorVertice Vertice1, ValorVertice Vertice2, Grafo *Grafo)
-{
-    PLista Aux;
-    short  EncontrouAresta = 0;
-    Aux = Grafo->Adj[Vertice1].Primeiro->Prox;
-    while (Aux != NULL && EncontrouAresta == 0)
-    {
-        if (Vertice2 == Aux->Item.Vertice)
-        {
-            EncontrouAresta = 1;
-        }
-        Aux = Aux->Prox;
-    }
-    return EncontrouAresta;
-}
-
-/*-- Operadores para obter a lista de adjacentes --*/
-short  ListaAdjVazia(ValorVertice *Vertice, Grafo *Grafo)
-{
-    return(Grafo->Adj[*Vertice].Primeiro == Grafo->Adj[*Vertice].Ultimo);
-}
-
-PLista PrimeiroListaAdj(ValorVertice *Vertice, Grafo *Grafo)
-{
-    return(Grafo->Adj[*Vertice].Primeiro->Prox);
-}
-
- /* --Retorna Adj e Peso do Item apontado por Prox--*/
-void ProxAdj(ValorVertice *Adj, PLista *Prox, short *FimListaAdj)
-{
-    *Adj = (*Prox)->Item.Vertice;
-    *Prox = (*Prox)->Prox;
-    if (*Prox == NULL)
-    {
-        *FimListaAdj = 1;
-    }
-}
-
-void RetiraAresta(Grafo *Grafo, ValorVertice V1, ValorVertice V2)
-{
-    PLista AuxAnterior, Aux;
-    short EncontrouAresta = 0;
-    LItem x;
-    AuxAnterior = Grafo->Adj[V1].Primeiro;
-    Aux = Grafo->Adj[V1].Primeiro->Prox;
-    
-    while (Aux != NULL && EncontrouAresta == 0)
-    {
-        if (V2 == Aux->Item.Vertice)
-        {
-            Retira(AuxAnterior, &Grafo->Adj[V1], &x);
-            Grafo->NumArestas--;
-            EncontrouAresta = 1;
-        }
-        AuxAnterior = Aux;
-        Aux = Aux->Prox;
-    }
-}
-
-void LiberaGrafo(Grafo *Grafo)
-{
-    PLista AuxAnterior, Aux;
-    int i;
-    for (i = 0; i < Grafo->NumVertices; i++)
-    {
-        Aux = Grafo->Adj[i].Primeiro->Prox;
-        free(Grafo->Adj[i].Primeiro);   /*Libera celula cabeca*/
-        Grafo->Adj[i].Primeiro=NULL;
-        while (Aux != NULL)
-        {
-            AuxAnterior = Aux;
-            Aux = Aux->Prox;
-            free(AuxAnterior);
-        }
-    }
-    Grafo->NumVertices = 0;
+    Insere(&x, &grafo->Adj[V1]);
 }
 
 void ImprimeGrafo(Grafo *Grafo)
@@ -149,13 +54,14 @@ void ImprimeGrafo(Grafo *Grafo)
     PLista Aux;
     for (i = 0; i < Grafo->NumVertices; i++)
     {
-        printf("Vertice%2d:", i);
         if (!Vazia(Grafo->Adj[i]))
         {
+            printf("Vertice %d:", i+1);
+            printf(" cor %d: \n", Grafo->Adj[i].cor);
             Aux = Grafo->Adj[i].Primeiro->Prox;
             while (Aux != NULL)
             {
-                printf("%3d ", Aux->Item.Vertice);
+                printf("%d ", Aux->Item.Vertice+1);
                 Aux = Aux->Prox;
             }
         }
@@ -169,50 +75,82 @@ void ImprimeLista(Lista Lista)
     Aux = Lista.Primeiro->Prox;
     while (Aux != NULL)
     {
-        printf("%3d ", Aux->Item.Vertice);
+        printf("%d\n", Aux->Item.Vertice+1);
         Aux = Aux->Prox;
+        printf("\n");
     }
 }
 
-void GrafoTransposto(Grafo *grafo, Grafo *GrafoT)
+int getNumVertices(Grafo *grafo)
 {
-    ValorVertice v, Adj;
-    PLista Aux;
-    short FimListaAdj;
-    
-    GrafoT->NumVertices = grafo->NumVertices;
-    GrafoT->NumArestas = grafo->NumArestas;
-    FGVazio(GrafoT);
-    for (v = 0; v <= grafo->NumVertices - 1; v++)
+    return(grafo->NumVertices);
+}
+
+PLista getPrimeiroLista(Grafo *grafo, int i)
+{
+    return(grafo->Adj[i].Primeiro->Prox);
+}
+
+void setCorVertice(Grafo *grafo, int i, int cor)
+{
+    grafo->Adj[i].cor = cor;
+    if(grafo->NumCores < cor)
     {
-        if (!ListaAdjVazia(&v, grafo))
+        grafo->NumCores = cor;
+    }
+}
+
+int getCorVertice(Grafo *grafo, int i)
+{
+    return(grafo->Adj[i].cor);
+}
+
+int calculaGrauGrafo(Grafo *grafo)
+{
+    int maxArestas = 0;
+    int i;
+    for(i = 0; i < grafo->NumVertices; i++)
+    {
+        int arestas = 0;
+        PLista aux = grafo->Adj[i].Primeiro->Prox;
+        while(aux != NULL)
         {
-            Aux = PrimeiroListaAdj(&v, grafo);
-            FimListaAdj = 0;
-            while (!FimListaAdj)
-            {
-                ProxAdj(&Adj, &Aux, &FimListaAdj);
-                InsereAresta(GrafoT, Adj, v);
-            }
+            arestas++;
+            aux = aux->Prox;
+        }
+        if(arestas > maxArestas)
+        {
+            maxArestas = arestas;
         }
     }
+    grafo->NumArestas = maxArestas;
+    return(maxArestas);
 }
 
-/* ============================================================= */
+int getNumArestas(Grafo *grafo)
+{
+    return(grafo->NumArestas);
+}
+
+int getValorVertice(PLista p)
+{
+    return(p->Item.Vertice);
+}
+/* ============================================================= *
 int fazTudo()
-{ /*-- Programa principal --*/
+{ 
     int TEMP = 20;
     int TEMP1;
     long i;
-    ValorVertice V1, V2, Adj;
-    Grafo grafo, GrafoT;
+    int V1, V2, Adj;
+    Grafo grafo;
     int  NArestas = (int)(TEMP/2);
     PLista Aux;
     short FimListaAdj;
 
-    /* -- NumVertices: definido antes da leitura das arestas --*/
-    /* -- NumArestas: inicializado com zero e incrementado a --*/
-    /* -- cada chamada de InsereAresta                       --*/
+    //NumVertices: definido antes da leitura das arestas
+    //NumArestas: inicializado com zero e incrementado a
+    //cada chamada de InsereAresta
     int NVertices = TEMP;
     inicializaGrafo(&grafo, NArestas, TEMP);
     grafo.NumVertices = NVertices;
@@ -226,14 +164,9 @@ int fazTudo()
         getchar();
         V1 = TEMP;
         V2 = TEMP1;
-        InsereAresta(&grafo, V1, V2);   /* 1 chamada g-direcionado    */
+        InsereAresta(&grafo, V1, V2);   // 1 chamada g-direcionado
     }
     ImprimeGrafo(&grafo);
-    scanf("%*[^\n]");
-    getchar();
-    printf("Grafo transposto:\n");
-    GrafoTransposto(&grafo, &GrafoT);
-    ImprimeGrafo(&GrafoT);
     scanf("%*[^\n]");
     getchar();
     printf("Insere V1 -- V2 -- Peso:");
@@ -272,7 +205,6 @@ int fazTudo()
     {
         grafo.NumArestas--;
         RetiraAresta(&grafo, V1, V2);
-        /*RetiraAresta(V2, V1, Peso, Grafo);*/
     }
     else
     {
@@ -283,7 +215,6 @@ int fazTudo()
     scanf("%*[^\n]");
     getchar();
     printf("Existe aresta V1 -- V2:");
-    /* scanf("%d%d%*[^\n]", &TEMP, &TEMP1); */
     scanf("%d*[^\n]", &TEMP);
     scanf("%d*[^\n]", &TEMP1);
 
@@ -300,8 +231,8 @@ int fazTudo()
         printf(" Nao\n");
     }
     
-    LiberaGrafo(&grafo);   /* Imprime sujeira normalmente */
+    LiberaGrafo(&grafo);   // Imprime sujeira normalmente
     ImprimeGrafo(&grafo);
     return 0;
 }
-
+*/

@@ -20,11 +20,17 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>TP3/src/branch.c</itemPath>
+    <itemPath>TP3/src/branch.h</itemPath>
     <itemPath>TP3/src/file.c</itemPath>
     <itemPath>TP3/src/file.h</itemPath>
     <itemPath>TP3/src/grafo.c</itemPath>
     <itemPath>TP3/src/grafo.h</itemPath>
+    <itemPath>TP3/src/guloso.c</itemPath>
+    <itemPath>TP3/src/guloso.h</itemPath>
     <itemPath>TP3/src/main.c</itemPath>
+    <itemPath>TP3/src/tentativa.c</itemPath>
+    <itemPath>TP3/src/tentativa.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -43,6 +49,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP3/src/branch.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/branch.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP3/src/file.c">
         <itemTool>0</itemTool>
       </item>
@@ -55,8 +67,20 @@
       <item path="TP3/src/grafo.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="TP3/src/guloso.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/guloso.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP3/src/main.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/tentativa.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/tentativa.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -80,6 +104,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP3/src/branch.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/branch.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP3/src/file.c">
         <itemTool>0</itemTool>
       </item>
@@ -92,8 +122,20 @@
       <item path="TP3/src/grafo.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="TP3/src/guloso.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/guloso.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP3/src/main.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/tentativa.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/tentativa.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
   </confs>
