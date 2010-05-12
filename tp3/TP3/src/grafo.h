@@ -11,11 +11,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int ValorVertice;
-
 typedef struct Item_str
 {
-    ValorVertice Vertice;
+    int Vertice;
 }LItem;
 
 typedef struct Celula_str *PLista;
@@ -28,14 +26,16 @@ struct Celula_str
 typedef struct Lista_str
 {
     PLista Primeiro, Ultimo;
+    int cor;
 }Lista;
 
 typedef struct Grafo_str
 {
     Lista *Adj;
-    ValorVertice NumVertices;
-    short NumArestas;
-    int MaxNumVertices;
+    int maxArestas;
+    int NumVertices;
+    int NumArestas;
+    int NumCores;
 }Grafo;
 
 /*
@@ -44,9 +44,6 @@ typedef struct Grafo_str
 
 //imprime uma lista encadeada
 void ImprimeLista(Lista lista);
-
-//retira um item da lista
-void RetiraLista(PLista p, Lista *lista, LItem *Item);
 
 //insere um item na lista
 void Insere(LItem *x, Lista *lista);
@@ -57,7 +54,6 @@ short Vazia(Lista lista);
 //esvazia uma lista
 void FLVazia(Lista *lista);
 
-
 /*
  *  Grafo
  */
@@ -65,29 +61,10 @@ void FLVazia(Lista *lista);
 //funcao de exemplo
 int fazTudo();
 
-//faz o grafo transposto
-void TranspostoGrafo(Grafo *grafo, Grafo *grafoT);
-
 //imprime o grafo
 void ImprimeGrafo(Grafo *grafo);
 
-//esvazia um grafo
-void LiberaGrafo(Grafo *grafo);
 
-//retira uma aresta do grafo
-void RetiraAresta(Grafo *Grafo, ValorVertice V1, ValorVertice V2);
-
-//retorna o proximo vertice adjacente
-void ProxAdj(ValorVertice *Adj, PLista *Prox, short *FimListaAdj);
-
-//retorna o primeiro da lista de adjacencia
-PLista PrimeiroListaAdj(ValorVertice *Vertice, Grafo *grafo);
-
-//retorna 1 se a lista de adjacencia e vazia
-short  ListaAdjVazia(ValorVertice *Vertice, Grafo *grafo);
-
-//retorna 1 caso exista uma aresta
-short ExisteAresta(ValorVertice Vertice1, ValorVertice Vertice2, Grafo *grafo);
 
 //insere uma nova aresta
 void InsereAresta(Grafo *grafo, int V1, int V2);
@@ -97,5 +74,26 @@ void FGVazio(Grafo *grafo);
 
 /*inicializa um novo grafo*/
 void inicializaGrafo(Grafo *grafo, int nArestas, int nVertices);
+
+//retorna o numero de vertices do grafo
+int getNumVertices(Grafo *grafo);
+
+//retorna o primeiro elemento da i-ezima lista
+PLista getPrimeiroLista(Grafo *grafo, int i);
+
+//altera a cor do i-ezimo elemento do grafo
+void setCorVertice(Grafo *grafo, int i, int cor);
+
+//retorna a cor do i-ezimo vertice
+int getCorVertice(Grafo *grafo, int i);
+
+//calcula o grau maximo do grafo
+int calculaGrauGrafo(Grafo *grafo);
+
+//retorna o numero de arestas de um grafo
+int getNumArestas(Grafo *grafo);
+
+//retorna o valor do vertice do item passado por parametro
+int getValorVertice(PLista p);
 
 #endif	/* _GRAFO_H */

@@ -10,6 +10,8 @@
 #include <getopt.h>
 #include "file.h"
 #include "grafo.h"
+#include "tentativa.h"
+#include "guloso.h"
 
 #define TENTATIVA 1
 #define BRANCH  2
@@ -89,8 +91,13 @@ int main(int argc, char** argv)
         int V1, V2;
         V1 = atoi(Buffer[i]);
         V2 = atoi(Buffer[i+1]);
+      
+        //todas as arestas terao uma unidade a menos (facilita busca em vetor)
+        V1--;
+        V2--;
         InsereAresta(&grafo, V1, V2);
     }
+    coloreGuloso(&grafo);
     ImprimeGrafo(&grafo);
 
     switch(algoritmo)
