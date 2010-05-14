@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     char *entrada; //arquivo de entrada
     char *saida; //arquivo de saida
     char *fileTeste; //arquivo de saida
-    int algoritmo; //qual o algoritmo que sera escolhido
+    int algoritmo = 1; //qual o algoritmo que sera escolhido
     int c; //variavel provisoria para a funcao get opt
 
     c = 0;
@@ -97,20 +97,23 @@ int main(int argc, char** argv)
         V2--;
         InsereAresta(&grafo, V1, V2);
     }
-    coloreGuloso(&grafo);
-    ImprimeGrafo(&grafo);
+    //coloreGuloso(&grafo);
+    coloreTentativa(&grafo);
 
     switch(algoritmo)
     {
         case TENTATIVA:
+                    //coloreTentativa(&grafo);
                     break;
         case BRANCH:
                     break;
         case GULOSO:
+                    //coloreGuloso(&grafo);
                     break;
         default:
             printf("nao existe o algoritmo com id %d, por favor consulte o arquivo leiame.txt", algoritmo);
     }
+    ImprimeGrafo(&grafo);
  
     return (EXIT_SUCCESS);
 } //Fim-função

@@ -64,6 +64,8 @@ int fazTudo();
 //imprime o grafo
 void ImprimeGrafo(Grafo *grafo);
 
+//desaloca um grafo passado por parametro
+void LiberaGrafo(Grafo *Grafo);
 
 
 //insere uma nova aresta
@@ -95,5 +97,8 @@ int getNumArestas(Grafo *grafo);
 
 //retorna o valor do vertice do item passado por parametro
 int getValorVertice(PLista p);
+
+//copia o grafo fonte no grafo destino
+void copiaGrafo(Grafo *grafoSrc, Grafo *grafoDst);
 
 #endif	/* _GRAFO_H */
