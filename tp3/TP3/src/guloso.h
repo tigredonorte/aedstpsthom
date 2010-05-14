@@ -13,7 +13,7 @@
 #include "grafo.h"
 
 //colore o grafo pela euristica gulosa
-void coloreGuloso(Grafo *grafo);
+int coloreGuloso(Grafo *grafo, int maxCores);
 
 #endif	/* _GULOSO_H */
 

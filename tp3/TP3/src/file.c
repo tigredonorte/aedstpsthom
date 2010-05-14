@@ -36,9 +36,10 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
      *  Descobre tamanho do buffer
      */
     rewind( arquivo );//coloca o ponteiro no inicio do arquivo
-    char *buff;
+    char *buff = NULL;
+    
     // aloca memória para conteúdo do arquivo
-    buff = (char*) calloc( tamArquivo, sizeof(char) );
+    buff = malloc( sizeof(char) *tamArquivo);
     if (buff == NULL)
     {
         printf("leArquivo: nao ha memoria para alocar arquivo \n");

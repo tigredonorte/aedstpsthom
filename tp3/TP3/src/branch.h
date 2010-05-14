@@ -8,6 +8,7 @@
 #ifndef _BRANCH_H
 #define	_BRANCH_H
 
+#include "grafo.h"
 
 
 #endif	/* _BRANCH_H */

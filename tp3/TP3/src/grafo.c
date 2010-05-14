@@ -48,6 +48,26 @@ void InsereAresta(Grafo *grafo, int V1, int V2)
     Insere(&x, &grafo->Adj[V1]);
 }
 
+void LiberaGrafo(Grafo *Grafo)
+{
+    PLista AuxAnterior, Aux;
+    int i;
+    for (i = 0; i < Grafo->NumVertices; i++)
+    {
+        Aux = Grafo->Adj[i].Primeiro->Prox;
+        free(Grafo->Adj[i].Primeiro);   /*Libera celula cabeca*/
+        Grafo->Adj[i].Primeiro=NULL;
+        while (Aux != NULL)
+        {
+            AuxAnterior = Aux;
+            Aux = Aux->Prox;
+            free(AuxAnterior);
+        }
+    }
+    Grafo->NumVertices = 0;
+}
+
+
 void ImprimeGrafo(Grafo *Grafo)
 {
     int i;
@@ -67,6 +87,7 @@ void ImprimeGrafo(Grafo *Grafo)
         }
         putchar('\n');
     }
+    free(Aux);
 }
 
 void ImprimeLista(Lista Lista)
@@ -79,6 +100,7 @@ void ImprimeLista(Lista Lista)
         Aux = Aux->Prox;
         printf("\n");
     }
+    free(Aux);
 }
 
 int getNumVertices(Grafo *grafo)
@@ -88,7 +110,11 @@ int getNumVertices(Grafo *grafo)
 
 PLista getPrimeiroLista(Grafo *grafo, int i)
 {
-    return(grafo->Adj[i].Primeiro->Prox);
+    if(!Vazia(grafo->Adj[i]))
+    {
+        return(grafo->Adj[i].Primeiro->Prox);
+    }
+    return NULL;
 }
 
 void setCorVertice(Grafo *grafo, int i, int cor)
@@ -107,12 +133,14 @@ int getCorVertice(Grafo *grafo, int i)
 
 int calculaGrauGrafo(Grafo *grafo)
 {
+    int arestas;
     int maxArestas = 0;
     int i;
+    PLista aux;
     for(i = 0; i < grafo->NumVertices; i++)
     {
-        int arestas = 0;
-        PLista aux = grafo->Adj[i].Primeiro->Prox;
+        arestas = 0;
+        aux = grafo->Adj[i].Primeiro->Prox;
         while(aux != NULL)
         {
             arestas++;
@@ -123,7 +151,8 @@ int calculaGrauGrafo(Grafo *grafo)
             maxArestas = arestas;
         }
     }
-    grafo->NumArestas = maxArestas;
+    grafo->maxArestas = maxArestas;
+    free(aux);
     return(maxArestas);
 }
 
@@ -136,103 +165,13 @@ int getValorVertice(PLista p)
 {
     return(p->Item.Vertice);
 }
-/* ============================================================= *
-int fazTudo()
-{ 
-    int TEMP = 20;
-    int TEMP1;
-    long i;
-    int V1, V2, Adj;
-    Grafo grafo;
-    int  NArestas = (int)(TEMP/2);
-    PLista Aux;
-    short FimListaAdj;
 
-    //NumVertices: definido antes da leitura das arestas
-    //NumArestas: inicializado com zero e incrementado a
-    //cada chamada de InsereAresta
-    int NVertices = TEMP;
-    inicializaGrafo(&grafo, NArestas, TEMP);
-    grafo.NumVertices = NVertices;
-    FGVazio(&grafo);
-
-    for (i = 0; i < NArestas; i++)
+//copia o grafo fonte no grafo destino
+void copiaGrafo(Grafo *grafoSrc, Grafo *grafoDst)
+{
+    int i;
+    for(i = 0; i < grafoSrc->NumVertices; i++)
     {
-        printf("Insere V1 -- V2 -- Peso:");
-        scanf("%d%d%*[^\n]", &TEMP, &TEMP1);
-
-        getchar();
-        V1 = TEMP;
-        V2 = TEMP1;
-        InsereAresta(&grafo, V1, V2);   // 1 chamada g-direcionado
+        grafoDst->Adj[i] = grafoSrc->Adj[i];
     }
-    ImprimeGrafo(&grafo);
-    scanf("%*[^\n]");
-    getchar();
-    printf("Insere V1 -- V2 -- Peso:");
-    scanf("%d%d%*[^\n]", &V1, &V2);
-    if (ExisteAresta(V1, V2, &grafo))
-    {
-        printf("Aresta ja existe\n");
-    }
-    else
-    {
-        grafo.NumArestas++;
-        InsereAresta(&grafo, V1, V2);
-    }
-    ImprimeGrafo(&grafo);
-    scanf("%*[^\n]");
-    getchar();
-    printf("Lista adjacentes de: ");
-    scanf("%d*[^\n]", &TEMP);
-    V1 = TEMP;
-    if(!ListaAdjVazia(&V1, &grafo))
-    {
-        Aux = PrimeiroListaAdj(&V1, &grafo);
-        FimListaAdj = 0;
-        while (!FimListaAdj)
-        {
-            ProxAdj(&Adj, &Aux, &FimListaAdj);
-            printf("%2d ", Adj);
-        }
-        putchar('\n');
-        scanf("%*[^\n]");
-        getchar();
-    }
-    printf("Retira aresta V1 -- V2:");
-    scanf ("%d %d", &V1, &V2);
-    if (ExisteAresta(V1, V2, &grafo))
-    {
-        grafo.NumArestas--;
-        RetiraAresta(&grafo, V1, V2);
-    }
-    else
-    {
-        printf("Aresta nao existe\n");
-    }
-
-    ImprimeGrafo(&grafo);
-    scanf("%*[^\n]");
-    getchar();
-    printf("Existe aresta V1 -- V2:");
-    scanf("%d*[^\n]", &TEMP);
-    scanf("%d*[^\n]", &TEMP1);
-
-
-    getchar();
-    V1 = TEMP;
-    V2 = TEMP1;
-    if (ExisteAresta(V1, V2, &grafo))
-    {
-        printf(" Sim\n");
-    }
-    else
-    {
-        printf(" Nao\n");
-    }
-    
-    LiberaGrafo(&grafo);   // Imprime sujeira normalmente
-    ImprimeGrafo(&grafo);
-    return 0;
 }
-*/
