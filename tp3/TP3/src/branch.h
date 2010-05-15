@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   branch.h
  * Author: thompson
  *
@@ -9,7 +9,8 @@
 #define	_BRANCH_H
 
 #include "grafo.h"
+#include "tentativa.h"
 
+int coloreBranch(Grafo *grafo, long long *tentativas);
 
 #endif	/* _BRANCH_H */
-

@@ -27,4 +27,3 @@ char* proxPalavra(char *buffer);
 void saveFile(char *nome_arquivo, char *string);
 
 #endif	/* _FILE_H */
-

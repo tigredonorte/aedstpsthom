@@ -1,69 +1,49 @@
 #include "branch.h"
 
-void coloreBranch(Grafo *grafo)
+int coloreBranch(Grafo *grafo, long long *tentativas)
 {
-    int grau = calculaGrauGrafo(grafo);
-    int VSize = getNumVertices(grafo);
-    int maxCores = grau + 1;
-    int numCores = maxCores;
+    //guardara o numero de cores calculado no momento, o numero total de cores e o numero de cores a tentar no momento
+    int cor, cores;
+    int NArestas = getNumArestas(grafo);
 
-    //se o grafo nao tem arestas, o numero de cores e 1
-    if(grau == 0) numCores = 1;
-
-    //se o grafo so possui arestas ligando dois a dois
-    if(grau == 1) numCores = 2;
-
-    int i, j;
-
-    //tentara de 2 a maxCores cores nos vertices
-    for(i = 2; i <= maxCores; i++)
+    //se nao possui arestas, so pode haver uma cor para o grafo
+    if(NArestas == 0)
     {
-        for(j = 0; j < VSize; j++)
-        {
+        cor = 1;
+        return cor;
+    }
 
+    //se o maior grau de uma aresta eh 2, so podem existir duas cores no grafo
+    cores = calculaGrauGrafo(grafo);
+    if(cores == 1)
+    {
+        return cores;
+    }
+    if(cores == 2)
+    {
+        return cores;
+    }
+    cores++;
+
+    int size = getNumVertices(grafo);
+    long long fat = fatorial(size); //calcula o fatorial do numero de vertices do grafo
+    long long k = 0;                //k-ezima permutacao
+    int *ordem = malloc(sizeof(int) * size); //vetor de permutacao
+    long long tent = 0;
+    (*tentativas) = 0;
+
+    for(k = 0; k < fat; k++)
+    {
+        cor = 0;
+        descoloreGrafo(grafo);
+        ordem = Factoradic(size, k);
+        cor = coloreGulosoTentativa(grafo, cores, ordem, &tent);
+        (*tentativas) += tent;
+        if(cores > cor)
+        {
+            cores = cor;
         }
     }
-}
-
-void colore(Grafo *grafo, int *VCores, int k, int i)
-{
-    int vSize = getNumVertices(grafo);
-    if(i == vSize)
-    {
-        return;
-    }
-
-    int *vAux = (int*)malloc(sizeof(int) * vSize);
-    int j;
-
-    //zera o vetor
-    for(j = 0; j < vSize; j++)
-    {
-        vAux[i] = 0;
-    }
-
-    //se uma cor nao pode ser usada para o vertice atual (vertice i)
-    PLista aux = getPrimeiroLista(grafo, i);
-    while(aux != NULL)
-    {
-        //insere na fila todas as cores dos vizinhos
-        int vVer = getValorVertice(aux);
-        int corVertice = getCorVertice(grafo, vVer);
-        if(corVertice != 0)
-        {
-            vAux[corVertice] = 1;
-        }
-        aux = aux->Prox;
-    }
-
-    for(j = 0; j < vSize; j++)
-    {
-        int n = 0;
-        while(vAux[n] == 1 || n < vSize)
-        {
-            n++;
-        }
-        VCores[i] = n+1;
-        colore(grafo, VCores, k, i+1);
-    }
+    free(ordem);
+    return cores;
 }

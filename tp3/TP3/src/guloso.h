@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   guloso.h
  * Author: thompson
  *
@@ -13,7 +13,6 @@
 #include "grafo.h"
 
 //colore o grafo pela euristica gulosa
-int coloreGuloso(Grafo *grafo, int maxCores);
+int coloreGuloso(Grafo *grafo, long long *tentativas);
 
 #endif	/* _GULOSO_H */
-
