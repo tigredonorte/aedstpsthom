@@ -25,32 +25,37 @@ void insereArvoreTentativa(Arvore *ar, Hash *hash)
     double melhorArvore = -1;
 
     int nFat = fatorial(size);
+
+    double pop;
+
+    itemH *vPermutado = malloc(size * sizeof(itemH));
+
+    Arvore aTemp;
+    InicializaArvore(&aTemp);
+    Registro x;
+    char **vString = malloc(sizeof(char*) * size);
+    double pesoArvore;
+    int numeroNos;
+    int id;
     //fara n! permutacoes, cada permutacao eh realizada pela permutacaoN
     for (i = 0; i < nFat; i++)
     {
-        itemH *vPermutado;
         permutacaoN(vetor,&vPermutado, size, i);
         
-        //cria uma arvore
-        Arvore aTemp;
-        InicializaArvore(&aTemp);
-
         //insere os elementos na arvore
         for(j = 0; j < size; j++)
         {
-            Registro x;
             InicializaRegistro(&x, vPermutado[j].chave);
             InsereArvore(&aTemp, x);
         }
-        char **vString = malloc(sizeof(char*) * size);
-        int numeroNos = 0;
+        numeroNos = 0;
         criaVetorProfundidadeArvore(&aTemp, &vString, &vProfundidade, &numeroNos);
         //PrintArvore(&aTemp);
-        double pesoArvore = 0;
+        pesoArvore = 0;
         for(j = 0; j < size; j++)
         {
-            int id = PesquisaHash(hash, vString[j]);
-            double pop = getPopularidade(hash, id);
+            id = PesquisaHash(hash, vString[j]);
+            pop = getPopularidade(hash, id);
             pesoArvore += pop * vProfundidade[j];
         }
         if(melhorArvore > pesoArvore || melhorArvore == -1)
@@ -74,11 +79,10 @@ int fatorial(int n)
 
 void permutacaoN(itemH *vSrc, itemH **vDst, int size, int k)
 {
-    (*vDst) = malloc(size * sizeof(itemH));
     int i, j;
 
     //procura a k-esima permutaçao de um vetor qualquer
-    int factoradic[size];
+    int *factoradic = malloc(sizeof(int) * size);
     for (j = 1; j <= size; j++)
     {
         factoradic[size - j] = k % j;
@@ -86,8 +90,8 @@ void permutacaoN(itemH *vSrc, itemH **vDst, int size, int k)
     }
 
     //converte o fatoradic em uma chave numerica para calcular o elemento a ser realmente permutado
-    int temp[size];
-    int perm[size];
+    int *temp = malloc(sizeof(int) * size);
+    int *perm = malloc(sizeof(int) * size);
     for(i = 0; i < size; i++)
     {
         temp[i] = ++factoradic[i];
@@ -119,7 +123,12 @@ void permutacaoN(itemH *vSrc, itemH **vDst, int size, int k)
     //permuta o vetor fonte para o vetor destino
     for (i = 0; i < size; ++i)
     {
+        printf("%d ", perm[i]);
         (*vDst)[i] = vSrc[perm[i]];
     }
-}
+    printf("\n");
 
+    free(perm);
+    free(temp);
+    free(factoradic);
+}
