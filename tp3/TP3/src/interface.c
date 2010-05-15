@@ -11,21 +11,40 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
         exit(EXIT_FAILURE);
     }
 
-    int NVertices = atoi(Buffer[0]);
-    int NArestas = atoi(Buffer[1]);
-
-    inicializaGrafo(grafo, NArestas, NVertices);
-
-    int i, V1, V2;;
-    for(i = 2; i < size - 1; i = i+2)
+    int i, V1, V2, NVertices, NArestas;
+    for(i = 0; i < size; i = i+3)
     {
-        V1 = atoi(Buffer[i]);
-        V2 = atoi(Buffer[i+1]);
-
-        //todas as arestas terao uma unidade a menos (facilita busca em vetor)
-        V1--;
-        V2--;
-        InsereAresta(grafo, V1, V2);
+        if(strcmp(Buffer[i], "p") == 0)
+        {
+            if(strcmp(Buffer[i+1], "p") != 0 && strcmp(Buffer[i+1], "e"))
+            {
+                if(strcmp(Buffer[i+2], "p") != 0 && strcmp(Buffer[i+2], "e"))
+                {
+                    NVertices = atoi(Buffer[i+1]);
+                    NArestas = atoi(Buffer[i+2]);
+                    inicializaGrafo(grafo, NArestas, NVertices);
+                }
+                
+            }
+        }
+        else
+        {
+            if(strcmp(Buffer[i], "e") == 0)
+            {
+                if(strcmp(Buffer[i+1], "p") != 0 && strcmp(Buffer[i+1], "e"))
+                {
+                    if(strcmp(Buffer[i+2], "p") != 0 && strcmp(Buffer[i+2], "e"))
+                    {
+                        V1 = atoi(Buffer[i+1]);
+                        V2 = atoi(Buffer[i+2]);
+                        //todas as arestas terao uma unidade a menos (facilita busca em vetor)
+                        V1--;
+                        V2--;
+                        InsereAresta(grafo, V1, V2);
+                    }
+                }
+            }
+        }
     }
 }
 

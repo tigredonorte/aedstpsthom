@@ -14,6 +14,7 @@
 #include "grafo.h"
 #include "file.h"
 #include <getopt.h>
+#include <string.h>
 
 //retorna o tempo atual
 double getTime();
