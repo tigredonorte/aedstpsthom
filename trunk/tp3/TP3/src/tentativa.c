@@ -1,27 +1,25 @@
-
-#include "grafo.h"
-
 #include "tentativa.h"
 
-int coloreTentativa(Grafo *grafo)
+int coloreTentativa(Grafo *grafo, long long *tentativas)
 {
     int size = getNumVertices(grafo);
-    int grau = calculaGrauGrafo(grafo);
     long long fat = fatorial(size);
-    int cores = grau + 1;
-    int cor;
-
-    Grafo *grafoDst = malloc(sizeof(Grafo));
-    inicializaGrafo(grafoDst, getNumArestas(grafo), size);
     long long k = 0;
-    
+    long long tent = 0;
+    int cores = size;
+    int cor;
+    int *ordem = malloc(sizeof(int) * size);
+
     for(k = 0; k < fat; k++)
     {
-        copiaGrafo(grafo, grafoDst);
-        Factoradic(grafo, &grafoDst, size, k);
-        
-        cor = coloreGuloso(grafo, cores);
-        if(cor < cores)
+        cor = 0;
+        tent = 0;
+
+        descoloreGrafo(grafo);
+        ordem = Factoradic(size, k);
+        cor = coloreGulosoTentativa(grafo, size, ordem, &tent);
+        (*tentativas) += tent;
+        if(cores > cor)
         {
             cores = cor;
         }
@@ -41,7 +39,7 @@ long long fatorial(int n)
     return fat;
 }
 
-void Factoradic(Grafo *grafoSrc, Grafo **grafoDst, int size, long long k)
+int* Factoradic(int size, long long k)
 {
     int i, j;
 
@@ -82,14 +80,79 @@ void Factoradic(Grafo *grafoSrc, Grafo **grafoDst, int size, long long k)
     for (i = 0; i < size; ++i)
     {
         perm[i]--;
+        temp[i] = perm[i];
     }
 
-    //permuta o vetor fonte para o vetor destino
-    for (i = 0; i < size; ++i)
-    {
-        (*grafoDst)->Adj[i] = grafoSrc->Adj[perm[i]];
-    }
-    free(perm);
-    free(temp);
     free(factoradic);
+    free(temp);
+    return(perm);
+}
+
+
+int coloreGulosoTentativa(Grafo *grafo, int maxCores, int *ordem, long long *tentativas)
+{
+    int nCores = 0;
+    int grau = calculaGrauGrafo(grafo);
+    int size = getNumVertices(grafo);
+    int *vAux = (int*)malloc(sizeof(int) * size + 1);
+    int nVertices = getNumVertices(grafo);
+    int i, j, vVer, corVertice, cor, encontrou;
+
+    PLista aux;
+    grau++; //o maior numero de cores eh o grau do grafo + 1
+
+    //varrera todos os vertices
+    for(i = 0; i < nVertices; i++)
+    {
+        //zera o vetor auxiliar, que ira conter as cores ja preenchidas
+        for(j = 0; j < grau; j++)
+        {
+            vAux[j] = 0;
+        }
+
+        //varrera as arestas do vertice i
+        aux = getPrimeiroLista(grafo, ordem[i]);
+        while(aux != NULL)
+        {
+            //insere no vetor todas as cores dos vizinhos ja preenchidas
+            vVer = getValorVertice(aux);
+            corVertice = getCorVertice(grafo, vVer);
+            if(corVertice != 0)
+            {
+                vAux[corVertice] = 1;
+            }
+            aux = aux->Prox;
+        }
+        cor = 1;
+        encontrou = 0;
+        for(j = 1; j <= grau && !encontrou; j++)
+        {
+            //a cada iteracao ele tenta uma nova cor
+            (*tentativas)++;
+
+            //procura pela menor cor nao usada
+            if(vAux[j] == 0)
+            {
+                cor = j;
+                encontrou = 1;
+            }
+        }
+
+        //se ultrapassou o limite de cores a serem usadas
+        if(cor > maxCores)
+        {
+            return nCores;
+        }
+
+        //guarda o maior numero de cores
+        if(nCores < cor)
+        {
+            nCores = cor;
+        }
+        //encontrou uma cor satisfatoria, entao colore
+        setCorVertice(grafo, ordem[i], cor);
+    }
+    free(aux);
+    free(vAux);
+    return(nCores);
 }

@@ -13,8 +13,6 @@
                    displayName="Arquivos de recurso"
                    projectFiles="true">
     </logicalFolder>
-    <logicalFolder name="src" displayName="src" projectFiles="true">
-    </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Arquivos importantes"
                    projectFiles="false">
@@ -28,6 +26,8 @@
     <itemPath>TP3/src/grafo.h</itemPath>
     <itemPath>TP3/src/guloso.c</itemPath>
     <itemPath>TP3/src/guloso.h</itemPath>
+    <itemPath>TP3/src/interface.c</itemPath>
+    <itemPath>TP3/src/interface.h</itemPath>
     <itemPath>TP3/src/main.c</itemPath>
     <itemPath>TP3/src/tentativa.c</itemPath>
     <itemPath>TP3/src/tentativa.h</itemPath>
@@ -71,6 +71,12 @@
         <itemTool>0</itemTool>
       </item>
       <item path="TP3/src/guloso.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP3/src/interface.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/interface.h">
         <itemTool>3</itemTool>
       </item>
       <item path="TP3/src/main.c">
@@ -126,6 +132,12 @@
         <itemTool>0</itemTool>
       </item>
       <item path="TP3/src/guloso.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP3/src/interface.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP3/src/interface.h">
         <itemTool>3</itemTool>
       </item>
       <item path="TP3/src/main.c">

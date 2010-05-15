@@ -37,7 +37,7 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
      */
     rewind( arquivo );//coloca o ponteiro no inicio do arquivo
     char *buff = NULL;
-    
+
     // aloca memória para conteúdo do arquivo
     buff = malloc( sizeof(char) *tamArquivo);
     if (buff == NULL)

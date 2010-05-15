@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   grafo.h
  * Author: thompson
  *
@@ -32,18 +32,13 @@ typedef struct Lista_str
 typedef struct Grafo_str
 {
     Lista *Adj;
-    int maxArestas;
     int NumVertices;
     int NumArestas;
-    int NumCores;
 }Grafo;
 
 /*
  *  Lista
  */
-
-//imprime uma lista encadeada
-void ImprimeLista(Lista lista);
 
 //insere um item na lista
 void Insere(LItem *x, Lista *lista);
@@ -54,28 +49,19 @@ short Vazia(Lista lista);
 //esvazia uma lista
 void FLVazia(Lista *lista);
 
+
 /*
  *  Grafo
  */
 
-//funcao de exemplo
-int fazTudo();
-
-//imprime o grafo
-void ImprimeGrafo(Grafo *grafo);
-
-//desaloca um grafo passado por parametro
-void LiberaGrafo(Grafo *Grafo);
-
-
-//insere uma nova aresta
-void InsereAresta(Grafo *grafo, int V1, int V2);
+/*inicializa um novo grafo*/
+void inicializaGrafo(Grafo *grafo, int nArestas, int nVertices);
 
 //esvazia um grafo
 void FGVazio(Grafo *grafo);
 
-/*inicializa um novo grafo*/
-void inicializaGrafo(Grafo *grafo, int nArestas, int nVertices);
+//insere uma nova aresta
+void InsereAresta(Grafo *grafo, int V1, int V2);
 
 //retorna o numero de vertices do grafo
 int getNumVertices(Grafo *grafo);
@@ -98,7 +84,7 @@ int getNumArestas(Grafo *grafo);
 //retorna o valor do vertice do item passado por parametro
 int getValorVertice(PLista p);
 
-//copia o grafo fonte no grafo destino
-void copiaGrafo(Grafo *grafoSrc, Grafo *grafoDst);
+//remove as cores do grafo
+void descoloreGrafo(Grafo *grafo);
 
 #endif	/* _GRAFO_H */
