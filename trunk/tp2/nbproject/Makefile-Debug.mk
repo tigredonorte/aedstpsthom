@@ -27,17 +27,10 @@ include Makefile
 OBJECTDIR=build/Debug/${PLATFORM}
 
 # Object Files
-OBJECTFILES= \
-	${OBJECTDIR}/arvore.o \
-	${OBJECTDIR}/file.o \
-	${OBJECTDIR}/dinamica.o \
-	${OBJECTDIR}/hashaberto.o \
-	${OBJECTDIR}/guloso.o \
-	${OBJECTDIR}/tentativa.o \
-	${OBJECTDIR}/main.o
+OBJECTFILES=
 
 # C Compiler Flags
-CFLAGS=-Wall -g -lm
+CFLAGS=
 
 # CC Compiler Flags
 CCFLAGS=
@@ -56,41 +49,6 @@ LDLIBSOPTIONS=
 dist/Debug/${PLATFORM}/tp2: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/${PLATFORM}
 	${LINK.c} -o dist/Debug/${PLATFORM}/tp2 ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/arvore.o: arvore.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/arvore.o arvore.c
-
-${OBJECTDIR}/file.o: file.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/file.o file.c
-
-${OBJECTDIR}/dinamica.o: dinamica.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/dinamica.o dinamica.c
-
-${OBJECTDIR}/hashaberto.o: hashaberto.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/hashaberto.o hashaberto.c
-
-${OBJECTDIR}/guloso.o: guloso.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/guloso.o guloso.c
-
-${OBJECTDIR}/tentativa.o: tentativa.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/tentativa.o tentativa.c
-
-${OBJECTDIR}/main.o: main.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
 
 # Subprojects
 .build-subprojects:
