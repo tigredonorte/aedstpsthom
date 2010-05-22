@@ -15,7 +15,7 @@
 int coloreTentativa(Grafo *grafo, long long *tentativas);
 
 //calcula a k-ezima permutaçao do vSrc e coloca no vDst
-int* Factoradic(int size, long long k);
+void Factoradic(int size, long long k, int **permut);
 
 //calcula o fatorial de n
 long long fatorial(int n);

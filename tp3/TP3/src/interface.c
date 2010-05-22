@@ -12,46 +12,60 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
     }
 
     int i, V1, V2, NVertices, NArestas;
-    for(i = 0; i < size; i = i+3)
+    short inicializou = 0;
+    i = 0;
+
+    while(!inicializou)
     {
-        if(strcmp(Buffer[i], "p") == 0)
+        while(strcmp(Buffer[i], "p") != 0 && i < size)
         {
-            if(strcmp(Buffer[i+1], "p") != 0 && strcmp(Buffer[i+1], "e"))
-            {
-                if(strcmp(Buffer[i+2], "p") != 0 && strcmp(Buffer[i+2], "e"))
-                {
-                    NVertices = atoi(Buffer[i+1]);
-                    NArestas = atoi(Buffer[i+2]);
-                    inicializaGrafo(grafo, NArestas, NVertices);
-                }
-                
-            }
+            free(Buffer[i]);
+            i++;
+        }
+
+        if(strcmp(Buffer[i], "p") == 0 && strcmp(Buffer[i+1], "edge") == 0)
+        {
+            NVertices = atoi(Buffer[i+2]);
+            NArestas = atoi(Buffer[i+3]);
+            inicializaGrafo(grafo, NArestas, NVertices);
+            free(Buffer[i]);
+            free(Buffer[i+1]);
+            free(Buffer[i+2]);
+            free(Buffer[i+3]);
+            i += 4;
+            inicializou = 1;
         }
         else
         {
-            if(strcmp(Buffer[i], "e") == 0)
-            {
-                if(strcmp(Buffer[i+1], "p") != 0 && strcmp(Buffer[i+1], "e"))
-                {
-                    if(strcmp(Buffer[i+2], "p") != 0 && strcmp(Buffer[i+2], "e"))
-                    {
-                        V1 = atoi(Buffer[i+1]);
-                        V2 = atoi(Buffer[i+2]);
-                        //todas as arestas terao uma unidade a menos (facilita busca em vetor)
-                        V1--;
-                        V2--;
-                        InsereAresta(grafo, V1, V2);
-                    }
-                }
-            }
+            i++;
         }
     }
+
+    while(i < size)
+    {
+        while(strcmp(Buffer[i], "e") != 0)
+        {
+            i++;
+        }
+
+        V1 = atoi(Buffer[i+1]);
+        V2 = atoi(Buffer[i+2]);
+        //todas as arestas terao uma unidade a menos (facilita busca em vetor)
+        V1--;
+        V2--;
+        InsereAresta(grafo, V1, V2);
+        free(Buffer[i]);
+        free(Buffer[i+1]);
+        free(Buffer[i+2]);
+        i = i+3;
+    }
+    free(Buffer);
 }
 
 void SalvaSaida(int cor, long long int tentativas, double finalTime, char* saida, char *fileTeste)
 {
     printf("\n\nNumero de cores: %d", cor);
-    printf("\nNumero de tentativas: %lld", tentativas);
+    printf("\nNumero de tentativas: %lld\n\n", tentativas);
 
     char *string = malloc(sizeof(char) * 50);
     sprintf(string, " %d %lld\n", cor, tentativas);
@@ -60,7 +74,7 @@ void SalvaSaida(int cor, long long int tentativas, double finalTime, char* saida
 
     string = malloc(sizeof(char) * 50);
     sprintf(string, " %f\n", finalTime);
-    saveFile(saida, string);
+    saveFile(fileTeste, string);
     free(string);
 }
 void readArgs(int argc, char** argv, char **entrada, char **saida, char **fileTeste, int *algoritmo)

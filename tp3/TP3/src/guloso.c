@@ -9,7 +9,7 @@ int coloreGuloso(Grafo *grafo, long long *tentativas)
     int nVertices = getNumVertices(grafo);
     int i, j, vVer, corVertice, cor, encontrou;
 
-    PLista aux;
+    PLista aux = NULL;
     grau++; //o maior numero de cores eh o grau do grafo + 1
 
     //varrera todos os vertices

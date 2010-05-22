@@ -8,7 +8,8 @@ int coloreTentativa(Grafo *grafo, long long *tentativas)
     long long tent = 0;
     int cores = size;
     int cor;
-    int *ordem = malloc(sizeof(int) * size);
+    int *ordem;
+    ordem = (int*)calloc(size, sizeof(int));
 
     for(k = 0; k < fat; k++)
     {
@@ -16,14 +17,15 @@ int coloreTentativa(Grafo *grafo, long long *tentativas)
         tent = 0;
 
         descoloreGrafo(grafo);
-        ordem = Factoradic(size, k);
+        Factoradic(size, k, &ordem);
         cor = coloreGulosoTentativa(grafo, size, ordem, &tent);
         (*tentativas) += tent;
-        if(cores > cor)
+        if(cores >= cor)
         {
             cores = cor;
         }
     }
+    free(ordem);
     return cores;
 }
 
@@ -39,7 +41,7 @@ long long fatorial(int n)
     return fat;
 }
 
-int* Factoradic(int size, long long k)
+void Factoradic(int size, long long k, int **permut)
 {
     int i, j;
 
@@ -80,12 +82,12 @@ int* Factoradic(int size, long long k)
     for (i = 0; i < size; ++i)
     {
         perm[i]--;
-        temp[i] = perm[i];
+        (*permut)[i] = perm[i];
     }
 
     free(factoradic);
     free(temp);
-    return(perm);
+    free(perm);
 }
 
 
@@ -98,7 +100,7 @@ int coloreGulosoTentativa(Grafo *grafo, int maxCores, int *ordem, long long *ten
     int nVertices = getNumVertices(grafo);
     int i, j, vVer, corVertice, cor, encontrou;
 
-    PLista aux;
+    PLista aux = NULL;
     grau++; //o maior numero de cores eh o grau do grafo + 1
 
     //varrera todos os vertices
