@@ -36,7 +36,7 @@ int coloreBranch(Grafo *grafo, long long *tentativas)
     {
         cor = 0;
         descoloreGrafo(grafo);
-        ordem = Factoradic(size, k);
+        Factoradic(size, k, &ordem);
         cor = coloreGulosoTentativa(grafo, cores, ordem, &tent);
         (*tentativas) += tent;
         if(cores > cor)

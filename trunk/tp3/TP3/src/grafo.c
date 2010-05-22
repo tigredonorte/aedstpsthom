@@ -76,7 +76,7 @@ int calculaGrauGrafo(Grafo *grafo)
     int arestas;
     int maxArestas = 0;
     int i;
-    PLista aux;
+    PLista aux = NULL;
     for(i = 0; i < grafo->NumVertices; i++)
     {
         arestas = 0;

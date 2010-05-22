@@ -36,10 +36,7 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
      *  Descobre tamanho do buffer
      */
     rewind( arquivo );//coloca o ponteiro no inicio do arquivo
-    char *buff = NULL;
-
-    // aloca memória para conteúdo do arquivo
-    buff = malloc( sizeof(char) *tamArquivo);
+    char *buff = malloc( tamArquivo *sizeof(char));
     if (buff == NULL)
     {
         printf("leArquivo: nao ha memoria para alocar arquivo \n");
@@ -64,6 +61,7 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     }
 
     free(buff);
+    free(auxCpy);
     /*
      * Fim descobre tamanho
      */
@@ -89,15 +87,14 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     fclose (arquivo); // fecha arquivo
 
     //aloca um novo buffer
-    char **Buffer;
-    Buffer = calloc( nPalavras, sizeof(char*) );
+    char **Buffer = (char**)calloc( nPalavras, sizeof(char*) );
 
     //copia o conteudo do primeiro buffer para o segundo
     char *aux = strtok(buffer, IGNORA_CHAR);
     int i = 0;
     while(aux)
     {
-        Buffer[i] = calloc( strlen(aux), sizeof(char*) );
+        Buffer[i] = (char*)calloc( strlen(aux), sizeof(char) );
         strcpy(Buffer[i], aux);
         i++;
         aux = strtok(NULL, IGNORA_CHAR);
@@ -111,8 +108,9 @@ void saveFile(char *nome_arquivo, char *string)
 {
     FILE *arquivo; // arquivo lido
 
-    // abre o arquivo de entrada se ele ja existir
+    //abre o arquivo de entrada se ele ja existir
     arquivo = fopen (nome_arquivo , "a");
+    
     if (arquivo == NULL)
     {
         printf("saveFile: arquivo %s nao encontrado. \n", nome_arquivo);
