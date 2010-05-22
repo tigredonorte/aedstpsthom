@@ -18,6 +18,7 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>TP4/src/main.c</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -33,6 +34,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP4/src/main.c">
+        <itemTool>0</itemTool>
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -55,6 +59,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP4/src/main.c">
+        <itemTool>0</itemTool>
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
