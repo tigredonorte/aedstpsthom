@@ -1,6 +1,6 @@
 #include "tentativa.h"
 
-int findCliques(int** connected, int size)
+int encontraCliquesTentativa(int** connected, int size)
 {
     //int numCliques = 0;
 
