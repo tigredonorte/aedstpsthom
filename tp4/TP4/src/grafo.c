@@ -4,7 +4,7 @@ void inicializaGrafo(Grafo *grafo, double tempoT, int NVertices)
 {
     grafo->NumVertices = NVertices;
     grafo->tempo = tempoT;
-    grafo->Mat = (int**)malloc(sizeof(int*) * NVertices);
+    grafo->Mat = malloc(sizeof(int*) * NVertices);
     
     int i = 0;
     for(i = 0; i < NVertices; i++)
@@ -62,7 +62,7 @@ short ListaAdjVazia(Grafo *Grafo, int *Vertice)
 
 Apontador PrimeiroListaAdj(Grafo *Grafo, int *Vertice)
 {
-    int Result;
+    int Result = 0;
     Apontador Aux = 0;
     short ListaVazia = 1;
 

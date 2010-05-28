@@ -24,6 +24,8 @@
     <itemPath>TP4/src/gen_data.h</itemPath>
     <itemPath>TP4/src/grafo.c</itemPath>
     <itemPath>TP4/src/grafo.h</itemPath>
+    <itemPath>TP4/src/heuristica.c</itemPath>
+    <itemPath>TP4/src/heuristica.h</itemPath>
     <itemPath>TP4/src/interface.c</itemPath>
     <itemPath>TP4/src/interface.h</itemPath>
     <itemPath>TP4/src/main.c</itemPath>
@@ -63,6 +65,12 @@
         <itemTool>0</itemTool>
       </item>
       <item path="TP4/src/grafo.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP4/src/heuristica.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP4/src/heuristica.h">
         <itemTool>3</itemTool>
       </item>
       <item path="TP4/src/interface.c">
@@ -118,6 +126,12 @@
         <itemTool>0</itemTool>
       </item>
       <item path="TP4/src/grafo.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP4/src/heuristica.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP4/src/heuristica.h">
         <itemTool>3</itemTool>
       </item>
       <item path="TP4/src/interface.c">

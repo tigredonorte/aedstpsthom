@@ -26,7 +26,7 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
     //operacoes com o grafo de empresas
     inicializaGrafo(&grafoEmp, tempoT, NEmp);
     FGVazio(&grafoEmp);
-    MontaGrafoEmpresas(&grafoEmp, Buffer, NEmp, &i);
+    MontaGrafoEmpresas(&grafoEmp, Buffer, NEmp, &i, size);
     GrafoComplementar(&grafoEmp);
 
     //adiciona os experimentos que podem ser feitos simultaneamente
@@ -41,7 +41,7 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
     LiberaGrafo(&grafoEmp);
 }
 
-void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id)
+void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id, int size)
 {
     int V1, V2, i;
     int n = 0;
@@ -50,16 +50,15 @@ void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id)
     //enquanto existir alguma empresa
     while(n < NEmp)
     {
-        while(strcmp(Buffer[i], "\ne") == 0)
+        while(strcmp(Buffer[i], "e") == 0)
         {
             i++;
         }
 
-        V1 = atoi(strtok(Buffer[i], "\n"));
-        free(Buffer[i]);
+        V1 = atoi(Buffer[i]);
         i++;
         //adiciona arestas a V1 enquanto nao mudar de linha
-        while(strcmp(Buffer[i], "\ne") != 0 && strcmp(Buffer[i], "f") != 0)
+        while(strcmp(Buffer[i], "e") != 0 && i < (size - 1))
         {
             V2 = atoi(Buffer[i]);
             InsereAresta(grafo, V1, V2);
@@ -80,7 +79,7 @@ void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id)
     //enquanto existir algum experimento
     while(q < NExp)
     {
-        while(strcmp(Buffer[i], "\ne") == 0)
+        while(strcmp(Buffer[i], "e") == 0)
         {
             i++;
         }
@@ -103,26 +102,31 @@ void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id)
     (*id) = i;
 }
 
-void SalvaSaida(long long int configuracoes, double lucro, double tempoGasto, int nExperimentos, char **experimento, char* saida, char *fileTeste)
+void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste)
 {
     printf("\n\n%lld", configuracoes);
     printf("\n%f %f\n", lucro, tempoGasto);
 
     int i;
-    for(i = 0; i < nExperimentos; i++)
+    for(i = 0; i < size; i++)
     {
-        printf("%s ", experimento[i]);
+        printf("Exp%d ", experimento[i]);
     }
 
     char *string = malloc(sizeof(char) * 50);
     sprintf(string, "%lld \n%f %f\n", configuracoes, lucro, tempoGasto);
     saveFile(saida, string);
+    free(string);
 
-    for(i = 0; i < nExperimentos; i++)
+    string = malloc(sizeof(char) * 5);
+    for(i = 0; i < size; i++)
     {
-        saveFile(saida, experimento[i]);
+
+        sprintf(string, "Exp%d ", experimento[i]);
+        saveFile(saida, string);
     }
     free(string);
+    
 
     string = malloc(sizeof(char) * 50);
     sprintf(string, " %f\n", tempoGasto);

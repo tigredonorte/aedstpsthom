@@ -11,5 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int encontraCliquesTentativa(int** connected, int size);
+
 #endif	/* _TENTATIVA_H */
 

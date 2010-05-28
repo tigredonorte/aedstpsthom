@@ -9,17 +9,20 @@
 #include "grafo.h"
 #include "interface.h"
 #include "gen_data.h"
+#include "heuristica.h"
+#include "tentativa.h"
 
 
 int main(int argc, char** argv)
 {
     //argumentos de entrada do algoritmo
-    char *entrada; //arquivo de entrada
-    char *saida; //arquivo de saida
-    char *fileTeste; //arquivo de saida
+    char *entrada = NULL; //arquivo de entrada
+    char *saida = NULL; //arquivo de saida
+    char *fileTeste = NULL; //arquivo de saida
     int algoritmo = 1; //qual o algoritmo que sera escolhido
     readArgs(argc, argv, &entrada, &saida, &fileTeste, &algoritmo);
 
+    //gera o arquivo de entrada com os parametros definidos
     uint numEmpresas = 3;
     uint numExperimentos = 5;
     double probabilidade = 0.5;
@@ -29,25 +32,30 @@ int main(int argc, char** argv)
     Grafo grafo; 
     setEntradaGrafo(&grafo, entrada);
 
-/*
-    double iniTime, finalTime; //responsavel pela estatistica de tempo
+    //responsavel pela estatistica de tempo
+    double iniTime = getTime();
 
+    //variaveis de saida
+    int configuracoes = 0;
+    double lucro = 0;
+    int *experimentos = NULL;
+    int nExp = 0;
+    
     //escolhe entre os tres algoritmos
-    iniTime = getTime();
     switch(algoritmo)
     {
         case TENTATIVA:
-                    //coloreTentativa(&grafo, &tentativas);
+                    encontraCliquesTentativa(&grafo.Mat, &grafo.NumVertices);
                     break;
         case HEURISTICA:
-                    //coloreBranch(&grafo, &tentativas);
+                    encontraCliquesHeuristica(&grafo.Mat, &grafo.NumVertices);
                     break;
         default:
             printf("nao existe o algoritmo com id %d, por favor consulte o arquivo leiame.txt", algoritmo);
     }
-    finalTime = (getTime() - iniTime);
-*/
+    double tempoGasto = (getTime() - iniTime);
+    
     //salva os valores importantes no arquivo e imprime os resultados na tela
-    //SalvaSaida(cor, tentativas, finalTime, saida, fileTeste);
+    SalvaSaida(saida, configuracoes, lucro, tempoGasto, nExp, experimentos, fileTeste);
     return (EXIT_SUCCESS);
 }
