@@ -2,6 +2,7 @@
 
 void setEntradaGrafo(Grafo *grafo, char *entrada)
 {
+    Grafo grafoEmp;
     char **Buffer;
     int i = 0;
     int size;
@@ -12,53 +13,94 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
         exit(EXIT_FAILURE);
     }
 
-    int tempoT = atoi(Buffer[0]);
+    double tempoT = atoi(Buffer[0]);
     int NEmp = atoi(Buffer[1]);
     int NExp = atoi(Buffer[2]);
     i = 3;
-    inicializaGrafo(grafo, tempoT, NEmp);
 
+    //operacoes com o grafo de experimentos
+    inicializaGrafo(grafo, tempoT, NExp);
+    FGVazio(grafo);
+    MontaGrafoExperimentos(grafo, Buffer, NExp, &i);
+
+    //operacoes com o grafo de empresas
+    inicializaGrafo(&grafoEmp, tempoT, NEmp);
+    FGVazio(&grafoEmp);
+    MontaGrafoEmpresas(&grafoEmp, Buffer, NEmp, &i);
+    GrafoComplementar(&grafoEmp);
+
+    //adiciona os experimentos que podem ser feitos simultaneamente
+    GrafoMergeRelacoes(grafo, &grafoEmp);
     
-    int empresa, tempo, lucro, n;
-    n = 0;
+    printf("\nGrafo de experimentos\n\n");
+    ImprimeGrafo(grafo);
+    printf("\nGrafo de empresas\n\n");
+    ImprimeGrafo(&grafoEmp);
 
-    //enquanto existir algum experimento
-    while(i < NExp)
+    //LiberaBuffer(Buffer, size);
+    LiberaGrafo(&grafoEmp);
+}
+
+void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id)
+{
+    int V1, V2, i;
+    int n = 0;
+    i = (*id);
+
+    //enquanto existir alguma empresa
+    while(n < NEmp)
     {
-        //se for o caractere de fim de linha ele nao interessa
-        while(strcmp(Buffer[i], "\n") == 0)
+        while(strcmp(Buffer[i], "\ne") == 0)
         {
             i++;
         }
 
-        empresa = atoi(Buffer[i+1]);
-        lucro = atoi(Buffer[i+2]);
-        tempo = atoi(Buffer[i+3]);
-        adicionaExperimento(grafo, empresa, lucro, tempo, Buffer[i]);
-        free(Buffer[i]); free(Buffer[i+1]); free(Buffer[i+2]); free(Buffer[i+3]);
-        i += 4;
-        n++;
-    }
-
-    int V1, V2;
-    n = 0;
-    //enquanto existir alguma empresa
-    while(n < NEmp)
-    {
-        V1 = atoi(Buffer[i]); V1--;
+        V1 = atoi(strtok(Buffer[i], "\n"));
         free(Buffer[i]);
-
+        i++;
         //adiciona arestas a V1 enquanto nao mudar de linha
-        do
+        while(strcmp(Buffer[i], "\ne") != 0 && strcmp(Buffer[i], "f") != 0)
         {
-            V2 = atoi(Buffer[i]); V2--;
-            free(Buffer[i]);
-            InsereAresta(grafo, &V1, &V2);
+            V2 = atoi(Buffer[i]);
+            InsereAresta(grafo, V1, V2);
             i++;
-        }while(strcmp(Buffer[i], "\n") != 0);
+        }
         n++;
     }
-    free(Buffer);
+    (*id) = i;
+}
+
+void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id)
+{
+    int empresa, experimento, i;
+    double tempo, lucro;
+
+    i = (*id);
+    int q = 0; //quantidade de experimentos ja adicionados
+    //enquanto existir algum experimento
+    while(q < NExp)
+    {
+        while(strcmp(Buffer[i], "\ne") == 0)
+        {
+            i++;
+        }
+
+        //leitura dos dados do arquivo
+        experimento = atoi(Buffer[i]);
+        empresa = atoi(Buffer[i+1]);
+        lucro = atof(Buffer[i+2]);
+        tempo = atof(Buffer[i+3]);
+
+        //insercao dos dados na estrutura
+        InsereAresta(grafo, experimento, experimento);
+        insereExperimento(grafo, experimento, empresa, lucro, tempo);
+
+        //incrementa id do buffer e quantidade de experimentos
+        i += 4;
+        q++;
+    }
+
+    (*id) = i;
 }
 
 void SalvaSaida(long long int configuracoes, double lucro, double tempoGasto, int nExperimentos, char **experimento, char* saida, char *fileTeste)

@@ -16,7 +16,7 @@
 #include <getopt.h>
 #include <string.h>
 
-#define BRANCH  1
+#define TENTATIVA  1
 #define HEURISTICA  2
 
 //retorna o tempo atual
@@ -30,5 +30,11 @@ void readArgs(int argc, char** argv, char **entrada, char **saida, char **fileTe
 
 //cria o grafo e salva o arquivo de entrada no mesmo
 void setEntradaGrafo(Grafo *grafo, char *entrada);
+
+//cria um grafo com as empresas
+void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id);
+
+//cria um grafo de experimentos
+void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id);
 
 #endif	/* _INTERFACE_H */
