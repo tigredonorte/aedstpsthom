@@ -15,7 +15,7 @@
 #include <ctype.h>
 
 //Caracteres a serem ignorados caso aparecam no texto
-#define IGNORA_CHAR " !@#$&%*()_+{}´`'][~;:/?,|'*-/+\"\t\0"
+#define IGNORA_CHAR " !@#$&%*()_+{}´`'][~;:/?,|'*-/+\t\0"
 
 /* lê arquivo da lista e retorna uma string que contem o conteudo do mesmo*/
 char** leArquivo(char *nomeArquivo, int *numPalavras);
@@ -25,5 +25,8 @@ char* proxPalavra(char *buffer);
 
 /*salva uma string no arquivo passado como parametro*/
 void saveFile(char *nome_arquivo, char *string);
+
+//destroi um buffer criado
+void LiberaBuffer(char **Buffer, int size);
 
 #endif	/* _FILE_H */

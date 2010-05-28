@@ -1,25 +1,27 @@
 #include "grafo.h"
 
-void inicializaGrafo(Grafo *grafo, int tempoT, int NEmp)
+void inicializaGrafo(Grafo *grafo, double tempoT, int NVertices)
 {
-    grafo->NumVertices = NEmp;
+    grafo->NumVertices = NVertices;
     grafo->tempo = tempoT;
-    grafo->Mat = (int**)malloc(sizeof(int*) * (NEmp + 1));
+    grafo->Mat = (int**)malloc(sizeof(int*) * NVertices);
     
     int i = 0;
-    for(i = 0; i < NEmp; i++)
+    for(i = 0; i < NVertices; i++)
     {
-        grafo->Mat[i] = (int*)malloc(sizeof(int) * (NEmp + 1));
+        grafo->Mat[i] = (int*)malloc(sizeof(int) * NVertices);
     }
+
+    grafo->Exp = (Experimento*)malloc(sizeof(Experimento) * NVertices);
 }
 
 void FGVazio(Grafo *Grafo)
 {
     short i, j;
 
-    for (i = 0; i <= Grafo->NumVertices; i++)
+    for (i = 0; i < Grafo->NumVertices; i++)
     {
-        for (j = 0; j <=Grafo->NumVertices; j++)
+        for (j = 0; j < Grafo->NumVertices; j++)
         {
             Grafo->Mat[i][j] = 0;
         }
@@ -27,9 +29,9 @@ void FGVazio(Grafo *Grafo)
 }
 
 
-void InsereAresta(Grafo *Grafo, int *V1, int *V2)
+void InsereAresta(Grafo *grafo, int V1, int V2)
 {
-    Grafo->Mat[*V1][*V2] = 1;
+    grafo->Mat[V1][V2] = 1;
 }
 
 
@@ -54,8 +56,8 @@ short ListaAdjVazia(Grafo *Grafo, int *Vertice)
         {
             Aux++;
         }
-        return (ListaVazia == 1);
-    }  /* ListaAdjVazia */
+    }
+    return (ListaVazia == 1);
 }
 
 Apontador PrimeiroListaAdj(Grafo *Grafo, int *Vertice)
@@ -115,18 +117,18 @@ void ImprimeGrafo(Grafo *Grafo)
     short i, j;
 
     printf("   ");
-    for (i = 0; i <= Grafo->NumVertices - 1; i++)
+    for (i = 0; i < Grafo->NumVertices; i++)
     {
         printf("%3d", i);
     }
 
     printf("\n");
 
-    for (i = 0; i <=  Grafo->NumVertices - 1; i++)
+    for (i = 0; i < Grafo->NumVertices; i++)
     {
         printf("%3d", i);
 
-        for (j = 0; j <=Grafo->NumVertices - 1; j++)
+        for (j = 0; j < Grafo->NumVertices; j++)
         {
             printf("%3d", Grafo->Mat[i][j]);
         }
@@ -151,14 +153,65 @@ void GrafoTransposto(Grafo *grafo, Grafo *grafoT)
             while (!FimListaAdj)
             {
                 ProxAdj(grafo, &v, &Adj, &Aux, &FimListaAdj);
-                InsereAresta(grafoT, &Adj, &v);
+                InsereAresta(grafoT, Adj, v);
             }
         }
     }
 }  /* GrafoTransposto */
 
-//cria um novo experimento associado a um vertice do grafo
-void adicionaExperimento(Grafo *grafo, int vertice, int lucro, int tempo, char *nomeExperimento)
+void LiberaGrafo(Grafo *grafo)
 {
+    int i;
+    for(i = 0; i < grafo->NumVertices; i++)
+    {
+        free(grafo->Mat[i]);
+    }
+    free(grafo->Mat);
+    free(grafo->Exp);
+}
 
+void insereExperimento(Grafo *grafo, int experimento, int empresa, double lucro, double tempo)
+{
+    int i = experimento;
+    grafo->Exp[i].experimento = experimento;
+    grafo->Exp[i].empresa = empresa;
+    grafo->Exp[i].lucro = lucro;
+    grafo->Exp[i].tempo = tempo;
+}
+
+void GrafoComplementar(Grafo *grafo)
+{
+    int i, j;
+    for(i = 0; i < grafo->NumVertices; i++)
+    {
+        for(j = 0; j < grafo->NumVertices; j++)
+        {
+            if(grafo->Mat[i][j] == 0)
+            {
+                grafo->Mat[i][j] = 1;
+            }
+            else
+            {
+                grafo->Mat[i][j] = 0;
+            }
+        }
+    }
+}
+
+void GrafoMergeRelacoes(Grafo *grafo, Grafo *grafoEmp)
+{
+    int i, j, k, l;
+    for(i = 0; i < grafo->NumVertices; i++)
+    {
+        k = grafo->Exp[i].empresa;
+        for(j = 0; j < grafo->NumVertices; j++)
+        {
+            l = grafo->Exp[j].empresa;
+            if(grafoEmp->Mat[k][l] == 1 || k == l)
+            {
+                InsereAresta(grafo, i, j);
+                InsereAresta(grafo, j, i);
+            }
+        }
+    }
 }
