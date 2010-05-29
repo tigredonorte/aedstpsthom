@@ -8,7 +8,9 @@
 #ifndef _HEURISTICA_H
 #define	_HEURISTICA_H
 
-int encontraCliquesHeuristica(int** connected, int size);
+#include "grafo.h"
+
+int encontraCliquesHeuristica(Grafo *grafo);
 
 #endif	/* _HEURISTICA_H */
 

@@ -1,6 +1,6 @@
 #include "heuristica.h"
 
-int encontraCliquesHeuristica(int** connected, int size)
+int encontraCliquesHeuristica(Grafo *grafo)
 {
     //int numCliques = 0;
 

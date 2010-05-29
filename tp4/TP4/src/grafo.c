@@ -215,3 +215,8 @@ void GrafoMergeRelacoes(Grafo *grafo, Grafo *grafoEmp)
         }
     }
 }
+
+int getNumVertices(Grafo *grafo)
+{
+    return(grafo->NumVertices);
+}

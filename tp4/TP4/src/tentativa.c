@@ -1,97 +1,87 @@
 #include "tentativa.h"
 
-int encontraCliquesTentativa(int** connected, int size)
+void encontraValorTentativa(Grafo *grafo)
 {
-    //int numCliques = 0;
+    int size = getNumVertices(grafo);
+    Fila fila;
+    esvaziaFila(&fila);
 
-    //return(bronKerbosch(connected, size, &numCliques));
-    return 1;
+    bronKerbosch(grafo->Mat, size, &fila);
+
+    FItem it;
+    int *clique = malloc(sizeof(int) * size);
+    int i;
+    while(!ehVaziaFila(&fila))
+    {
+        retiraFila(&fila, &it);
+        size = it.size;
+        printf("\n");
+        for(i = 0; i < size; i++)
+        {
+            clique[i] = it.clique[i];
+            printf("%d ", clique[i]);
+        }
+    }
 }
 
-/**
- *  Bron Kerbosch algorithm. The input graph is excpected in the form of a
- *  symmetrical boolean matrix connected (here as byte matrix with 0,1). The
- *  values of the diagonal elements must be 1.
- *
- * @param  adjMatrix  Graph adjacency matrix, the diagonal elements must be 1.
- * @return            The number of cliques found
- *
-int bronKerbosch(int** adjMatrix, int size,  int *numCliques)
+void bronKerbosch(int** adjMatrix, int size, Fila *fila)
 {
     int* ALL = malloc(sizeof(int) * size);
+    int* actualMD = malloc(sizeof(int) * size);
+    int* best = malloc(sizeof(int) * size);
+    
 
-    Set actualMD = new Set(adjMatrix.length);
-    Set best = new Set(adjMatrix.length);
-    int c;
-
-    //    cliques.clear();
-    for (c = 0; c < size; c++)
+    int i;
+    for (i = 0; i < size; i++)
     {
-        ALL[c] = c;
+        ALL[i] = i;
+        actualMD[i] = -1;
+        best[i] = -1;
     }
 
-    version2(adjMatrix, ALL, 0, size, actualMD, best);
+    encontraCliquesTentativa(adjMatrix, ALL, 0, size, actualMD, best, &size, &size, fila);
 
-    actualMD = null;
-    ALL = null;
-
-    if ((breakNumCliques > 0) && ((*numCliques) >= breakNumCliques))
-    {
-        return 0;
-    }
-    else
-    {
-        return numberOfCliques();
-    }
+    free(ALL);
+    //free(actualMD);
+    //free(best);
 }
 
 
 
-void version2(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSize, Set actualMD, Set best)
+void encontraCliquesTentativa(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSize, int *actualMD, int *best, int *actualMDSize, int *bestSize, Fila *fila)
 {
-    if ((breakNumCliques > 0) && (numCliques >= breakNumCliques))
-    {
-        return;
-    }
-
-    int[] actualCandidates = new int[oldCandidateSize];
-    int nod;
+    int* actualCandidates = malloc(sizeof(int) * oldCandidateSize);
+    int nod = 0;
     int fixp = 0;
-    int actualCandidateSize;
-    int actualTestedSize;
-    int i;
-    int j;
-    int count;
+    int actualCandidateSize = 0;
+    int actualTestedSize = 0;
+    int i = 0;
+    int j = 0;
+    int count = 0;
     int pos = 0;
-    int p;
+    int p = 0;
     int s = 0;
-    int sel;
-    int index2Tested;
-    boolean fini = false;
-
+    int sel = 0;
+    int index2Tested = 0;
+    int fini = 0;
+    int aux = 0;
     index2Tested = oldCandidateSize;
-    nod = 0;
 
-    // Determine each counter value and look for minimum
-    // Branch and bound step
-    // Is there a node in ND (represented by MD and index2Tested)
-    // which is connected to all nodes in the candidate list CD
-    // we are finished and backtracking will not be enabled
+    //avalia os candidatos a clique ex: se uma coluna tem varios zeros e uns, aquelas que possuem '0' nao sao candidatas a clique
     for (i = 0; (i < oldCandidateSize) && (index2Tested != 0); i++)
     {
         p = oldMD[i];
         count = 0;
 
-        // Count disconnections
-        for (j = oldTestedSize;
-                (j < oldCandidateSize) && (count < index2Tested); j++)
+        //branch: procura pelos candidatos
+        for (j = oldTestedSize; (j < oldCandidateSize) && (count < index2Tested); j++)
         {
-            if (adjMatrix[p][oldMD[j]] == 0)
+            aux = adjMatrix[p][oldMD[j]];
+            if (aux == 0)
             {
-                count++;
-
-                // Save position of potential candidate
+                ///posicao de um possivel candidato
                 pos = j;
+                count++; 
             }
         }
 
@@ -108,8 +98,6 @@ void version2(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSi
             else
             {
                 s = i;
-
-                // preincr
                 nod = 1;
             }
         }
@@ -148,28 +136,49 @@ void version2(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSi
         }
 
         // Add to "actual relevant nodes"
-        actualMD.vertex[actualMD.size++] = sel;
+        actualMD[(*actualMDSize)++] = sel;
 
         // so CD+1 and ND+1 are empty
         if (actualTestedSize == 0)
         {
-            if (best.size < actualMD.size)
+            if ((*bestSize) < (*actualMDSize))
             {
                 // found a max clique
-                Set.clone(actualMD, best);
+                for(i = 0; i < (*bestSize); i++)
+                {
+                    actualMD[i] = best[i];
+                }
             }
 
-            int[] tmpResult = new int[actualMD.size];
-            System.arraycopy(actualMD.vertex, 0, tmpResult, 0, actualMD.size);
-            addClique(tmpResult);
-            numCliques++;
+            int sz = 0;
+            //procura no vetor somente os numeros que interessao (para alocar menor espaco)
+            for(i = 0; i < (*actualMDSize); i++)
+            {
+                if(actualMD[i] > -1)
+                {
+                    sz++;
+                }
+            }
+            //copia o vetor
+            int* tmpResult = malloc(sizeof(int) * sz);
+            int k = 0;
+            for(i = 0; i < (*actualMDSize); i++)
+            {
+                if(actualMD[i] > -1)
+                {
+                    tmpResult[k] = actualMD[i];
+                    k++;
+                }
+            }
+
+            addClique(&tmpResult, sz, fila);
+            free(tmpResult);
         }
         else
         {
             if (actualCandidateSize < actualTestedSize)
             {
-                version2(adjMatrix, actualCandidates, actualCandidateSize,
-                    actualTestedSize, actualMD, best);
+                encontraCliquesTentativa(adjMatrix, actualCandidates, actualCandidateSize, actualTestedSize, actualMD, best, actualMDSize, bestSize, fila);
             }
         }
 
@@ -180,7 +189,7 @@ void version2(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSi
 
         // move node from MD to ND
         // Remove from compsub
-        actualMD.size--;
+        (*actualMDSize)--;
 
         // Add to "nod"
         oldTestedSize++;
@@ -188,14 +197,22 @@ void version2(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSi
         if (nod > 1)
         {
             // Select a candidate disconnected to the fixed point
-            for (s = oldTestedSize; adjMatrix[fixp][oldMD[s]] != 0; s++)
-            {
-            }
+            for (s = oldTestedSize; adjMatrix[fixp][oldMD[s]] != 0; s++){}
         }
 
         // end selection
     }
 
     // Backtrackcycle
-    actualCandidates = null;
-}*//**/
+    //free(actualCandidates);
+}
+
+void addClique(int **clique, int size, Fila *fila)
+{
+    FItem it;
+    inicializaItem(&it, clique, size);
+    insereFila(it, fila);
+}
+
+
+

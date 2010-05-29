@@ -18,6 +18,8 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>TP4/src/fila.c</itemPath>
+    <itemPath>TP4/src/fila.h</itemPath>
     <itemPath>TP4/src/file.c</itemPath>
     <itemPath>TP4/src/file.h</itemPath>
     <itemPath>TP4/src/gen_data.c</itemPath>
@@ -49,6 +51,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP4/src/fila.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP4/src/fila.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP4/src/file.c">
         <itemTool>0</itemTool>
       </item>
@@ -110,6 +118,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP4/src/fila.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP4/src/fila.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP4/src/file.c">
         <itemTool>0</itemTool>
       </item>

@@ -74,4 +74,7 @@ void GrafoComplementar(Grafo *grafo);
 //se uma empresa se relaciona com a outra, os experimentos destas empresas tambem se relacionam
 void GrafoMergeRelacoes(Grafo *grafo, Grafo *grafoEmp);
 
+//retorna o numero de vertices do grafo
+int getNumVertices(Grafo *grafo);
+
 #endif	/* _GRAFO_H */
