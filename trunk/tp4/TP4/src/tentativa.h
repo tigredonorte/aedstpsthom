@@ -10,8 +10,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "grafo.h"
+#include "fila.h"
 
-int encontraCliquesTentativa(int** connected, int size);
+void bronKerbosch(int** adjMatrix, int size, Fila *fila);
 
+void encontraValorTentativa(Grafo *grafo);
+
+void encontraCliquesTentativa(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSize, int *actualMD, int *best, int *actualMDSize, int *bestSize, Fila *fila);
+
+void addClique(int **clique, int size, Fila *fila);
 #endif	/* _TENTATIVA_H */
 
