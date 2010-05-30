@@ -16,9 +16,9 @@ char* proxPalavra(char *buffer)
 char** leArquivo(char *nomeArquivo, int *numPalavras)
 {
     FILE *arquivo; // arquivo lido
-    long   tamArquivo; // tamanho do arquivo de entrada
-    size_t tamCopiado; // tamanho da memória lida do arquivo de entrada
-    int nPalavras;//numero de palavras do arquivo
+    long   tamArquivo = 0; // tamanho do arquivo de entrada
+    size_t tamCopiado = 0; // tamanho da memória lida do arquivo de entrada
+    int nPalavras = 0;//numero de palavras do arquivo
 
     // abre o arquivo de entrada
     arquivo = fopen (nomeArquivo , "r");
@@ -36,8 +36,7 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
      *  Descobre tamanho do buffer
      */
     rewind( arquivo );//coloca o ponteiro no inicio do arquivo
-    char *buff;
-    buff = (char*)malloc( tamArquivo * sizeof(char));
+    char *buff = (char*)malloc( tamArquivo * sizeof(char));
     if (buff == NULL)
     {
         printf("leArquivo: nao ha memoria para alocar arquivo \n");
@@ -62,13 +61,14 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     }
 
     free(auxCpy);
+    free(buff);
     /*
      * Fim descobre tamanho
      */
 
     rewind( arquivo );//coloca o ponteiro no inicio do arquivo
     // aloca memória para conteúdo do arquivo
-    char *buffer;
+    char *buffer = NULL;
     buffer = (char*) malloc( sizeof(char) * tamArquivo);
     if (buffer == NULL)
     {
@@ -99,7 +99,9 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
         i++;
         aux = strtok(NULL, IGNORA_CHAR);
     }
+    free(aux);
     free(buffer);
+
     *numPalavras = nPalavras;
     return (Buffer);
 }

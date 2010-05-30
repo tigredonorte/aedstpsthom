@@ -23,7 +23,7 @@
 double getTime();
 
 //salva e imprime a saida
-void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste);
+void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste, int numTestes);
 
 //le os arqumentos da entrada
 void readArgs(int argc, char** argv, char **entrada, char **saida, char **fileTeste, int *algoritmo);

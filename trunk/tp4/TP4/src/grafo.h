@@ -18,6 +18,7 @@ typedef struct experimento_str
     int empresa;
     double lucro;
     double tempo;
+    double lucroTempo;
 }Experimento;
 
 typedef struct Grafo_str
@@ -76,5 +77,22 @@ void GrafoMergeRelacoes(Grafo *grafo, Grafo *grafoEmp);
 
 //retorna o numero de vertices do grafo
 int getNumVertices(Grafo *grafo);
+
+double getTempo(Grafo *grafo);
+
+//retorna o tempo gasto por um experimento
+double ExperimentoGetTime(Experimento *exp);
+
+//retorna o lucro esperado de um experimento
+double ExperimentoGetLucro(Experimento *exp);
+
+//retorna o custo beneficio de um experimento
+double ExperimentoGetLucroTime(Experimento *exp);
+
+//copia para o vetor exp os experimentos do grafo
+void ExperimentosCopia(Grafo *grafo, Experimento *exp);
+
+//retorna o identificador do experimento
+int ExperimentoGetId(Experimento *exp);
 
 #endif	/* _GRAFO_H */

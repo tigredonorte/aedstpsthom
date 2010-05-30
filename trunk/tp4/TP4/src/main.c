@@ -23,12 +23,9 @@ int main(int argc, char** argv)
     readArgs(argc, argv, &entrada, &saida, &fileTeste, &algoritmo);
 
     //gera o arquivo de entrada com os parametros definidos
-    /*uint numEmpresas = 3;
-    uint numExperimentos = 5;
-    double probabilidade = 0.5;*/
-    uint numEmpresas = 5;
-    uint numExperimentos = 8;
-    double probabilidade = 0.687;
+    uint numEmpresas = 8;
+    uint numExperimentos = 20;
+    double probabilidade = 0.15;
     geraEntrada(entrada, numEmpresas, numExperimentos, probabilidade);
     
     //cria e inicializa o grafo com suas arestas
@@ -43,15 +40,16 @@ int main(int argc, char** argv)
     double lucro = 0;
     int *experimentos = NULL;
     int nExp = 0;
+    int numTestes = 0;
     
     //escolhe entre os tres algoritmos
     switch(algoritmo)
     {
         case TENTATIVA:
-                    encontraValorTentativa(&grafo);
+                    calculaConfiguracaoTentativa(&grafo);
                     break;
         case HEURISTICA:
-                    encontraCliquesHeuristica(&grafo);
+                    calculaConfiguracaoHeuristica(&grafo, experimentos, &nExp, &numTestes, &lucro);
                     break;
         default:
             printf("nao existe o algoritmo com id %d, por favor consulte o arquivo leiame.txt", algoritmo);
@@ -59,6 +57,9 @@ int main(int argc, char** argv)
     double tempoGasto = (getTime() - iniTime);
     
     //salva os valores importantes no arquivo e imprime os resultados na tela
-    SalvaSaida(saida, configuracoes, lucro, tempoGasto, nExp, experimentos, fileTeste);
+    SalvaSaida(saida, configuracoes, lucro, tempoGasto, nExp, experimentos, fileTeste, numTestes);
+
+    free(experimentos);
+    LiberaGrafo(&grafo);
     return (EXIT_SUCCESS);
 }

@@ -15,7 +15,7 @@
 #include <ctype.h>
 
 //Caracteres a serem ignorados caso aparecam no texto
-#define IGNORA_CHAR " \n!@#$&%*()_+{}´`'][~;:/?,|'*-/+\t\0"
+#define IGNORA_CHAR " \n\t\0!@#$&%*()_+{}´`'][~;:/?,|'*-/+"
 
 /* lê arquivo da lista e retorna uma string que contem o conteudo do mesmo*/
 char** leArquivo(char *nomeArquivo, int *numPalavras);

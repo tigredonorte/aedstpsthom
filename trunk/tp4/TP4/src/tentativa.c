@@ -1,27 +1,52 @@
 #include "tentativa.h"
 
-void encontraValorTentativa(Grafo *grafo)
+void calculaConfiguracaoTentativa(Grafo *grafo)
 {
     int size = getNumVertices(grafo);
     Fila fila;
     esvaziaFila(&fila);
 
+    double valor = 0;
     bronKerbosch(grafo->Mat, size, &fila);
+    calculaMochilaTentativa(grafo, &fila, &valor, size);
+}
 
+void calculaMochilaTentativa(Grafo *grafo, Fila *fila, double *valor, int size)
+{
     FItem it;
     int *clique = malloc(sizeof(int) * size);
+    int *Melhor = malloc(sizeof(int) * size);
+    Experimento *exp = malloc(sizeof(Experimento) * size);
     int i;
-    while(!ehVaziaFila(&fila))
+    
+    //printf("\n--numero de cliques-- %d\n", fila.tamanho);
+    //getc(stdin);
+    
+    double lucro = 0;
+    double lucroMelhor = 0;
+    double tempo = getTempo(grafo);
+
+    while(!ehVaziaFila(fila))
     {
-        retiraFila(&fila, &it);
+        retiraFila(fila, &it);
         size = it.size;
-        printf("\n");
+
+        //printf("\n--clique-- %d\n", size);
         for(i = 0; i < size; i++)
         {
-            clique[i] = it.clique[i];
-            printf("%d ", clique[i]);
+            exp[i] = grafo->Exp[clique[i]];
+        }
+        lucro = calculaMochilaGuloso(&exp, tempo, size);
+        if(lucro > lucroMelhor)
+        {
+            lucroMelhor = lucro;
+            for(i = 0; i < size; i++)
+            {
+                Melhor[i] = exp[i].experimento;
+            }
         }
     }
+    *valor = lucroMelhor;
 }
 
 void bronKerbosch(int** adjMatrix, int size, Fila *fila)
@@ -30,7 +55,6 @@ void bronKerbosch(int** adjMatrix, int size, Fila *fila)
     int* actualMD = malloc(sizeof(int) * size);
     int* best = malloc(sizeof(int) * size);
     
-
     int i;
     for (i = 0; i < size; i++)
     {
@@ -38,19 +62,18 @@ void bronKerbosch(int** adjMatrix, int size, Fila *fila)
         actualMD[i] = -1;
         best[i] = -1;
     }
-
     encontraCliquesTentativa(adjMatrix, ALL, 0, size, actualMD, best, &size, &size, fila);
 
     free(ALL);
-    //free(actualMD);
-    //free(best);
+    free(actualMD);
+    free(best);
 }
 
 
 
 void encontraCliquesTentativa(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSize, int *actualMD, int *best, int *actualMDSize, int *bestSize, Fila *fila)
 {
-    int* actualCandidates = malloc(sizeof(int) * oldCandidateSize);
+    int* actualCandidates = (int*)malloc(sizeof(int) * oldCandidateSize);
     int nod = 0;
     int fixp = 0;
     int actualCandidateSize = 0;
@@ -204,7 +227,7 @@ void encontraCliquesTentativa(int **adjMatrix, int* oldMD, int oldTestedSize, in
     }
 
     // Backtrackcycle
-    //free(actualCandidates);
+    free(actualCandidates);
 }
 
 void addClique(int **clique, int size, Fila *fila)
@@ -213,6 +236,3 @@ void addClique(int **clique, int size, Fila *fila)
     inicializaItem(&it, clique, size);
     insereFila(it, fila);
 }
-
-
-
