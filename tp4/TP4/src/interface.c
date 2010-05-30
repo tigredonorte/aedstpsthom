@@ -31,11 +31,6 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
 
     //adiciona os experimentos que podem ser feitos simultaneamente
     GrafoMergeRelacoes(grafo, &grafoEmp);
-    
-    printf("\nGrafo de experimentos\n\n");
-    ImprimeGrafo(grafo);
-    printf("\nGrafo de empresas\n\n");
-    ImprimeGrafo(&grafoEmp);
 
     //LiberaBuffer(Buffer, size);
     LiberaGrafo(&grafoEmp);
@@ -58,7 +53,7 @@ void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id, int size
         V1 = atoi(Buffer[i]);
         i++;
         //adiciona arestas a V1 enquanto nao mudar de linha
-        while(strcmp(Buffer[i], "e") != 0 && i < (size - 1))
+        while(strcmp(Buffer[i], "e") != 0 && i < (size - 2))
         {
             V2 = atoi(Buffer[i]);
             InsereAresta(grafo, V1, V2);
@@ -102,7 +97,7 @@ void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id)
     (*id) = i;
 }
 
-void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste)
+void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste, int numTestes)
 {
     printf("\n\n%lld", configuracoes);
     printf("\n%f %f\n", lucro, tempoGasto);

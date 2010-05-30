@@ -90,6 +90,7 @@ void print_output_file (Texp **exps, int **matrix, uint num_comps, uint num_exps
 		}
 		fprintf(out_file, "\n");
 	}
+        fprintf(out_file, "f");
 }
 
 void geraEntrada(char *entrada, uint numEmpresas, uint numExperimentos, double probabilidade)

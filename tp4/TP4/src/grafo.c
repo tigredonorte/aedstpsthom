@@ -5,14 +5,18 @@ void inicializaGrafo(Grafo *grafo, double tempoT, int NVertices)
     grafo->NumVertices = NVertices;
     grafo->tempo = tempoT;
     grafo->Mat = malloc(sizeof(int*) * NVertices);
-    
+    grafo->Exp = (Experimento*)malloc(sizeof(Experimento) * NVertices);
+
     int i = 0;
     for(i = 0; i < NVertices; i++)
     {
         grafo->Mat[i] = (int*)malloc(sizeof(int) * NVertices);
+        grafo->Exp[i].empresa = -1;
+        grafo->Exp[i].experimento = -1;
+        grafo->Exp[i].lucro = 0;
+        grafo->Exp[i].tempo = 0;
+        grafo->Exp[i].lucroTempo = 0;
     }
-
-    grafo->Exp = (Experimento*)malloc(sizeof(Experimento) * NVertices);
 }
 
 void FGVazio(Grafo *Grafo)
@@ -177,6 +181,7 @@ void insereExperimento(Grafo *grafo, int experimento, int empresa, double lucro,
     grafo->Exp[i].empresa = empresa;
     grafo->Exp[i].lucro = lucro;
     grafo->Exp[i].tempo = tempo;
+    grafo->Exp[i].lucroTempo = (lucro/tempo);
 }
 
 void GrafoComplementar(Grafo *grafo)
@@ -219,4 +224,43 @@ void GrafoMergeRelacoes(Grafo *grafo, Grafo *grafoEmp)
 int getNumVertices(Grafo *grafo)
 {
     return(grafo->NumVertices);
+}
+
+double getTempo(Grafo *grafo)
+{
+    return(grafo->tempo);
+}
+
+//retorna o id do experimento
+int ExperimentoGetId(Experimento *exp)
+{
+    return(exp->experimento);
+}
+
+//retorna o tempo gasto por um experimento
+double ExperimentoGetTime(Experimento *exp)
+{
+    return(exp->tempo);
+}
+
+//retorna o lucro esperado de um experimento
+double ExperimentoGetLucro(Experimento *exp)
+{
+    return(exp->lucro);
+}
+
+//retorna o custo beneficio de um experimento
+double ExperimentoGetLucroTime(Experimento *exp)
+{
+    return(exp->lucroTempo);
+}
+
+//copia para o vetor exp os experimentos do grafo
+void ExperimentosCopia(Grafo *grafo, Experimento *exp)
+{
+    int i;
+    for(i = 0; i < grafo->NumVertices; i++)
+    {
+        exp[i] = grafo->Exp[i];
+    }
 }
