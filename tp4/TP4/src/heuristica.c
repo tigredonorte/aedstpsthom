@@ -1,30 +1,32 @@
 #include "heuristica.h"
 
-void calculaConfiguracaoHeuristica(Grafo *grafo, int *solucao, int *sizeOfSolucao, int *NumeroTestes, double *lucroObtido)
+void calculaConfiguracaoHeuristica(Grafo *grafo, int **solucao, int *sizeOfSolucao, long long int *NumeroTestes, double *lucroObtido, double *tempoGasto)
 {
     int size = getNumVertices(grafo);
-    Experimento *exp = (Experimento*)malloc(sizeof(Experimento) * size);
-    Experimento *VSolucao = (Experimento*)malloc(sizeof(Experimento) * size);
+    Experimento *exp = malloc(sizeof(Experimento) * size);
+    Experimento *VSolucao = malloc(sizeof(Experimento) * size);
 
-    ExperimentosCopia(grafo, exp);
+    ExperimentosCopia(grafo, &exp);    
     ordenaExperimento(&exp, size);
 
+    double melhorTempo = 0;
+    double tAux = 0;;
     double tempo = getTempo(grafo);
     double lucro = 0;
     int i, j, idExpI, idExpJ;
     int candidato = 0;
     int k = 0;
     
-    for(i = 0; i < size; i++)
+    for(i = size - 1; i >= 0; i--)
     {
-        solucao[i] = 0;
         candidato = 1;
-        if(ExperimentoGetTime(&exp[i]) <= tempo)
+        tAux = ExperimentoGetTime(&exp[i]);
+        if((melhorTempo + tAux) <= tempo)
         {
             idExpI = ExperimentoGetId(&exp[i]);
-            for(j = i -1; j >= 0 && candidato; j--)
+            for(j = 0; j < k && candidato; j++)
             {
-                idExpJ = ExperimentoGetId(&exp[j]);
+                idExpJ = ExperimentoGetId(&VSolucao[j]);
                 if(!ExisteAresta(grafo, idExpI, idExpJ))
                 {
                     candidato = 0;
@@ -35,27 +37,29 @@ void calculaConfiguracaoHeuristica(Grafo *grafo, int *solucao, int *sizeOfSoluca
                 VSolucao[k] = exp[i];
                 k++;
                 lucro += ExperimentoGetLucro(&exp[i]);
+                melhorTempo += tAux;
             }
         }
     }
     (*sizeOfSolucao) = k;
     (*NumeroTestes) = 1;
     (*lucroObtido) = lucro;
-
-    solucao = (int*)malloc(sizeof(int) * k);
+    (*tempoGasto) = melhorTempo;
+    (*solucao) = (int*)malloc(sizeof(int) * k);
     for(i = 0; i < k; i++)
     {
-        solucao[i] = ExperimentoGetId(&VSolucao[i]);
+        (*solucao)[i] = ExperimentoGetId(&VSolucao[i]);
     }
 
-    free(exp);
-    free(VSolucao);
+    if(exp){free(exp);}
+    if(VSolucao){free(VSolucao);}
 }
 
 
 double calculaMochilaGuloso(Experimento** exp, double capacidade, int size)
 {
     ordenaExperimento(exp, size);
+    Experimento Exper;
 
     double lucro = 0;
     short *mochila = malloc(sizeof(short) * size);
@@ -63,31 +67,34 @@ double calculaMochilaGuloso(Experimento** exp, double capacidade, int size)
     
     for(i = 0; i < size; i++)
     {
-        if(ExperimentoGetTime(exp[i]) < capacidade)
+        Exper = (*exp)[i];
+        if(ExperimentoGetTime(&Exper) < capacidade)
         {
-            capacidade -= ExperimentoGetTime(exp[i]);
-            lucro += ExperimentoGetLucro(exp[i]);
+            capacidade -= ExperimentoGetTime(&Exper);
+            lucro += ExperimentoGetLucro(&Exper);
         }
     }
-    free(mochila);
+    if(mochila){free(mochila);}
     return (lucro);
 }
 
 void ordenaExperimento(Experimento** exp, int size)
 {
-    Experimento elemento;
+    Experimento elemento, elementoJ;
     double pivo;
     int i, j;
     for(i = 1; i < size; i++)
     {
-        pivo = ExperimentoGetLucroTime(exp[i]);
-        elemento = *exp[i];
+        elemento = (*exp)[i];
+        pivo = ExperimentoGetLucroTime(&elemento);
         j = i - 1;
-        while(j > 0 && ExperimentoGetLucroTime(exp[i]) > pivo)
+        elementoJ = (*exp)[j];
+        while(j > 0 && ExperimentoGetLucroTime(&elementoJ) > pivo)
         {
-            *exp[j+1] = *exp[j];
+            (*exp)[j+1] = (*exp)[j];
             j--;
+            elementoJ = (*exp)[j];
         }
-        *exp[j+1] = elemento;
+        (*exp)[j+1] = elemento;
     }
 }

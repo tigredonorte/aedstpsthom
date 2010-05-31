@@ -13,16 +13,13 @@
 #include "grafo.h"
 #include "fila.h"
 #include "heuristica.h"
+#include <math.h>
 
-void bronKerbosch(int** adjMatrix, int size, Fila *fila);
+//calcula os cliques e a melhor mochila
+void calculaConfiguracaoTentativa(Grafo *grafo, int **solucao, int *sizeOfSolucao, long long int *configuracoes, double *lucroObtido, double *tempoGasto);
 
-void calculaConfiguracaoTentativa(Grafo *grafo);
+//calcula a combinacao de um vetor v( se v[i] = 1, entao o elemento do vetor deve ser considerado, se nao, nao)
+void proxCombinacao(int **v, int size);
 
-void encontraCliquesTentativa(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSize, int *actualMD, int *best, int *actualMDSize, int *bestSize, Fila *fila);
-
-void addClique(int **clique, int size, Fila *fila);
-
-//resolve o problema da mochila
-void calculaMochilaTentativa(Grafo *grafo, Fila *fila, double *valor, int size);
 #endif	/* _TENTATIVA_H */
 

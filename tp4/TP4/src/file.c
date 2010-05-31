@@ -60,8 +60,8 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
         auxCpy = strtok(NULL, IGNORA_CHAR);
     }
 
-    free(auxCpy);
-    free(buff);
+    if(auxCpy){free(auxCpy);}
+    if(buff){free(buff);}
     /*
      * Fim descobre tamanho
      */
@@ -99,8 +99,8 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
         i++;
         aux = strtok(NULL, IGNORA_CHAR);
     }
-    free(aux);
-    free(buffer);
+    if(aux){free(aux);}
+    if(buffer){free(buffer);}
 
     *numPalavras = nPalavras;
     return (Buffer);
@@ -111,9 +111,9 @@ void LiberaBuffer(char **Buffer, int size)
     int i;
     for(i = 0; i < size; i++)
     {
-        free(Buffer[i]);
+        if(Buffer[i]){free(Buffer[i]);}
     }
-    free(Buffer);
+    if(Buffer){free(Buffer);}
 }
 
 void saveFile(char *nome_arquivo, char *string)
@@ -130,5 +130,19 @@ void saveFile(char *nome_arquivo, char *string)
     }
     fprintf (arquivo, "%s", string);
 
+    fclose(arquivo);
+}
+
+void createFileIfNotExists(char *nome_arquivo)
+{
+    FILE *arquivo; // arquivo lido
+
+    arquivo = fopen (nome_arquivo, "a");
+
+    if (arquivo == NULL)
+    {
+        return;
+    }
+    
     fclose(arquivo);
 }

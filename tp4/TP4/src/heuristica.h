@@ -12,7 +12,7 @@
 #include "fila.h"
 
 //encontrar os cliques de um grafo de maneira euristica
-void calculaConfiguracaoHeuristica(Grafo *grafo, int *solucao, int *sizeOfSolucao, int *NumeroTestes, double *lucroObtido);
+void calculaConfiguracaoHeuristica(Grafo *grafo, int **solucao, int *sizeOfSolucao, long long int *NumeroTestes, double *lucroObtido, double *tempoGasto);
 
 //metodo guloso para calcular os itens da mochila
 double calculaMochilaGuloso(Experimento** exp, double capacidade, int size);

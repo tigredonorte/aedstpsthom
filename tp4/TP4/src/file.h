@@ -29,4 +29,7 @@ void saveFile(char *nome_arquivo, char *string);
 //destroi um buffer criado
 void LiberaBuffer(char **Buffer, int size);
 
+//cria um novo arquivo com o nome passado por parametro
+void createFileIfNotExists(char *nome_arquivo);
+
 #endif	/* _FILE_H */
