@@ -78,6 +78,7 @@ void GrafoMergeRelacoes(Grafo *grafo, Grafo *grafoEmp);
 //retorna o numero de vertices do grafo
 int getNumVertices(Grafo *grafo);
 
+//retorna o prazo maximo da entrega dos experimentos
 double getTempo(Grafo *grafo);
 
 //retorna o tempo gasto por um experimento
@@ -90,7 +91,7 @@ double ExperimentoGetLucro(Experimento *exp);
 double ExperimentoGetLucroTime(Experimento *exp);
 
 //copia para o vetor exp os experimentos do grafo
-void ExperimentosCopia(Grafo *grafo, Experimento *exp);
+void ExperimentosCopia(Grafo *grafo, Experimento **exp);
 
 //retorna o identificador do experimento
 int ExperimentoGetId(Experimento *exp);

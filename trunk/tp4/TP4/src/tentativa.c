@@ -1,238 +1,151 @@
 #include "tentativa.h"
 
-void calculaConfiguracaoTentativa(Grafo *grafo)
+void proxCombinacao(int **v, int size)
 {
-    int size = getNumVertices(grafo);
-    Fila fila;
-    esvaziaFila(&fila);
+    int terminou = 0;
+    int carry = 0;
+    int i =0;
 
-    double valor = 0;
-    bronKerbosch(grafo->Mat, size, &fila);
-    calculaMochilaTentativa(grafo, &fila, &valor, size);
-}
-
-void calculaMochilaTentativa(Grafo *grafo, Fila *fila, double *valor, int size)
-{
-    FItem it;
-    int *clique = malloc(sizeof(int) * size);
-    int *Melhor = malloc(sizeof(int) * size);
-    Experimento *exp = malloc(sizeof(Experimento) * size);
-    int i;
-    
-    //printf("\n--numero de cliques-- %d\n", fila.tamanho);
-    //getc(stdin);
-    
-    double lucro = 0;
-    double lucroMelhor = 0;
-    double tempo = getTempo(grafo);
-
-    while(!ehVaziaFila(fila))
+    for(i = 0; i < size && !terminou; i++)
     {
-        retiraFila(fila, &it);
-        size = it.size;
-
-        //printf("\n--clique-- %d\n", size);
-        for(i = 0; i < size; i++)
+        if((*v)[i] == 0)
         {
-            exp[i] = grafo->Exp[clique[i]];
-        }
-        lucro = calculaMochilaGuloso(&exp, tempo, size);
-        if(lucro > lucroMelhor)
-        {
-            lucroMelhor = lucro;
-            for(i = 0; i < size; i++)
-            {
-                Melhor[i] = exp[i].experimento;
-            }
-        }
-    }
-    *valor = lucroMelhor;
-}
-
-void bronKerbosch(int** adjMatrix, int size, Fila *fila)
-{
-    int* ALL = malloc(sizeof(int) * size);
-    int* actualMD = malloc(sizeof(int) * size);
-    int* best = malloc(sizeof(int) * size);
-    
-    int i;
-    for (i = 0; i < size; i++)
-    {
-        ALL[i] = i;
-        actualMD[i] = -1;
-        best[i] = -1;
-    }
-    encontraCliquesTentativa(adjMatrix, ALL, 0, size, actualMD, best, &size, &size, fila);
-
-    free(ALL);
-    free(actualMD);
-    free(best);
-}
-
-
-
-void encontraCliquesTentativa(int **adjMatrix, int* oldMD, int oldTestedSize, int oldCandidateSize, int *actualMD, int *best, int *actualMDSize, int *bestSize, Fila *fila)
-{
-    int* actualCandidates = (int*)malloc(sizeof(int) * oldCandidateSize);
-    int nod = 0;
-    int fixp = 0;
-    int actualCandidateSize = 0;
-    int actualTestedSize = 0;
-    int i = 0;
-    int j = 0;
-    int count = 0;
-    int pos = 0;
-    int p = 0;
-    int s = 0;
-    int sel = 0;
-    int index2Tested = 0;
-    int fini = 0;
-    int aux = 0;
-    index2Tested = oldCandidateSize;
-
-    //avalia os candidatos a clique ex: se uma coluna tem varios zeros e uns, aquelas que possuem '0' nao sao candidatas a clique
-    for (i = 0; (i < oldCandidateSize) && (index2Tested != 0); i++)
-    {
-        p = oldMD[i];
-        count = 0;
-
-        //branch: procura pelos candidatos
-        for (j = oldTestedSize; (j < oldCandidateSize) && (count < index2Tested); j++)
-        {
-            aux = adjMatrix[p][oldMD[j]];
-            if (aux == 0)
-            {
-                ///posicao de um possivel candidato
-                pos = j;
-                count++; 
-            }
-        }
-
-        // Test new minimum
-        if (count < index2Tested)
-        {
-            fixp = p;
-            index2Tested = count;
-
-            if (i < oldTestedSize)
-            {
-                s = pos;
-            }
-            else
-            {
-                s = i;
-                nod = 1;
-            }
-        }
-    }
-
-    // If fixed point initially chosen from candidates then
-    // number of diconnections will be preincreased by one
-    // Backtracking step for all nodes in the candidate list CD
-    for (nod = index2Tested + nod; nod >= 1; nod--)
-    {
-        // Interchange
-        p = oldMD[s];
-        oldMD[s] = oldMD[oldTestedSize];
-        sel = oldMD[oldTestedSize] = p;
-
-        // Fill new set "not"
-        actualCandidateSize = 0;
-
-        for (i = 0; i < oldTestedSize; i++)
-        {
-            if (adjMatrix[sel][oldMD[i]] != 0)
-            {
-                actualCandidates[actualCandidateSize++] = oldMD[i];
-            }
-        }
-
-        // Fill new set "candidates"
-        actualTestedSize = actualCandidateSize;
-
-        for (i = oldTestedSize + 1; i < oldCandidateSize; i++)
-        {
-            if (adjMatrix[sel][oldMD[i]] != 0)
-            {
-                actualCandidates[actualTestedSize++] = oldMD[i];
-            }
-        }
-
-        // Add to "actual relevant nodes"
-        actualMD[(*actualMDSize)++] = sel;
-
-        // so CD+1 and ND+1 are empty
-        if (actualTestedSize == 0)
-        {
-            if ((*bestSize) < (*actualMDSize))
-            {
-                // found a max clique
-                for(i = 0; i < (*bestSize); i++)
-                {
-                    actualMD[i] = best[i];
-                }
-            }
-
-            int sz = 0;
-            //procura no vetor somente os numeros que interessao (para alocar menor espaco)
-            for(i = 0; i < (*actualMDSize); i++)
-            {
-                if(actualMD[i] > -1)
-                {
-                    sz++;
-                }
-            }
-            //copia o vetor
-            int* tmpResult = malloc(sizeof(int) * sz);
-            int k = 0;
-            for(i = 0; i < (*actualMDSize); i++)
-            {
-                if(actualMD[i] > -1)
-                {
-                    tmpResult[k] = actualMD[i];
-                    k++;
-                }
-            }
-
-            addClique(&tmpResult, sz, fila);
-            free(tmpResult);
+            carry = 0;
+            terminou = 1;
+            (*v)[i] = 1;
         }
         else
         {
-            if (actualCandidateSize < actualTestedSize)
-            {
-                encontraCliquesTentativa(adjMatrix, actualCandidates, actualCandidateSize, actualTestedSize, actualMD, best, actualMDSize, bestSize, fila);
-            }
+            carry = 1;
+            (*v)[i] = 0;
         }
-
-        if (fini)
-        {
-            break;
-        }
-
-        // move node from MD to ND
-        // Remove from compsub
-        (*actualMDSize)--;
-
-        // Add to "nod"
-        oldTestedSize++;
-
-        if (nod > 1)
-        {
-            // Select a candidate disconnected to the fixed point
-            for (s = oldTestedSize; adjMatrix[fixp][oldMD[s]] != 0; s++){}
-        }
-
-        // end selection
     }
-
-    // Backtrackcycle
-    free(actualCandidates);
 }
 
-void addClique(int **clique, int size, Fila *fila)
+void calculaConfiguracaoTentativa(Grafo *grafo, int **solucao, int *sizeOfSolucao, long long int *configuracoes, double *lucroObtido, double *tempoGasto)
 {
-    FItem it;
-    inicializaItem(&it, clique, size);
-    insereFila(it, fila);
+    //recupera informacoes a serem usadas no grafo
+    int size = getNumVertices(grafo);
+    double TTotal = getTempo(grafo);
+    
+    //guarda os experimentos do grafo
+    Experimento *e = malloc(sizeof(Experimento) * size);
+    ExperimentosCopia(grafo, &e);
+
+    //definicao de variaveis auxiliares
+    Experimento *atual = malloc(sizeof(Experimento) * size); //guarda os elementos adicionados, que ainda serao verificados
+    int *v = malloc(sizeof(int) * size);    //usado para verificar se um elemento pode ou nao ser incluido
+    int *solucaoAux = malloc(sizeof(int) * size);  //guarda a melhor solucao do problema
+
+    double tempo = 0;
+    double valor = 0;
+    double MValor = 0;
+
+    int i, j, k, l;     //variaveis de iteracao em loop
+    int nSolucoes = 0;  //numero de solucoes viaveis
+    int idExpJ, idExpL; //guarda os ids de experimentos
+    int melhorK = size; //tamanho da melhor solucao adotada
+    int coubeTodos = 0; //verifica se todos os elementos couberam na mochila, neste caso pode parar a iteracao
+    int candidato = 0;  //verifica se um experimento concorre com o outro
+
+    //vetor que guardara o ou 1, se for 0, o elemento pode ser incluido, se for 1 nao pode
+    for(i = 0; i < size; i++)
+    {
+        v[i] = 1;
+    }
+
+    //fara 2exp(size) combinacoes
+    long long int numVezes = (int)pow(2, size);
+    for(i = 0; i < numVezes && !coubeTodos; i++)
+    {
+        k = 0;
+        valor = 0;
+        tempo = 0;
+        for(j = 0; j < size; j++)
+        {
+            //todo vertice eh candidato, a priori
+            candidato = 1;
+
+            //verifica dentre os experimentos combinados, quais devem ser considerados
+            if(v[j] == 1)
+            {
+                //verifica se o experimento cumpre as condicoes de tempo
+                if((tempo + ExperimentoGetTime(&e[j])) <= TTotal)
+                {
+                    //identificador do experimentoJ
+                    idExpJ = ExperimentoGetId(&e[j]);
+
+                    //percorre o vetor solucao parcial com os indices ja adicionados
+                    for(l = j -1; l >= 0 && candidato; l--)
+                    {
+                        //identificador do ExperimentoL
+                        idExpL = ExperimentoGetId(&e[l]);
+
+                        //se nao existe aresta no grafo entao o elemento indice l nao eh candidato
+                        if(!ExisteAresta(grafo, idExpJ, idExpL))
+                        {
+                            candidato = 0;
+                        }
+
+                        //se o elemento for candidato adiciona o mesmo no vetor solucao parcial
+                        if(candidato)
+                        {
+                            atual[k] = e[j];
+                            valor += ExperimentoGetLucro(&e[j]);
+                            tempo += ExperimentoGetTime(&e[j]);
+                            k++;
+                        }
+                    }
+ 
+                }
+            }
+        }
+        //verifica se o valor calculado eh maior do que o maiorValor salvo
+        if(MValor <= valor)
+        {
+            //se forem iguais, aumenta o numero de solucoes
+            if(MValor == valor)
+            {
+                nSolucoes++;
+            }
+            else
+            {
+                //valor < MValor, salva a solucao
+                for(j = 0; j < k; j++)
+                {
+                    solucaoAux[j] = ExperimentoGetId(&atual[j]);
+                }
+                //salva o tamanho da melhor solucao
+                melhorK = k;
+
+                //numero de melhores solucoes = 1
+                nSolucoes = 1;
+            }
+            MValor = valor;
+        }
+        
+        //se todos os elementos couberam na mochila, entao retorne
+        if((k+1) == size)
+        {
+            coubeTodos = 1;
+        }
+        proxCombinacao(&v, size);
+    }
+
+    //salva saida
+    *configuracoes = nSolucoes;
+    *lucroObtido = MValor;
+    *tempoGasto = tempo;
+    *solucao = malloc(sizeof(int) * melhorK);
+    for(i = 0; i < melhorK; i++)
+    {
+        (*solucao)[i] = solucaoAux[i];
+    }
+    *sizeOfSolucao = melhorK;
+
+    //libera memoria
+    free(solucaoAux);
+    free(atual);
+    free(v);
+    free(e);
 }

@@ -168,10 +168,10 @@ void LiberaGrafo(Grafo *grafo)
     int i;
     for(i = 0; i < grafo->NumVertices; i++)
     {
-        free(grafo->Mat[i]);
+        if(grafo->Mat[i]){free(grafo->Mat[i]);}
     }
-    free(grafo->Mat);
-    free(grafo->Exp);
+    if(grafo->Mat){free(grafo->Mat);}
+    if(grafo->Exp){free(grafo->Exp);}
 }
 
 void insereExperimento(Grafo *grafo, int experimento, int empresa, double lucro, double tempo)
@@ -256,11 +256,15 @@ double ExperimentoGetLucroTime(Experimento *exp)
 }
 
 //copia para o vetor exp os experimentos do grafo
-void ExperimentosCopia(Grafo *grafo, Experimento *exp)
+void ExperimentosCopia(Grafo *grafo, Experimento **exp)
 {
     int i;
     for(i = 0; i < grafo->NumVertices; i++)
     {
-        exp[i] = grafo->Exp[i];
+        (*exp)[i].empresa = grafo->Exp[i].empresa;
+        (*exp)[i].experimento = grafo->Exp[i].experimento;
+        (*exp)[i].lucro = grafo->Exp[i].lucro;
+        (*exp)[i].lucroTempo = grafo->Exp[i].lucroTempo;
+        (*exp)[i].tempo = grafo->Exp[i].tempo;
     }
 }

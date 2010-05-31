@@ -32,7 +32,7 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
     //adiciona os experimentos que podem ser feitos simultaneamente
     GrafoMergeRelacoes(grafo, &grafoEmp);
 
-    //LiberaBuffer(Buffer, size);
+    LiberaBuffer(Buffer, size);
     LiberaGrafo(&grafoEmp);
 }
 
@@ -53,7 +53,7 @@ void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id, int size
         V1 = atoi(Buffer[i]);
         i++;
         //adiciona arestas a V1 enquanto nao mudar de linha
-        while(strcmp(Buffer[i], "e") != 0 && i < (size - 2))
+        while(strcmp(Buffer[i], "e") != 0 && i < (size - 1))
         {
             V2 = atoi(Buffer[i]);
             InsereAresta(grafo, V1, V2);
@@ -97,36 +97,37 @@ void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id)
     (*id) = i;
 }
 
-void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste, int numTestes)
+void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste, double tempoFinal)
 {
+    //imprime saida na tela
     printf("\n\n%lld", configuracoes);
     printf("\n%f %f\n", lucro, tempoGasto);
-
     int i;
     for(i = 0; i < size; i++)
     {
         printf("Exp%d ", experimento[i]);
     }
+    printf("\n\n");
 
+    //salva saida no arquivo
     char *string = malloc(sizeof(char) * 50);
     sprintf(string, "%lld \n%f %f\n", configuracoes, lucro, tempoGasto);
     saveFile(saida, string);
-    free(string);
-
+    if(string){free(string);}
     string = malloc(sizeof(char) * 5);
     for(i = 0; i < size; i++)
     {
-
         sprintf(string, "Exp%d ", experimento[i]);
         saveFile(saida, string);
     }
-    free(string);
+    if(string){free(string);}
     
-
+    //salva estatisticas no arquivo
     string = malloc(sizeof(char) * 50);
     sprintf(string, " %f\n", tempoGasto);
     saveFile(fileTeste, string);
-    free(string);
+
+    if(string){free(string);}
 }
 
 void readArgs(int argc, char** argv, char **entrada, char **saida, char **fileTeste, int *algoritmo)
