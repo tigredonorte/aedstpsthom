@@ -15,10 +15,10 @@
 #include <ctype.h>
 
 //Caracteres a serem ignorados caso aparecam no texto
-#define IGNORA_CHAR " \n\t\0!@#$&%*()_+{}´`'][~;:/?,|'*-/+"
+#define IGNORA_CHAR " \n\t\0!@#$&%*()_+{}´`'][~;:/?,|'*-/+abcdghijklmnopqrstuvwxyzABCDGHIJKLMNOPQSTUVWXYZ"
 
 /* lê arquivo da lista e retorna uma string que contem o conteudo do mesmo*/
-char** leArquivo(char *nomeArquivo, int *numPalavras);
+void leArquivo(char *nomeArquivo, int *numPalavras, char*** Buffer);
 
 /*Retorna a próxima palavra do arquivo ou NULL se não existirem mais palavras*/
 char* proxPalavra(char *buffer);
@@ -27,7 +27,7 @@ char* proxPalavra(char *buffer);
 void saveFile(char *nome_arquivo, char *string);
 
 //destroi um buffer criado
-void LiberaBuffer(char **Buffer, int size);
+void LiberaBuffer(char ***Buffer, int size);
 
 //cria um novo arquivo com o nome passado por parametro
 void createFileIfNotExists(char *nome_arquivo);

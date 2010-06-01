@@ -9,7 +9,6 @@
 #define	_HEURISTICA_H
 
 #include "grafo.h"
-#include "fila.h"
 
 //encontrar os cliques de um grafo de maneira euristica
 void calculaConfiguracaoHeuristica(Grafo *grafo, int **solucao, int *sizeOfSolucao, long long int *NumeroTestes, double *lucroObtido, double *tempoGasto);

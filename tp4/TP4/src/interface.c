@@ -6,7 +6,7 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
     char **Buffer;
     int i = 0;
     int size;
-    Buffer = leArquivo(entrada, &size);
+    leArquivo(entrada, &size, &Buffer);
     if(Buffer == NULL)
     {
         printf("\nErro ao ler arquivo, o programa sera fechado!!\n");
@@ -32,7 +32,7 @@ void setEntradaGrafo(Grafo *grafo, char *entrada)
     //adiciona os experimentos que podem ser feitos simultaneamente
     GrafoMergeRelacoes(grafo, &grafoEmp);
 
-    LiberaBuffer(Buffer, size);
+    LiberaBuffer(&Buffer, size);
     LiberaGrafo(&grafoEmp);
 }
 
@@ -40,6 +40,7 @@ void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id, int size
 {
     int V1, V2, i;
     int n = 0;
+    int continua = 1;
     i = (*id);
 
     //enquanto existir alguma empresa
@@ -53,8 +54,9 @@ void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id, int size
         V1 = atoi(Buffer[i]);
         i++;
         //adiciona arestas a V1 enquanto nao mudar de linha
-        while(strcmp(Buffer[i], "e") != 0 && i < (size - 1))
+        while(strcmp(Buffer[i], "e") != 0 && i < (size - 1) && !continua)
         {
+            if(!Buffer[i+1]){ continua = 0;}
             V2 = atoi(Buffer[i]);
             InsereAresta(grafo, V1, V2);
             i++;
