@@ -13,7 +13,7 @@ char* proxPalavra(char *buffer)
 
 /* lê arquivo da lista e retorna primeira palavra, as próximas palavras são
  * capturadas chamando "proxPalavra( NULL )" */
-char** leArquivo(char *nomeArquivo, int *numPalavras)
+void leArquivo(char *nomeArquivo, int *numPalavras, char*** Buffer)
 {
     FILE *arquivo; // arquivo lido
     long   tamArquivo = 0; // tamanho do arquivo de entrada
@@ -25,7 +25,8 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     if (arquivo == NULL)
     {
         printf("leArquivo: arquivo %s nao encontrado. \n", nomeArquivo);
-        return NULL;
+        Buffer = NULL;
+        return;
     }
 
     // descobre o tamanho do arquivo
@@ -40,7 +41,8 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     if (buff == NULL)
     {
         printf("leArquivo: nao ha memoria para alocar arquivo \n");
-        return NULL;
+        Buffer = NULL;
+        return;
     }
     // copia o conteudo do arquivo para o buffer
     // ( destino, tam de cada elemento, n elemento, fonte )
@@ -48,7 +50,8 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     if(tamCopiado != tamArquivo)
     {
         printf("leArquivo: erro ao ler arquivo \n");
-        return NULL;
+        Buffer = NULL;
+        return;
     }
 
     //descobre o tamanho numero de palavras relevantes do buffer
@@ -61,7 +64,6 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     }
 
     if(auxCpy){free(auxCpy);}
-    if(buff){free(buff);}
     /*
      * Fim descobre tamanho
      */
@@ -73,7 +75,8 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     if (buffer == NULL)
     {
         printf("leArquivo: nao ha memoria para alocar arquivo \n");
-        return NULL;
+        Buffer = NULL;
+        return;
     }
 
     // copia o conteudo do arquivo para o buffer
@@ -82,38 +85,39 @@ char** leArquivo(char *nomeArquivo, int *numPalavras)
     if(tamCopiado != tamArquivo)
     {
         printf("leArquivo: erro ao ler arquivo \n");
-        return NULL;
+        Buffer = NULL;
+        return;
     }
     fclose (arquivo); // fecha arquivo
 
     //aloca um novo buffer
-    char **Buffer = (char**)malloc( sizeof(char*) * nPalavras );
+    (*Buffer) = (char**)malloc( sizeof(char*) * nPalavras );
 
     //copia o conteudo do primeiro buffer para o segundo
     char *aux = strtok(buffer, IGNORA_CHAR);
     int i = 0;
     while(aux)
     {
-        Buffer[i] = (char*)calloc( strlen(aux), sizeof(char) );
-        strcpy(Buffer[i], aux);
+        (*Buffer)[i] = (char*)malloc( strlen(aux) * sizeof(char) );
+        strcpy((*Buffer)[i], aux);
         i++;
         aux = strtok(NULL, IGNORA_CHAR);
     }
     if(aux){free(aux);}
-    if(buffer){free(buffer);}
+    aux = NULL;
+    buffer = NULL;
 
     *numPalavras = nPalavras;
-    return (Buffer);
 }
 
-void LiberaBuffer(char **Buffer, int size)
+void LiberaBuffer(char ***Buffer, int size)
 {
     int i;
     for(i = 0; i < size; i++)
     {
-        if(Buffer[i]){free(Buffer[i]);}
+        if((*Buffer)[i]){free((*Buffer)[i]);}
     }
-    if(Buffer){free(Buffer);}
+    (*Buffer) = NULL;
 }
 
 void saveFile(char *nome_arquivo, char *string)

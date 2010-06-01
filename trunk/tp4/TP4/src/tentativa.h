@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grafo.h"
-#include "fila.h"
 #include "heuristica.h"
 #include <math.h>
 

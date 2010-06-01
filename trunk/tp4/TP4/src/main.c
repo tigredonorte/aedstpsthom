@@ -13,7 +13,7 @@
 #include "tentativa.h"
 
 
-int main(int argc, char** argv)
+int main2(int argc, char** argv)
 {
     //argumentos de entrada do algoritmo
     char *entrada = NULL; //arquivo de entrada
@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 
     //gera o arquivo de entrada com os parametros definidos
     uint numEmpresas = 5;
-    uint numExperimentos = 6;
+    uint numExperimentos = 5;
     double probabilidade = 0.25;
     geraEntrada(entrada, numEmpresas, numExperimentos, probabilidade);
     
@@ -59,10 +59,6 @@ int main(int argc, char** argv)
     //salva os valores importantes no arquivo e imprime os resultados na tela
     SalvaSaida(saida, configuracoes, lucro, tempoGasto, nExp, experimentos, fileTeste, tempoFinal);
 
-    //if(entrada) {free(entrada);}
-    //if(saida) {free(saida);}
-    if(fileTeste) {free(fileTeste);}
-    if(experimentos) {free(experimentos);}
     LiberaGrafo(&grafo);
     return (EXIT_SUCCESS);
 }
