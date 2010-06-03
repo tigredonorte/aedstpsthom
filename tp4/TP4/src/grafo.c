@@ -44,78 +44,6 @@ short ExisteAresta(Grafo *Grafo, int Vertice1, int Vertice2)
     return (Grafo->Mat[Vertice1][Vertice2] > 0);
 }
 
-
-short ListaAdjVazia(Grafo *Grafo, int *Vertice)
-{
-    Apontador Aux = 0;
-    short ListaVazia = 1;
-
-    while (Aux < Grafo->NumVertices && ListaVazia)
-    {
-        if (Grafo->Mat[*Vertice][Aux] > 0)
-        {
-            ListaVazia = 0;
-        }
-        else
-        {
-            Aux++;
-        }
-    }
-    return (ListaVazia == 1);
-}
-
-Apontador PrimeiroListaAdj(Grafo *Grafo, int *Vertice)
-{
-    int Result = 0;
-    Apontador Aux = 0;
-    short ListaVazia = 1;
-
-    while(Aux < Grafo->NumVertices && ListaVazia)
-    {
-        if(Grafo->Mat[*Vertice][Aux] > 0)
-        {
-            Result = Aux;
-            ListaVazia = 0;
-        }
-        else
-        {
-            Aux++;
-        }
-    }
-    if (Aux == Grafo->NumVertices)
-    {
-        printf("Erro: Lista adjacencia vazia (PrimeiroListaAdj)\n");
-    }
-    return Result;
-}  
-
-void ProxAdj(Grafo *Grafo, int *Vertice, int *Adj, Apontador *Prox, short *FimListaAdj)
-{
-    /* --Retorna Adj apontado por Prox--*/
-    *Adj = *Prox;
-    (*Prox)++;
-    while (*Prox < Grafo->NumVertices && Grafo->Mat[*Vertice][*Prox] == 0)
-    {
-        (*Prox)++;
-    }
-    if (*Prox == Grafo->NumVertices)
-    {
-        *FimListaAdj = 1;
-    }
-}  
-
-void RetiraAresta(Grafo *Grafo, int *V1, int *V2)
-{
-    if (Grafo->Mat[*V1][*V2] == 0)
-    {
-        printf("Aresta nao existe\n");
-    }
-    else
-    {
-        Grafo->Mat[*V1][*V2] = 0;
-    }
-}
-
 void ImprimeGrafo(Grafo *Grafo)
 {
     short i, j;
@@ -139,29 +67,6 @@ void ImprimeGrafo(Grafo *Grafo)
         printf("\n");
     }
 }  /* ImprimeGrafo */
-
-void GrafoTransposto(Grafo *grafo, Grafo *grafoT)
-{
-    int v, Adj;
-    Apontador Aux;
-    short FimListaAdj = 0;
-
-    FGVazio(grafoT);
-    grafoT->NumVertices = grafo->NumVertices;
-    for (v = 0; v <= grafo->NumVertices - 1; v++)
-    {
-        if (!ListaAdjVazia(grafo, &v))
-        {
-            Aux = PrimeiroListaAdj(grafo, &v);
-            FimListaAdj = 0;
-            while (!FimListaAdj)
-            {
-                ProxAdj(grafo, &v, &Adj, &Aux, &FimListaAdj);
-                InsereAresta(grafoT, Adj, v);
-            }
-        }
-    }
-}  /* GrafoTransposto */
 
 void LiberaGrafo(Grafo *grafo)
 {

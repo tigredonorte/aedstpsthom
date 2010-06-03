@@ -23,16 +23,13 @@
 double getTime();
 
 //salva e imprime a saida
-void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste, double tempoFinal);
+void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento);
 
 //le os arqumentos da entrada
 void readArgs(int argc, char** argv, char **entrada, char **saida, char **fileTeste, int *algoritmo);
 
 //cria o grafo e salva o arquivo de entrada no mesmo
 void setEntradaGrafo(Grafo *grafo, char *entrada);
-
-//cria um grafo com as empresas
-void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id, int size);
 
 //cria um grafo de experimentos
 void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id);
