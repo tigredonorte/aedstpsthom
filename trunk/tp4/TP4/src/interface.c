@@ -3,103 +3,91 @@
 void setEntradaGrafo(Grafo *grafo, char *entrada)
 {
     Grafo grafoEmp;
-    char **Buffer;
-    int i = 0;
-    int size;
-    leArquivo(entrada, &size, &Buffer);
-    if(Buffer == NULL)
+
+    FILE *arquivo;
+    arquivo = fopen(entrada, "r");
+    if(arquivo == NULL)
     {
         printf("\nErro ao ler arquivo, o programa sera fechado!!\n");
         exit(EXIT_FAILURE);
     }
 
-    double tempoT = atoi(Buffer[0]);
-    int NEmp = atoi(Buffer[1]);
-    int NExp = atoi(Buffer[2]);
-    i = 3;
+
+    double tempoT;
+    int NEmp, NExp;
+
+    // (tempo total, num empresas, num experimentos)
+    if( fscanf(arquivo, "%lf %d %d", &tempoT, &NEmp, &NExp) != 3 )
+    {
+        printf("\nEntrada com formato invalido! A primeira linha deve conter 3 numeros, como na documentacao\n");
+        exit(EXIT_FAILURE);
+    }
 
     //operacoes com o grafo de experimentos
     inicializaGrafo(grafo, tempoT, NExp);
     FGVazio(grafo);
-    MontaGrafoExperimentos(grafo, Buffer, NExp, &i);
+
+
+    //monta grafo de experimentos
+    int empresa, experimento;
+    double tempo, lucro;
+    int i;
+
+    for(i = 0; i < NExp; i++)
+    {
+        if( fscanf(arquivo, "%d %d %lf %lf", &experimento, &empresa, &lucro, &tempo) != 4 )
+        {
+            printf("Erro ao na leitura de arquivo, ele nao esta nos padroes especificados");
+            exit(EXIT_FAILURE);
+        }
+        //insercao dos dados na estrutura
+        InsereAresta(grafo, experimento, experimento);
+        insereExperimento(grafo, experimento, empresa, lucro, tempo);
+    }
+
 
     //operacoes com o grafo de empresas
     inicializaGrafo(&grafoEmp, tempoT, NEmp);
     FGVazio(&grafoEmp);
-    MontaGrafoEmpresas(&grafoEmp, Buffer, NEmp, &i, size);
+
+    //monta o grafo de empresas
+    int V1, V2;
+    char chr;
+    for(i = 0; i < NEmp; i++)
+    {
+        if(fscanf( arquivo, "%d", &V1 ) != 1)
+        {
+            printf("Erro ao na leitura de arquivo, ele nao esta nos padroes especificados");
+            exit(EXIT_FAILURE);
+        }
+
+        //ler uma linha
+        while( (chr = fgetc(arquivo)) != '\n' )
+        {
+            if( feof(arquivo) )
+            {
+                break;
+            }
+            if( isdigit(chr) )
+            {
+                ungetc(chr, arquivo);
+                if(fscanf(arquivo, "%d", &V2) != 1)
+                {
+                    printf("Erro ao na leitura de arquivo, ele nao esta nos padroes especificados");
+                    exit(EXIT_FAILURE);
+                }
+                InsereAresta(&grafoEmp, V1, V2);
+            }
+        }
+    }
     GrafoComplementar(&grafoEmp);
 
     //adiciona os experimentos que podem ser feitos simultaneamente
     GrafoMergeRelacoes(grafo, &grafoEmp);
-
-    LiberaBuffer(&Buffer, size);
     LiberaGrafo(&grafoEmp);
 }
 
-void MontaGrafoEmpresas(Grafo *grafo, char **Buffer, int NEmp, int *id, int size)
-{
-    int V1, V2, i;
-    int n = 0;
-    int continua = 1;
-    i = (*id);
-
-    //enquanto existir alguma empresa
-    while(n < NEmp)
-    {
-        while(strcmp(Buffer[i], "e") == 0)
-        {
-            i++;
-        }
-
-        V1 = atoi(Buffer[i]);
-        i++;
-        //adiciona arestas a V1 enquanto nao mudar de linha
-        while(strcmp(Buffer[i], "e") != 0 && i < (size - 1) && !continua)
-        {
-            if(!Buffer[i+1]){ continua = 0;}
-            V2 = atoi(Buffer[i]);
-            InsereAresta(grafo, V1, V2);
-            i++;
-        }
-        n++;
-    }
-    (*id) = i;
-}
-
-void MontaGrafoExperimentos(Grafo *grafo, char **Buffer, int NExp, int *id)
-{
-    int empresa, experimento, i;
-    double tempo, lucro;
-
-    i = (*id);
-    int q = 0; //quantidade de experimentos ja adicionados
-    //enquanto existir algum experimento
-    while(q < NExp)
-    {
-        while(strcmp(Buffer[i], "e") == 0)
-        {
-            i++;
-        }
-
-        //leitura dos dados do arquivo
-        experimento = atoi(Buffer[i]);
-        empresa = atoi(Buffer[i+1]);
-        lucro = atof(Buffer[i+2]);
-        tempo = atof(Buffer[i+3]);
-
-        //insercao dos dados na estrutura
-        InsereAresta(grafo, experimento, experimento);
-        insereExperimento(grafo, experimento, empresa, lucro, tempo);
-
-        //incrementa id do buffer e quantidade de experimentos
-        i += 4;
-        q++;
-    }
-
-    (*id) = i;
-}
-
-void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento, char *fileTeste, double tempoFinal)
+void SalvaSaida(char *saida, long long int configuracoes, double lucro, double tempoGasto, int size, int *experimento)
 {
     //imprime saida na tela
     printf("\n\n%lld", configuracoes);
@@ -122,12 +110,6 @@ void SalvaSaida(char *saida, long long int configuracoes, double lucro, double t
         sprintf(string, "Exp%d ", experimento[i]);
         saveFile(saida, string);
     }
-    if(string){free(string);}
-    
-    //salva estatisticas no arquivo
-    string = malloc(sizeof(char) * 50);
-    sprintf(string, " %f\n", tempoGasto);
-    saveFile(fileTeste, string);
 
     if(string){free(string);}
 }

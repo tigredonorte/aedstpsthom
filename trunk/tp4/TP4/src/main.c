@@ -21,19 +21,10 @@ int main2(int argc, char** argv)
     char *fileTeste = NULL; //arquivo de saida
     int algoritmo = 1; //qual o algoritmo que sera escolhido
     readArgs(argc, argv, &entrada, &saida, &fileTeste, &algoritmo);
-
-    //gera o arquivo de entrada com os parametros definidos
-    uint numEmpresas = 5;
-    uint numExperimentos = 5;
-    double probabilidade = 0.25;
-    geraEntrada(entrada, numEmpresas, numExperimentos, probabilidade);
-    
+   
     //cria e inicializa o grafo com suas arestas
     Grafo grafo; 
     setEntradaGrafo(&grafo, entrada);
-
-    //responsavel pela estatistica de tempo
-    double iniTime = getTime();
 
     //variaveis de saida
     long long int configuracoes = 0;
@@ -54,10 +45,9 @@ int main2(int argc, char** argv)
         default:
             printf("nao existe o algoritmo com id %d, por favor consulte o arquivo leiame.txt", algoritmo);
     }
-    double tempoFinal = (getTime() - iniTime);
     
     //salva os valores importantes no arquivo e imprime os resultados na tela
-    SalvaSaida(saida, configuracoes, lucro, tempoGasto, nExp, experimentos, fileTeste, tempoFinal);
+    SalvaSaida(saida, configuracoes, lucro, tempoGasto, nExp, experimentos);
 
     LiberaGrafo(&grafo);
     return (EXIT_SUCCESS);

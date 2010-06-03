@@ -79,10 +79,10 @@ void print_output_file (Texp **exps, int **matrix, uint num_comps, uint num_exps
 	fprintf(out_file, "%lf %d %d \n", MAX_COST , num_comps, num_exps);
 	uint i=0, j=0;
 	for (i=0; i < num_exps; i++)
-		fprintf(out_file, "e %d %d %lf %lf \n", exps[i]->id_exp, exps[i]->id_comp, exps[i]->gain, exps[i]->cost);
+		fprintf(out_file, "%d %d %lf %lf \n", exps[i]->id_exp, exps[i]->id_comp, exps[i]->gain, exps[i]->cost);
 	for (i=0; i < num_comps; i++)
 	{
-		fprintf(out_file, "e %d ", i);
+		fprintf(out_file, "%d ", i);
 		for (j=0; j < num_comps; j++)
 		{
 			if (matrix[i][j]==1)
@@ -90,7 +90,6 @@ void print_output_file (Texp **exps, int **matrix, uint num_comps, uint num_exps
 		}
 		fprintf(out_file, "\n");
 	}
-        fprintf(out_file, "f");
 }
 
 void geraEntrada(char *entrada, uint numEmpresas, uint numExperimentos, double probabilidade)

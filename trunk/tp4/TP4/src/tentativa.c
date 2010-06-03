@@ -3,20 +3,19 @@
 void proxCombinacao(int **v, int size)
 {
     int terminou = 0;
-    int carry = 0;
+    //int carry = 1;
     int i =0;
 
     for(i = 0; i < size && !terminou; i++)
     {
-        if((*v)[i] == 0)
+        int aux = (*v)[i];
+        if(aux == 0)
         {
-            carry = 0;
             terminou = 1;
             (*v)[i] = 1;
         }
-        else
+        else 
         {
-            carry = 1;
             (*v)[i] = 0;
         }
     }
@@ -49,7 +48,7 @@ void calculaConfiguracaoTentativa(Grafo *grafo, int **solucao, int *sizeOfSoluca
     int melhorK = 0; //tamanho da melhor solucao adotada
     int coubeTodos = 0; //verifica se todos os elementos couberam na mochila, neste caso pode parar a iteracao
     int candidato = 0;  //verifica se um experimento concorre com o outro
-    int verificou = 0;
+    int verificou = 0;  //verifica se uma solucao eh viavel
 
     //vetor que guardara o ou 1, se for 0, o elemento pode ser incluido, se for 1 nao pode
     for(i = 0; i < size; i++)
@@ -64,6 +63,9 @@ void calculaConfiguracaoTentativa(Grafo *grafo, int **solucao, int *sizeOfSoluca
         k = 0;
         valor = 0;
         tempo = 0;
+
+        //uma configuracao pode ou nao ser verificada
+        verificou = 1;
         for(j = 0; j < size; j++)
         {
             //todo vertice eh candidato, a priori
@@ -72,7 +74,6 @@ void calculaConfiguracaoTentativa(Grafo *grafo, int **solucao, int *sizeOfSoluca
             //verifica dentre os experimentos combinados, quais devem ser considerados
             if(v[j] == 1)
             {
-                verificou = 1;
                 tAux = ExperimentoGetTime(&e[j]);
                 //verifica se o experimento cumpre as condicoes de tempo
                 if((tempo + tAux) <= TTotal)
@@ -100,6 +101,10 @@ void calculaConfiguracaoTentativa(Grafo *grafo, int **solucao, int *sizeOfSoluca
                         valor += ExperimentoGetLucro(&e[j]);
                         tempo += tAux;
                     }
+                }
+                else
+                {
+                    verificou = 0;
                 }
             }
         }
