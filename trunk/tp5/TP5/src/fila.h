@@ -38,6 +38,9 @@ typedef struct fila_str
     int id;
 }Fila;
 
+//desaloca uma fila
+void destroiFila(Fila *fila);
+
 //Esvazia fila
 void esvaziaFila(Fila *fila);
 
