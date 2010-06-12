@@ -1,5 +1,22 @@
 #include "fila.h"
 
+void destroiFila(Fila *fila)
+{
+    if(fila->frente == fila->tras)
+    {
+        free(fila);
+        return;
+    }
+    PFila q = fila->frente;
+    PFila aux = fila->frente;
+    while(aux != NULL)
+    {
+        aux = q->prox;
+        free(q);
+        q = aux;
+    }
+}
+
 //Esvazia fila
 void esvaziaFila(Fila *fila)
 {

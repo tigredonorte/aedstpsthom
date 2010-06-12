@@ -41,6 +41,9 @@ typedef struct dataout_str
     double tempo;
 }DataOut;
 
+//faz a leitura dos dados
+void leEntrada(DataIn *data);
+
 //retorna o tempo atual
 double getTime();
 

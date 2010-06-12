@@ -1,93 +1,19 @@
 #include "interface.h"
 
-/*
-void setEntradaGrafo(Grafo *grafo, char *entrada)
+
+void leEntrada(DataIn *data)
 {
-    Grafo grafoEmp;
+    long tamPagina = 0;
+    long pageBegin = 0;
+    char *buffer;
+    
+    readFirstLine(data->IEntrada, &buffer, &pageBegin);
+    free(buffer);
+    buffer = malloc(sizeof(char*));
 
-    FILE *arquivo;
-    arquivo = fopen(entrada, "r");
-    if(arquivo == NULL)
-    {
-        printf("\nErro ao ler arquivo, o programa sera fechado!!\n");
-        exit(EXIT_FAILURE);
-    }
-
-
-    double tempoT;
-    int NEmp, NExp;
-
-    // (tempo total, num empresas, num experimentos)
-    if( fscanf(arquivo, "%lf %d %d", &tempoT, &NEmp, &NExp) != 3 )
-    {
-        printf("\nEntrada com formato invalido! A primeira linha deve conter 3 numeros, como na documentacao\n");
-        exit(EXIT_FAILURE);
-    }
-
-    //operacoes com o grafo de experimentos
-    inicializaGrafo(grafo, tempoT, NExp);
-    FGVazio(grafo);
-
-
-    //monta grafo de experimentos
-    int empresa, experimento;
-    double tempo, lucro;
-    int i;
-
-    for(i = 0; i < NExp; i++)
-    {
-        if( fscanf(arquivo, "%d %d %lf %lf", &experimento, &empresa, &lucro, &tempo) != 4 )
-        {
-            printf("Erro ao na leitura de arquivo, ele nao esta nos padroes especificados");
-            exit(EXIT_FAILURE);
-        }
-        //insercao dos dados na estrutura
-        InsereAresta(grafo, experimento, experimento);
-        insereExperimento(grafo, experimento, empresa, lucro, tempo);
-    }
-
-
-    //operacoes com o grafo de empresas
-    inicializaGrafo(&grafoEmp, tempoT, NEmp);
-    FGVazio(&grafoEmp);
-
-    //monta o grafo de empresas
-    int V1, V2;
-    char chr;
-    for(i = 0; i < NEmp; i++)
-    {
-        if(fscanf( arquivo, "%d", &V1 ) != 1)
-        {
-            printf("Erro ao na leitura de arquivo, ele nao esta nos padroes especificados");
-            exit(EXIT_FAILURE);
-        }
-
-        //ler uma linha
-        while( (chr = fgetc(arquivo)) != '\n' )
-        {
-            if( feof(arquivo) )
-            {
-                break;
-            }
-            if( isdigit(chr) )
-            {
-                ungetc(chr, arquivo);
-                if(fscanf(arquivo, "%d", &V2) != 1)
-                {
-                    printf("Erro ao na leitura de arquivo, ele nao esta nos padroes especificados");
-                    exit(EXIT_FAILURE);
-                }
-                InsereAresta(&grafoEmp, V1, V2);
-            }
-        }
-    }
-    GrafoComplementar(&grafoEmp);
-
-    //adiciona os experimentos que podem ser feitos simultaneamente
-    GrafoMergeRelacoes(grafo, &grafoEmp);
-    LiberaGrafo(&grafoEmp);
+    tamPagina = sizePage(data->IEntrada, data->NPaginas);
 }
- */
+ 
 
 void SalvaSaida(DataIn *data, DataOut *datao)
 {
@@ -131,7 +57,7 @@ void readArgs(int argc, char** argv, DataIn *data)
     int c; //variavel provisoria para a funcao get opt
     c = 0;
 
-    if(argc < 7)
+    if(argc < 15)
     {
         printf("Entrada invalida, erro! A entrada deve conter os seguintes parametros: \n"
                "-i Arquivo de entrada. \n"
@@ -145,7 +71,7 @@ void readArgs(int argc, char** argv, DataIn *data)
     }
     int t = 0;
 
-    while((c = getopt (argc, argv, ":s:i:o:t:")) != -1)
+    while((c = getopt (argc, argv, ":i:c:s:n:r:k:o:t:")) != -1)
     {
         switch (c)
         {
@@ -175,7 +101,7 @@ void readArgs(int argc, char** argv, DataIn *data)
                     data->TTeste = optarg;
                     break;
             case '?':
-                     printf("Parametros de entrada incorretos, por favor cheque o arquivo leiame.txt para mais informacoes\n"
+                     printf("Parametros de entrada incorretos, por favor cheque a documentacao para mais informacoes\n"
                             "o programa sera fechado\n");
                     exit(EXIT_FAILURE);
             default:

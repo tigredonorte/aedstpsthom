@@ -23,4 +23,13 @@ void saveFile(char *nome_arquivo, char *string);
 //cria um novo arquivo com o nome passado por parametro
 void createFileIfNotExists(char *nome_arquivo);
 
+//faz a leitura de uma pagina
+void readPage(char **buffer, char *nomeArquivo, long *pageBegin, long *pageEnd);
+
+//le a primeira linha do arquivo e descobre a posicao do ultimo caractere desta linha
+void readFirstLine(char *nomeArquivo, char **buffer, long *pageBegin);
+
+//descobre o tamanho da pagina
+long sizePage(char *nomeArquivo, int numPaginas);
+
 #endif	/* _FILE_H */

@@ -25,6 +25,8 @@
     <itemPath>TP5/src/interface.c</itemPath>
     <itemPath>TP5/src/interface.h</itemPath>
     <itemPath>TP5/src/main.c</itemPath>
+    <itemPath>TP5/src/pontos.c</itemPath>
+    <itemPath>TP5/src/pontos.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -35,6 +37,9 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <cCompilerTool>
+          <commandLine>-lm</commandLine>
+        </cCompilerTool>
         <linkerTool>
           <linkerLibItems>
           </linkerLibItems>
@@ -60,6 +65,12 @@
       </item>
       <item path="TP5/src/main.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/pontos.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/pontos.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -103,6 +114,12 @@
       </item>
       <item path="TP5/src/main.c">
         <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/pontos.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/pontos.h">
+        <itemTool>3</itemTool>
       </item>
     </conf>
   </confs>
