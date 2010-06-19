@@ -23,22 +23,28 @@ typedef struct Pontos_str
     Ponto *pontos;
     Fila *PProximos;
     int *id;
-}Pontos;
+}Pagina;
 
 //inicializa a estrutura de pontos
-void inicializaPontos(Pontos *pts, int numPontos, int numDimensoes);
+void inicializaPagina(Pagina *pts, int numPontos, int numDimensoes);
+
+//desaloca uma estrutura de pontos
+void destroiPagina(Pagina *pts);
+
+//copia o ponto fonte para o destino
+void copiaPagina(Pagina *src, Pagina *dst);
 
 //Calcula distancia entre dois pontos
 double calculaDistancia(Ponto P, Ponto Q, int numDim);
 
 //le os pontos contidos em um caractere
-void lePontos(Pontos *pts, char *buffer, int firstLine);
+void lePontos(Pagina *pts, char *buffer, int firstLine);
 
 //calcula a distancia entre os pontos contidos na estrutura
-void calculaDistanciaPontos(Pontos *pts, double r, int firstLine);
+void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int K, int *numK);
 
-//desaloca uma estrutura de pontos
-void destroiPontos(Pontos *pts);
+//calcula a distancia dentre os pontos de duas paginas
+void calculaDistanciaDuasPagina(Pagina *pagSrc, Pagina *pagDst, double r, int firstLineI, int firstLineJ, int k, int *numK);
 
 #endif	/* _PONTOS_H */
 

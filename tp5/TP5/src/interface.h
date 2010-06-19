@@ -15,9 +15,10 @@
 #include <string.h>
 #include "file.h"
 #include "fila.h"
+#include "buffer.h"
 
-#define TENTATIVA  1
-#define HEURISTICA  2
+#define FIFO  1
+#define LRU  2
 
 typedef struct datain_str
 {
@@ -42,7 +43,7 @@ typedef struct dataout_str
 }DataOut;
 
 //faz a leitura dos dados
-void leEntrada(DataIn *data);
+void leEntrada(DataIn *data, Mapa *map, Buffer *buffer);
 
 //retorna o tempo atual
 double getTime();

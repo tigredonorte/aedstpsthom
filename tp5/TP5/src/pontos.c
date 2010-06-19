@@ -13,7 +13,7 @@ double calculaDistancia(Ponto P, Ponto Q, int numDim)
 }
 
 //inicializa a estrutura de pontos
-void inicializaPontos(Pontos *pts, int numPontos, int numDimensoes)
+void inicializaPagina(Pagina *pts, int numPontos, int numDimensoes)
 {
     pts->numDimensoes = numDimensoes;
     pts->numPontos = numPontos;
@@ -37,7 +37,7 @@ void inicializaPontos(Pontos *pts, int numPontos, int numDimensoes)
     }
 }
 
-void destroiPontos(Pontos *pts)
+void destroiPagina(Pagina *pts)
 {
     int i;
     for(i = 0; i < pts->numPontos; i++)
@@ -49,7 +49,16 @@ void destroiPontos(Pontos *pts)
     free(pts->pontos);
 }
 
-void lePontos(Pontos *pts, char *buffer, int firstLine)
+void copiaPagina(Pagina *src, Pagina *dst)
+{
+    dst->id = src->id;
+    dst->PProximos = src->PProximos;
+    dst->numDimensoes = src->numDimensoes;
+    dst->numPontos = src->numPontos;
+    dst->pontos = src->pontos;
+}
+
+void lePontos(Pagina *pts, char *buffer, int firstLine)
 {
     double pt = 0;
     int i, j;
@@ -68,10 +77,11 @@ void lePontos(Pontos *pts, char *buffer, int firstLine)
     }
 }
 
-void calculaDistanciaPontos(Pontos *pts, double r, int firstLine)
+void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int k, int *numK)
 {
     int i,j;
     double distancia = 0;
+
     for(i = 0; i < pts->numPontos; i++)
     {
         for(j = i+1; j < pts->numPontos; j++)
@@ -79,8 +89,36 @@ void calculaDistanciaPontos(Pontos *pts, double r, int firstLine)
             distancia = calculaDistancia(pts->pontos[i], pts->pontos[j], pts->numDimensoes);
             if(distancia <= r)
             {
+                (*numK)++;
                 insereFila(&pts->PProximos[i], (j+ firstLine));
                 insereFila(&pts->PProximos[j], (i+ firstLine));
+            }
+            if(k == (*numK))
+            {
+                return;
+            }
+        }
+    }
+}
+
+void calculaDistanciaDuasPagina(Pagina *pagSrc, Pagina *pagDst, double r, int firstLineI, int firstLineJ, int k, int *numK)
+{
+    int i,j;
+    double distancia = 0;
+    for(i = 0; i < pagSrc->numPontos; i++)
+    {
+        for(j = 0; j < pagDst->numPontos; j++)
+        {
+            distancia = calculaDistancia(pagSrc->pontos[i], pagDst->pontos[j], pagSrc->numDimensoes);
+            if(distancia <= r)
+            {
+                (*numK)++;
+                insereFila(&pagSrc->PProximos[i], (j+ firstLineJ));
+                insereFila(&pagDst->PProximos[j], (i+ firstLineI));
+            }
+            if(k == (*numK))
+            {
+                return;
             }
         }
     }

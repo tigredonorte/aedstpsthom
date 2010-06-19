@@ -1,17 +1,23 @@
 #include "interface.h"
 
 
-void leEntrada(DataIn *data)
+void leEntrada(DataIn *data, Mapa *map, Buffer *buffer)
 {
-    long tamPagina = 0;
-    long pageBegin = 0;
-    char *buffer;
-    
-    readFirstLine(data->IEntrada, &buffer, &pageBegin);
-    free(buffer);
-    buffer = malloc(sizeof(char*));
+    //le a primeira linha do arquivo
+    int numPontos, numDim, PPPagina;
+    readFirstLine(data->IEntrada, &numPontos, &numDim);
 
-    tamPagina = sizePage(data->IEntrada, data->NPaginas);
+    //descobre o numero de pontos que cabera em uma pagina
+    double arredonda = (double)numPontos/data->NPaginas;
+    PPPagina = (int)arredonda;
+    if(arredonda > PPPagina) PPPagina++;
+
+    //inicializa o buffer
+    int PagsBuffer = (int)(data->CTamanho*1024*1024)/(sizeof(double) *PPPagina * numDim);
+    inicializaBuffer(buffer, PagsBuffer, PPPagina, numDim);
+
+    //mapeia o arquivo de entrada na estrutura map
+    mapeiaArquivo(map, numPontos, PPPagina, data->IEntrada, &data->NPaginas);
 }
  
 
