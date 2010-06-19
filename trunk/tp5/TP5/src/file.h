@@ -17,6 +17,26 @@
 //Caracteres a serem ignorados caso aparecam no texto
 #define IGNORA_CHAR " \n\t\0!@#$&%*()_+{}´`'][~;:/?,|'*-/+abcdghijklmnopqrstuvwxyzABCDGHIJKLMNOPQSTUVWXYZ"
 
+typedef struct mapa_str
+{
+    int size;
+    long *inicio;
+    long *final;
+    int *firstLine;
+}Mapa;
+
+//cria um novo mapa
+void inicializaMapa(Mapa *map, int size);
+
+//insere elementos no mapa
+void insereMapa(Mapa *map, long *inicio, long* final, int *firstLine, int size);
+
+//desaloca um mapa
+void desalocaMapa(Mapa *map);
+
+//faz o mapeamento do arquivo
+void mapeiaArquivo(Mapa *map, int PPArquivo, int PPPagina, char *nomeArquivo, int *numPags);
+
 /*salva uma string no arquivo passado como parametro*/
 void saveFile(char *nome_arquivo, char *string);
 
@@ -27,9 +47,6 @@ void createFileIfNotExists(char *nome_arquivo);
 void readPage(char **buffer, char *nomeArquivo, long *pageBegin, long *pageEnd);
 
 //le a primeira linha do arquivo e descobre a posicao do ultimo caractere desta linha
-void readFirstLine(char *nomeArquivo, char **buffer, long *pageBegin);
-
-//descobre o tamanho da pagina
-long sizePage(char *nomeArquivo, int numPaginas);
+void readFirstLine(char *nomeArquivo, int *numPontos, int *numDim);
 
 #endif	/* _FILE_H */

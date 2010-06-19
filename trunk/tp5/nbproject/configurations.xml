@@ -18,12 +18,20 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>TP5/src/buffer.c</itemPath>
+    <itemPath>TP5/src/buffer.h</itemPath>
+    <itemPath>TP5/src/fifo.c</itemPath>
+    <itemPath>TP5/src/fifo.h</itemPath>
     <itemPath>TP5/src/fila.c</itemPath>
     <itemPath>TP5/src/fila.h</itemPath>
     <itemPath>TP5/src/file.c</itemPath>
     <itemPath>TP5/src/file.h</itemPath>
+    <itemPath>TP5/src/grafo.c</itemPath>
+    <itemPath>TP5/src/grafo.h</itemPath>
     <itemPath>TP5/src/interface.c</itemPath>
     <itemPath>TP5/src/interface.h</itemPath>
+    <itemPath>TP5/src/lru.c</itemPath>
+    <itemPath>TP5/src/lru.h</itemPath>
     <itemPath>TP5/src/main.c</itemPath>
     <itemPath>TP5/src/pontos.c</itemPath>
     <itemPath>TP5/src/pontos.h</itemPath>
@@ -38,13 +46,25 @@
       </toolsSet>
       <compileType>
         <cCompilerTool>
-          <commandLine>-lm</commandLine>
+          <commandLine>-lm -Wall</commandLine>
         </cCompilerTool>
         <linkerTool>
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP5/src/buffer.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/buffer.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP5/src/fifo.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/fifo.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP5/src/fila.c">
         <itemTool>0</itemTool>
       </item>
@@ -57,10 +77,22 @@
       <item path="TP5/src/file.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="TP5/src/grafo.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/grafo.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP5/src/interface.c">
         <itemTool>0</itemTool>
       </item>
       <item path="TP5/src/interface.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP5/src/lru.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/lru.h">
         <itemTool>3</itemTool>
       </item>
       <item path="TP5/src/main.c">
@@ -94,6 +126,18 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP5/src/buffer.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/buffer.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP5/src/fifo.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/fifo.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP5/src/fila.c">
         <itemTool>0</itemTool>
       </item>
@@ -106,10 +150,22 @@
       <item path="TP5/src/file.h">
         <itemTool>3</itemTool>
       </item>
+      <item path="TP5/src/grafo.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/grafo.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP5/src/interface.c">
         <itemTool>0</itemTool>
       </item>
       <item path="TP5/src/interface.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP5/src/lru.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP5/src/lru.h">
         <itemTool>3</itemTool>
       </item>
       <item path="TP5/src/main.c">
