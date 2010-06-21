@@ -2,11 +2,17 @@
 
 double calculaDistancia(Ponto P, Ponto Q, int numDim)
 {
+    double temp1, temp2;
     int i;
     double value = 0;
     for(i=0 ; i < numDim; i++)
     {
-        value += (P[i] - Q[i])*(P[i] - Q[i]);
+        temp1 = P[i];
+        temp2 = Q[i];
+
+        temp2 = temp2 - temp1;
+        temp1 = temp2*temp2;
+        value += temp1;
     }
     value = sqrt(value);
     return(value);
@@ -21,7 +27,6 @@ void inicializaPagina(Pagina *pts, int numPontos, int numDimensoes)
     //aloca vetores
     pts->id = malloc(sizeof(int) * numPontos);
     pts->pontos = malloc(sizeof(double*) * numPontos);
-    pts->PProximos = malloc(sizeof(Fila) * numPontos);
 
     int i,j;
     for(i = 0; i < numPontos; i++)
@@ -33,7 +38,6 @@ void inicializaPagina(Pagina *pts, int numPontos, int numDimensoes)
         {
             pts->pontos[i][j] = 0;
         }
-        esvaziaFila(&pts->PProximos[i]);
     }
 }
 
@@ -43,19 +47,9 @@ void destroiPagina(Pagina *pts)
     for(i = 0; i < pts->numPontos; i++)
     {
         free(pts->pontos[i]);
-        destroiFila(&pts->PProximos[i]);
     }
     free(pts->id);
     free(pts->pontos);
-}
-
-void copiaPagina(Pagina *src, Pagina *dst)
-{
-    dst->id = src->id;
-    dst->PProximos = src->PProximos;
-    dst->numDimensoes = src->numDimensoes;
-    dst->numPontos = src->numPontos;
-    dst->pontos = src->pontos;
 }
 
 void lePontos(Pagina *pts, char *buffer, int firstLine)
@@ -77,9 +71,10 @@ void lePontos(Pagina *pts, char *buffer, int firstLine)
     }
 }
 
-void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int k, int *numK)
+void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int k, int *numK, Fila **fila)
 {
-    int i,j;
+    int i,j, nk;
+    nk = (*numK);
     double distancia = 0;
 
     for(i = 0; i < pts->numPontos; i++)
@@ -89,9 +84,13 @@ void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int k, int *nu
             distancia = calculaDistancia(pts->pontos[i], pts->pontos[j], pts->numDimensoes);
             if(distancia <= r)
             {
+                nk++;
                 (*numK)++;
-                insereFila(&pts->PProximos[i], (j+ firstLine));
-                insereFila(&pts->PProximos[j], (i+ firstLine));
+                insereFila(&(*fila)[firstLine + j], (i+ firstLine));
+                if(i != j)
+                {
+                    insereFila(&(*fila)[firstLine + i], (j+ firstLine));
+                }
             }
             if(k == (*numK))
             {
@@ -101,7 +100,7 @@ void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int k, int *nu
     }
 }
 
-void calculaDistanciaDuasPagina(Pagina *pagSrc, Pagina *pagDst, double r, int firstLineI, int firstLineJ, int k, int *numK)
+void calculaDistanciaDuasPagina(Pagina *pagSrc, Pagina *pagDst, double r, int firstLineI, int firstLineJ, int k, int *numK, Fila **fila)
 {
     int i,j;
     double distancia = 0;
@@ -112,9 +111,16 @@ void calculaDistanciaDuasPagina(Pagina *pagSrc, Pagina *pagDst, double r, int fi
             distancia = calculaDistancia(pagSrc->pontos[i], pagDst->pontos[j], pagSrc->numDimensoes);
             if(distancia <= r)
             {
-                (*numK)++;
-                insereFila(&pagSrc->PProximos[i], (j+ firstLineJ));
-                insereFila(&pagDst->PProximos[j], (i+ firstLineI));
+                //se nao estou comparando o mesmo ponto
+                if((firstLineJ + j) != (i+ firstLineI))
+                {
+                    (*numK)++;
+                    insereFila(&(*fila)[firstLineJ + j], (i+ firstLineI));
+                    if(firstLineI != firstLineJ)
+                    {
+                        insereFila(&(*fila)[firstLineI + i], (j+ firstLineJ));
+                    }
+                }
             }
             if(k == (*numK))
             {

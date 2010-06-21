@@ -32,9 +32,6 @@ void destroiBuffer(Buffer *buffer);
 //destroi uma pagina
 short destroiPaginaBuffer(Buffer *buffer, int pagina);
 
-//carrega uma pagina do buffer
-void recuperaPaginaBuffer(Buffer *buffer, Pagina *pg, int pagina);
-
 /*
  *  firstline eh a linha do primeiro ponto da pagina
  */
@@ -46,10 +43,10 @@ short insereBuffer(Buffer *buffer, char *buff, int pagina, int firstLine, int id
 short substituiPaginaBuffer(Buffer *buffer, char *buff, int pagina, int firstLine, int idPagina);
 
 //calcula a distancia entre duas paginas do buffer
-void calculaDistanciaPaginas(Buffer *buffer, int id1, int id2, double r, int firstLine1, int firstLine2, int k, int *numK);
+void calculaDistanciaPaginas(Buffer *buffer, int id1, int id2, double r, int firstLine1, int firstLine2, int k, int *numK, Fila **fila);
 
 //calcula a distancia dos pontos da pagina id
-int calculaDistanciaPagina(Buffer *buffer, int pagina, double r, int firstLine, int k, int *numK);
+int calculaDistanciaPagina(Buffer *buffer, int pagina, double r, int firstLine, int k, int *numK, Fila **fila);
 
 #endif	/* _BUFFER_H */
 

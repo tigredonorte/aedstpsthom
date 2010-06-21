@@ -21,7 +21,6 @@ typedef struct Pontos_str
     int numPontos;
     int numDimensoes;
     Ponto *pontos;
-    Fila *PProximos;
     int *id;
 }Pagina;
 
@@ -31,9 +30,6 @@ void inicializaPagina(Pagina *pts, int numPontos, int numDimensoes);
 //desaloca uma estrutura de pontos
 void destroiPagina(Pagina *pts);
 
-//copia o ponto fonte para o destino
-void copiaPagina(Pagina *src, Pagina *dst);
-
 //Calcula distancia entre dois pontos
 double calculaDistancia(Ponto P, Ponto Q, int numDim);
 
@@ -41,10 +37,10 @@ double calculaDistancia(Ponto P, Ponto Q, int numDim);
 void lePontos(Pagina *pts, char *buffer, int firstLine);
 
 //calcula a distancia entre os pontos contidos na estrutura
-void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int K, int *numK);
+void calculaDistanciaPontos(Pagina *pts, double r, int firstLine, int K, int *numK, Fila **fila);
 
 //calcula a distancia dentre os pontos de duas paginas
-void calculaDistanciaDuasPagina(Pagina *pagSrc, Pagina *pagDst, double r, int firstLineI, int firstLineJ, int k, int *numK);
+void calculaDistanciaDuasPagina(Pagina *pagSrc, Pagina *pagDst, double r, int firstLineI, int firstLineJ, int k, int *numK, Fila **fila);
 
 #endif	/* _PONTOS_H */
 

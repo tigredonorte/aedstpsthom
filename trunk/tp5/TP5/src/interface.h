@@ -37,10 +37,17 @@ typedef struct datain_str
 
 typedef struct dataout_str
 {
-    int substituicoes;
     Fila *fila;
     double tempo;
+    int numPontos;
+    int substituicoes;
 }DataOut;
+
+//inicializa a saida
+void inicializaDataOut(DataOut *datao, int numPontos);
+
+//libera memoria
+void destroiDataOut(DataOut *datao);
 
 //faz a leitura dos dados
 void leEntrada(DataIn *data, Mapa *map, Buffer *buffer);
@@ -53,5 +60,8 @@ void SalvaSaida(DataIn *data, DataOut *dataOut);
 
 //le os arqumentos da entrada
 void readArgs(int argc, char** argv, DataIn *data);
+
+//libera a memoria do main
+void desalocaVariaveis(DataOut *datao, Mapa *map, Buffer *buffer);
 
 #endif	/* _INTERFACE_H */

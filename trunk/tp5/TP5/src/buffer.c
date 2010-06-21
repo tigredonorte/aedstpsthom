@@ -9,7 +9,6 @@ void inicializaBuffer(Buffer *buffer, int numPaginas, int PontosPorPagina, int n
     buffer->VPaginas = malloc(sizeof(Pagina) * numPaginas);
     buffer->idPagina = malloc(sizeof(int) * numPaginas);
 
-
     int i;
     for(i = 0; i < numPaginas; i++)
     {
@@ -77,32 +76,22 @@ short substituiPaginaBuffer(Buffer *buffer, char *buff, int pagina, int firstLin
     destroiPaginaBuffer(buffer, pagina);
     inicializaPagina(&buffer->VPaginas[pagina], buffer->PPPagina, buffer->numDim);
     lePontos(&buffer->VPaginas[pagina], buff, firstLine);
+    buffer->idPagina[pagina] = idPagina;
     return 1;
 }
 
-void recuperaPaginaBuffer(Buffer *buffer, Pagina *pg, int pagina)
-{
-    //se a pagina nao existe retorna zero
-    if(pagina < 0 || pagina > (buffer->numPaginas-1))
-    {
-        pg = NULL;
-        return;
-    }
-    copiaPagina(&buffer->VPaginas[pagina], pg);
-}
-
-int calculaDistanciaPagina(Buffer *buffer, int pagina, double r, int firstLine, int k, int *numK)
+int calculaDistanciaPagina(Buffer *buffer, int pagina, double r, int firstLine, int k, int *numK, Fila **fila)
 {
     //se a pagina nao existe retorna zero
     if(pagina < 0 || pagina > (buffer->numPaginas-1))
     {
         return 0;
     }
-    calculaDistanciaPontos(&buffer->VPaginas[pagina], r, firstLine, k, numK);
+    calculaDistanciaPontos(&buffer->VPaginas[pagina], r, firstLine, k, numK, fila);
     return 1;
 }
 
-void calculaDistanciaPaginas(Buffer *buffer, int id1, int id2, double r, int firstLine1, int firstLine2, int k, int *numK)
+void calculaDistanciaPaginas(Buffer *buffer, int id1, int id2, double r, int firstLine1, int firstLine2, int k, int *numK, Fila **fila)
 {
     if(id1 < 0 || id1 > (buffer->numPaginas-1))
     {
@@ -112,5 +101,5 @@ void calculaDistanciaPaginas(Buffer *buffer, int id1, int id2, double r, int fir
     {
         return;
     }
-    calculaDistanciaDuasPagina(&buffer->VPaginas[id1], &buffer->VPaginas[id2], r, firstLine1, firstLine2, k, numK);
+    calculaDistanciaDuasPagina(&buffer->VPaginas[id1], &buffer->VPaginas[id2], r, firstLine1, firstLine2, k, numK, fila);
 }

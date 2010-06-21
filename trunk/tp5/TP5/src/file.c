@@ -6,11 +6,14 @@ void inicializaMapa(Mapa *map, int size)
     map->inicio = malloc(sizeof(long) * size);
     map->final = malloc(sizeof(long) * size);
     map->firstLine = malloc(sizeof(int) * size);
+    map->PontosArquivo = 0;
 }
 
-void insereMapa(Mapa *map, long *inicio, long* final, int *firstLine, int size)
+void insereMapa(Mapa *map, long *inicio, long* final, int *firstLine, int size, int PPArquivo)
 {
     map->size = size;
+    map->PontosArquivo = PPArquivo;
+
     int i;
     for(i = 0; i < size; i++)
     {
@@ -24,7 +27,6 @@ void desalocaMapa(Mapa *map)
 {
     free(map->inicio);
     free(map->final);
-    free(map);
 }
 
 void saveFile(char *nome_arquivo, char *string)
@@ -211,7 +213,7 @@ void mapeiaArquivo(Mapa *map, int PPArquivo, int PPPagina, char *nomeArquivo, in
 
     //cria o mapa
     inicializaMapa(map, (*numPags));
-    insereMapa(map, inicio, final, firstLine, (*numPags));
+    insereMapa(map, inicio, final, firstLine, (*numPags), PPArquivo);
 
     //desaloca variaveis
     free(inicio);
