@@ -46,4 +46,7 @@ int getArestaPagina(Grafo *grafo, int V1);
 //retorna 0 caso o grafo nao seja completo, 1 se ele for
 short grafoCompleto(Grafo *grafo);
 
+//remove uma unidade da diagonal i
+void removeUnidadeArestaDiagonal(Grafo *grafo, int i);
+
 #endif	/* _GRAFO_H */

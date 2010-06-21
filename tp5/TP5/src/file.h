@@ -20,6 +20,7 @@
 typedef struct mapa_str
 {
     int size;
+    int PontosArquivo;
     long *inicio;
     long *final;
     int *firstLine;
@@ -29,7 +30,7 @@ typedef struct mapa_str
 void inicializaMapa(Mapa *map, int size);
 
 //insere elementos no mapa
-void insereMapa(Mapa *map, long *inicio, long* final, int *firstLine, int size);
+void insereMapa(Mapa *map, long *inicio, long* final, int *firstLine, int size, int PPArquivo);
 
 //desaloca um mapa
 void desalocaMapa(Mapa *map);

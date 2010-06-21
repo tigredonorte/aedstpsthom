@@ -42,7 +42,7 @@ typedef struct fila_str
 void destroiFila(Fila *fila);
 
 //Esvazia fila
-void esvaziaFila(Fila *fila);
+void esvaziaFila(Fila *fila, int id);
 
 //insere novo elemento na fila
 void insereItemFila(FItem it, Fila *fila);
@@ -55,13 +55,16 @@ void insereFila(Fila *fila, int id);
 
 /*retorna o proximo elemento de aux, caso aux seja nulo, retorna o primeiro elemento,
  caso aux seja o ultimo elemento retorna null*/
-void getProxFila(Fila *fila, PFila aux);
+void getProxFila(Fila *fila, PFila *aux);
 
 //retorna o identificador da fila
 int getId(Fila *fila);
 
 //retorna o id de um item da fila
 int getIdItem(PFila aux);
+
+//retorna o tamanho da fila
+int getSizeFila(Fila *fila);
 
 #endif	/* _FILAP_H */
 

@@ -2,11 +2,6 @@
 
 void destroiFila(Fila *fila)
 {
-    if(fila->frente == fila->tras)
-    {
-        free(fila);
-        return;
-    }
     PFila q = fila->frente;
     PFila aux = fila->frente;
     while(aux != NULL)
@@ -18,12 +13,13 @@ void destroiFila(Fila *fila)
 }
 
 //Esvazia fila
-void esvaziaFila(Fila *fila)
+void esvaziaFila(Fila *fila, int id)
 {
     fila->tamanho = 0;
     fila->frente = (PFila)malloc(sizeof(CFila));
     fila->tras = fila->frente;
     fila->frente->prox = NULL;
+    fila->id = id;
 }
 
 //insere novo elemento na fila
@@ -58,13 +54,19 @@ int getIdItem(PFila aux)
     return(aux->item.id);
 }
 
-void getProxFila(Fila *fila, PFila aux)
+int getSizeFila(Fila *fila)
 {
-    if(aux == NULL)
-    {
-        aux = fila->frente->prox;
-        return;
-    }
+    return(fila->tamanho);
+}
 
-    aux = aux->prox;
+void getProxFila(Fila *fila, PFila *aux)
+{
+    if((*aux) == NULL)
+    {
+        (*aux) = fila->frente->prox;
+    }
+    else
+    {
+        (*aux) = (*aux)->prox;
+    }
 }

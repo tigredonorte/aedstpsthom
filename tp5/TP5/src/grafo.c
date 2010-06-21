@@ -84,5 +84,21 @@ int getArestaPagina(Grafo *grafo, int V1)
 
 short grafoCompleto(Grafo *grafo)
 {
-    return(grafo->NumVertices == grafo->grafoCompleto);
+    int aux = grafo->numArestas;
+    int aux2 = grafo->grafoCompleto;
+    if(aux >= aux2)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+//remove uma unidade da diagonal i
+void removeUnidadeArestaDiagonal(Grafo *grafo, int i)
+{
+    grafo->Mat[i][i]--;
+    if(grafo->Mat[i][i] <= 0)
+    {
+        grafo->Mat[i][i] = -1;
+    }
 }

@@ -21,16 +21,19 @@ int main(int argc, char** argv)
     Buffer buffer;
     leEntrada(&data, &map, &buffer);
 
+    DataOut datao;
+    inicializaDataOut(&datao, map.PontosArquivo);
+    double time = getTime();
     if(buffer.numPaginas > 1)
     {
         //escolhe entre os tres algoritmos
         switch(data.SPolitica)
         {
             case FIFO:
-                        gerenciaPaginasFifo(&buffer, &map, data.IEntrada, data.RRaio, data.KPontos);
+                        gerenciaPaginasFifo(&buffer, &map, data.IEntrada, data.RRaio, data.KPontos, &datao);
                         break;
             case LRU:
-                        gerenciaPaginasLru(&buffer, &map, data.IEntrada, data.RRaio, data.KPontos);
+                        gerenciaPaginasLru(&buffer, &map, data.IEntrada, data.RRaio, data.KPontos, &datao);
                         break;
             default:
                 printf("nao existe o algoritmo com id %d", data.SPolitica);
@@ -38,9 +41,12 @@ int main(int argc, char** argv)
     }
     else
     {
-        gerenciaPaginas(&buffer, &map, data.IEntrada, data.RRaio, data.KPontos);
+        gerenciaPaginas(&buffer, &map, data.IEntrada, data.RRaio, data.KPontos, &datao);
     }
-
+    datao.tempo = getTime() - time;
+    SalvaSaida(&data, &datao);
+    desalocaVariaveis(&datao, &map, &buffer);
+    
     return (EXIT_SUCCESS);
 }
 

@@ -1,19 +1,57 @@
 #include "interface.h"
 
+void inicializaDataOut(DataOut *datao, int numPontos)
+{
+    datao->fila = malloc(sizeof(Fila) * numPontos);
+    datao->substituicoes = 0;
+    datao->tempo = 0;
+    datao->numPontos = numPontos;
+
+    int i;
+    for(i = 0; i < numPontos; i++)
+    {
+        esvaziaFila(&datao->fila[i], i);
+    }
+}
+
+void destroiDataOut(DataOut *datao)
+{
+    int i;
+    for(i = 0; i < datao->numPontos; i++)
+    {
+        destroiFila(&datao->fila[i]);
+    }
+    free(datao->fila);
+}
 
 void leEntrada(DataIn *data, Mapa *map, Buffer *buffer)
 {
     //le a primeira linha do arquivo
-    int numPontos, numDim, PPPagina;
+    int numPontos, numDim, PPPagina, PagsBuffer;
     readFirstLine(data->IEntrada, &numPontos, &numDim);
 
-    //descobre o numero de pontos que cabera em uma pagina
-    double arredonda = (double)numPontos/data->NPaginas;
-    PPPagina = (int)arredonda;
-    if(arredonda > PPPagina) PPPagina++;
+    if(data->CTamanho == 0)
+    {
+        PagsBuffer = 1;
+        PPPagina = numPontos;
+    }
+    else
+    {
+        if(data->NPaginas == 0) data->NPaginas = 1;
 
-    //inicializa o buffer
-    int PagsBuffer = (int)(data->CTamanho*1024*1024)/(sizeof(double) *PPPagina * numDim);
+        //descobre o numero de pontos que cabera em uma pagina
+        double arredonda = (double)numPontos/data->NPaginas;
+        PPPagina = (int)arredonda;
+        if(arredonda > PPPagina) PPPagina++;
+
+        int temp = sizeof(double);
+        //inicializa o buffer
+        arredonda = (double)(data->CTamanho*1024*1024)/(temp *PPPagina * numDim);
+        PagsBuffer = (int)arredonda;
+        if(arredonda > PagsBuffer) PagsBuffer++;
+        if(PagsBuffer > data->NPaginas) PagsBuffer = data->NPaginas;
+    }
+    
     inicializaBuffer(buffer, PagsBuffer, PPPagina, numDim);
 
     //mapeia o arquivo de entrada na estrutura map
@@ -27,35 +65,46 @@ void SalvaSaida(DataIn *data, DataOut *datao)
     int i, id, size;
     PFila aux;
 
-    size = data->KPontos;
+
+    // size = data->KPontos;,
+    size = datao->numPontos;
     //imprime saida na tela e salva no arquivo
-    printf("%d\n", datao->substituicoes);
-    sprintf(string, "%d\n", datao->substituicoes);
+    printf("Trocas de Pagina: %d\n", datao->substituicoes);
+    sprintf(string, "Trocas de Pagina: %d\n", datao->substituicoes);
     saveFile(data->OSaida, string);
 
+    printf("Tempo gasto na execussao: %lf\n", datao->tempo);
+    sprintf(string, "Tempo gasto na execussao: %lf\n", datao->tempo);
+    saveFile(data->OSaida, string);
+
+    int fsize;
     for(i = 0; i < size; i++)
     {
+        
         id = getId(&datao->fila[i]);
         printf("%d ", id);
         sprintf(string, "%d ", datao->substituicoes);
         saveFile(data->OSaida, string);
 
-        aux = NULL;
-        getProxFila(&datao->fila[i], aux);
-        while(aux != NULL)
+        fsize = getSizeFila(&datao->fila[i]);
+        if(fsize > 0)
         {
-            id = getIdItem(aux);
-            printf("%d ", id);
-            sprintf(string, "%d ", id);
-            saveFile(data->OSaida, string);
+            aux = NULL;
+            getProxFila(&datao->fila[i], &aux);
+            while(aux != NULL)
+            {
+                id = getIdItem(aux);
+                printf("%d ", id);
+                sprintf(string, "%d ", id);
+                saveFile(data->OSaida, string);
+                getProxFila(&datao->fila[i], &aux);
+            }
         }
         printf("\n");
         sprintf(string, "\n");
         saveFile(data->OSaida, string);
     }
     printf("\n\n");
-    
-    if(string){free(string);}
 }
 
 void readArgs(int argc, char** argv, DataIn *data)
@@ -94,7 +143,7 @@ void readArgs(int argc, char** argv, DataIn *data)
                     data->NPaginas = atoi(optarg);
                     break;
            case 'r':
-                    data->RRaio = atoi(optarg);
+                    data->RRaio = atof(optarg);
                     break;
            case 'k':
                     data->KPontos = atoi(optarg);
@@ -128,4 +177,11 @@ double getTime()
     gettimeofday(&tv, NULL);
     curtime = (double) tv.tv_sec + 1.e-6 * (double) tv.tv_usec;
     return(curtime);
+}
+
+void desalocaVariaveis(DataOut *datao, Mapa *map, Buffer *buffer)
+{
+    destroiDataOut(datao);
+    desalocaMapa(map);
+    destroiBuffer(buffer);
 }
