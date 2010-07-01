@@ -1,0 +1,125 @@
+                 Trabalho Prático 5: Localidade de Referência
+              Data de Entrega: segunda, 14 junho 2010, 23:55
+                                        Monitores:
+                                Carlos (carlos@dcc.ufmg.br)
+                              Henrique (hpinto@dcc.ufmg.br)
+                                       Professores:
+                          Jussara Almeida (jussara@dcc.ufmg.br)
+                           Wagner Meira Jr. (meira@dcc.ufmg.br)
+O tema a ser estudado neste trabalho é a localidade de referência, uma propriedade
+importante para o projeto de sistemas computacionais eficientes em diversos cenários reais.
+Nesses sistemas, o acesso aos recursos tende a não ser igualmente provável, apresentando
+certos padrões. Esses padrões podem ser explorados para a melhoria do desempenho de
+sistemas computacionais. Um exemplo de recurso que apresenta alta localidade de
+referência é a memória.
+Basicamente, existem dois tipos de localidade de referência: a temporal e a espacial. A
+localidade de referência temporal refere-se à tendência de acesso a um mesmo recurso
+mais de uma vez em um curto intervalo de tempo. A localidade de referência espacial
+refere-se à tendência de acesso a recursos que estejam próximos em um curto intervalo de
+tempo. Tal tendência ocorre, por exemplo, dentro do corpo de comandos de repetição que
+manipulam estruturas de dados como vetores e tabelas, cujos dados se localizam
+geralmente em posições consecutivas de memória.
+Um exemplo de aplicação da localidade de referência é o uso de cache, que basicamente é
+uma área de armazenamento temporária onde dados são disponibilizados para acesso
+rápido. Uma cache é constituída por um conjunto de elementos. Cada elemento tem (1)
+uma etiqueta que identifica o dado no local de armazenamento original e (2) uma cópia
+exata do dado presente no local original.
+Nesse trabalho, trataremos o problema conhecido como Detecção de Vizinhos Próximos.
+Uma instância desse problema é : existe um ponto q passado como consulta e o algoritmo
+deve retornar como resposta os pontos da base de dados que estão a uma distância menor
+ou igual a R de q. Em outras palavras, seja D o conjunto de pontos da base de dados e dist
+uma função de distancia, o conjunto de pontos retornados S pode ser descrito como:
+                           S(q) = {                             }
+Por exemplo, na figura abaixo, os pontos p1 e p2 pertencem a S(q), enquanto p3 não
+pertence.
+Nesse trabalho, deverá ser implementado um algoritmo aproximado para esse problema,
+isto é,
+dado um ponto de consulta q, um valor R e um valor K, o algoritmo deve retornar um
+conjunto
+W onde           e            . Ou seja, não será necessário retornar todos os pontos da base
+que satisfazem                   , mas apenas K pontos quaisquer que satisfazem tal.
+Além disso, o algoritmo deve implementar estratégias para políticas de substituição de
+páginas
+para grandes bases de dados. Considere uma página P um conjunto de pontos da base de
+dados D, onde                  e existem n diferentes páginas. Assuma uma estratégia
+simples para determinar páginas, como, por exemplo, dividir o arquivo de entrada em n
+partes, e assim cada página P terá um número de pontos igual a |D|/n. Note é possível
+recuperar qualquer página dentro do arquivo de entrada, conhecendo seu número i e o
+número total de páginas n, sem a necessidade de percorrer todo o arquivo. Ou seja, o
+primeiro ponto da página        estará
+na linha (i * |D| / n) + 1, onde i é (0, 1, 2, ... n) . Com isso é possível descobrir o offset da
+página e usar [2] para recuperar a página rapidamente.
+Nesse trabalho, vocês deverão implementar duas políticas de substituição de sua escolha
+para decidir quais as páginas (contendo pontos) serão substituídas quando a cache estiver
+cheia, considerando a localidade de referência temporal das consultas. Note que não é
+permitido armazenar toda a base de dados em memória, apenas um conjunto de páginas
+que cabem na cache. Obviamente, a cache (sobre o arquivo de entrada em disco) em nosso
+contexto é realizada na memória principal.
+A entrada de seu programa será composta por:
+1) Um arquivo com os pontos da base de dados, onde a primeira linha nos dá o número de
+pontos
+e o número de dimensões (-i). Podem ser utilizados os mesmos arquivos do trabalho prático
+0.
+42
+0.5  1.5
+0.1  3.4
+1.5  3.4
+3.1  0.1
+2) Tamanho da cache, em MegaBytes. Se for passado zero como parâmetro, significa que o
+algoritmo não vai usar cache (-c).
+3) Política de substituição a ser utilizada (-s).
+4) Número de páginas usadas (-n).
+5) Valor do parametro R (-r)
+6) Valor do parametro K (-k)
+7) Arquivo de saída (-o)
+Os pontos que serão consultados (q) serão os mesmos pontos do arquivo de entrada, ou
+seja,
+existem |D| consultas, onde |D| é o número de pontos da base de dados.
+O arquivo de saída deverá conter o número de substituições realizadas durante o
+processamento das consultas além dos resultados das consultas, um por linha. O resultado
+de uma consulta deve ser a lista dos identificadores dos pontos vizinhos, por exemplo :
+246
+125
+213
+32
+4
+512
+Nesse exemplo de saída, 246 páginas foram substituidas durante o processo. A segunda
+linha mostra que o ponto localizado na linha 1 do arquivo de entrada possui os vizinhos 2
+(linha 2 do arquivo de entrada) e 5 (linha 5 do arquivo de entrada). Note que o ponto 4 não
+possui nenhum vizinho de acordo com os parametros dados.
+O seu programa deverá ser executado com o seguinte comando:
+./tp5 -i <arquivo de entrada> -c <tamanho da cache> -s <política de substituição> -n
+<número de páginas> -r <valor R> -k <valor K> -o <arquivo de saída>
+                                    Avaliação Experimental
+O desempenho da cache deverá ser avaliado utilizando métricas como número de
+substituições e o tempo total de execução das consultas.
+Algumas das avaliações experimentais que devem ser realizadas no trabalho incluem:
+      • Comparação do tempo de execução das consultas com e sem o uso de cache, em
+         função do número de consultas
+      • Comparação do desempenho (medido em número de substituições) das duas
+         políticas de substituição, em função dos parametros tamanho da cache, valor R,
+         número de páginas.
+                                     Critérios de Avaliação
+      •  Execução correta
+      •  Código bem-estruturado
+      •  Código legível
+      •
+      •  Conformidade com o padrão de Documentação
+      •  Comentários explicativos
+      •  Análise de Complexidade
+      • Análise de resultados
+                              Tarefa Opcional (PONTO EXTRA)
+Nesse trabalho, estamos utilizando uma estratégia simples para determinar as páginas da
+base de dados. Entretanto, o uso de pre-processamento para geração das páginas pode ser
+feito através de uma re-organização dos pontos de forma que pontos próximos fiquem
+dentro de uma mesma página. Um forma alternativa e heurística para obter tal organização
+é aplicar uma técnica de agrupamento sobre os dados de entrada. Nessa tarefa, pedimos
+para utilizar e avaliar um algoritmo de agrupamento (K-médias, por ex.) para processar os
+dados e gerar uma nova base
+onde pontos próximos no espaço, estejam próximos também no arquivo de entrada.
+                                         Referências
+[1] Ziviani, N. Projeto de Algoritmos Com Implementações em Pascal e C, Pioneira Thomson
+Learning, Segunda Edição, 2004
+[2] http://www.cplusplus.com/reference/clibrary/cstdio/fseek/
+[3] http://www.cplusplus.com/reference/clibrary/cstdio/fopen/
