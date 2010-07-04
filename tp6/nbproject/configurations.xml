@@ -18,6 +18,12 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>TP6/src/algoritmos.c</itemPath>
+    <itemPath>TP6/src/algoritmos.h</itemPath>
+    <itemPath>TP6/src/fila.c</itemPath>
+    <itemPath>TP6/src/fila.h</itemPath>
+    <itemPath>TP6/src/interface.c</itemPath>
+    <itemPath>TP6/src/interface.h</itemPath>
     <itemPath>TP6/src/main.c</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -34,6 +40,24 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP6/src/algoritmos.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP6/src/algoritmos.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP6/src/fila.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP6/src/fila.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP6/src/interface.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP6/src/interface.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP6/src/main.c">
         <itemTool>0</itemTool>
       </item>
@@ -59,6 +83,24 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="TP6/src/algoritmos.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP6/src/algoritmos.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP6/src/fila.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP6/src/fila.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="TP6/src/interface.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="TP6/src/interface.h">
+        <itemTool>3</itemTool>
+      </item>
       <item path="TP6/src/main.c">
         <itemTool>0</itemTool>
       </item>
