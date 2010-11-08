@@ -1,0 +1,18 @@
+  READ A  
+  READ B  
+  LOAD A   
+DIVISAO: SUB B  
+JPL FIMDIVISAO  
+STORE I  
+INC Q  
+  JMP DIVISAO  
+FIMDIVISAO: WRITE A  
+WRITE B  
+WRITE Q  
+WRITE I  
+  HALT  
+A:   WORD 0  
+B:   WORD 0  
+Q:   WORD 0  
+I:   WORD 0  
+END  

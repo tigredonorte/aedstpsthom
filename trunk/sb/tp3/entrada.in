@@ -1,0 +1,34 @@
+;faz a leitura dos operandos A e B		
+		READ A
+		READ B
+		LOAD A 
+
+;loop da divisao (enquanto AC >= 0)
+DIVISAO:	DIVIDE
+		JMP DIVISAO
+
+;termino da divisao, imprime os resultados
+FIMDIVISAO: 	IMPRIME
+		HALT
+
+;inicializacao das variaveis
+A: 		WORD 0
+B: 		WORD 0
+Q: 		WORD 0
+I: 		WORD 0
+
+DIVIDE: MACRO
+SUB B
+JPL FIMDIVISAO
+STORE I
+INC Q
+ENDMACRO
+
+IMPRIME: MACRO
+WRITE A
+WRITE B
+WRITE Q
+WRITE I
+ENDMACRO
+
+END

@@ -1,0 +1,22 @@
+ 
+  READ A 
+  READ B 
+  LOAD A  
+ 
+ 
+DIVISAO: DIVIDE 
+  JMP DIVISAO 
+ 
+ 
+FIMDIVISAO:  IMPRIME 
+  HALT 
+ 
+ 
+A:   WORD 0 
+B:   WORD 0 
+Q:   WORD 0 
+I:   WORD 0 
+ 
+ 
+ 
+END 

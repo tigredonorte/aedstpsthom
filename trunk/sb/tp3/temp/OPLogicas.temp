@@ -1,0 +1,13 @@
+OPLogicas: MACRO 
+POP c 
+POP d 
+LOAD c 
+AND d 
+STORE temp 
+LOAD c 
+OR d 
+STORE d 
+LOAD temp 
+STORE c 
+IMPRIME 
+ENDMACRO 
