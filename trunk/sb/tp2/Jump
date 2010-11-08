@@ -1,0 +1,50 @@
+;le dois numeros a e b, retona 0 se forem iguais, 1 se a > b e -1 se b< a
+;faz A AND B, A OR B e imprime nessa ordem
+
+	READ a
+	READ b
+	PUSH a
+	PUSH b
+	LOAD a
+	SUB b
+
+;verifica se é maior menor ou igual
+	JPE IGUAL
+	JPG MAIOR
+	JPNE MENOR
+IGUAL:	JMP FIM
+MENOR:	DEC zero
+	JMP FIM
+MAIOR:	INC zero
+	JMP FIM
+
+;imprime se é maior menor ou igual
+FIM:	WRITE zero
+
+;realiza a AND b, a OR b e imprime o resultado
+	POP c
+	POP d
+	LOAD c
+	AND d
+	STORE temp
+	LOAD c
+	OR d
+	STORE d
+	LOAD temp
+	STORE c
+	WRITE a
+	WRITE b
+	WRITE c
+	WRITE d
+	HALT
+
+;aloca espaço para as variaveis
+a:	WORD 0
+b:	WORD 0
+c:	WORD 0
+d:	WORD 0
+zero:	WORD 0
+temp:	WORD 0
+
+;fim do programa
+	END
