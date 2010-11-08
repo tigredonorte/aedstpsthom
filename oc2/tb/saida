@@ -1,0 +1,256 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Fri Nov  5 11:05:04 2010.
+Compiling source file "tb_decode.v"
+Highest level modules:
+tb_decode
+
+clock = #10
+
+addi $a0, $zero, 15000
+
+(negedge)
+teste 1) Entrada: IF -> ID
+fw_if_id_stall  : 0
+if_id_instrucao : 20047fff
+if_id_proximopc :          4
+#1
+teste 1) Saida: ID -> Registers
+id_reg_addra    :  0
+id_reg_addrb    :  4
+id_reg_ena      : 0
+id_reg_enb      : 0
+
+(posedge)
+teste 1) Entrada: Registers -> ID
+reg_id_dataa    : ff1e00a5
+reg_id_datab    : 7ffec02b
+#1
+teste 1) Saida: ID -> Forwarding
+id_fw_regdest   :  0
+id_fw_load      : 0
+id_fw_addra     :  0
+id_fw_addrb     :  4
+id_fw_rega      : ff1e00a5
+id_fw_regb      : 7ffec02b
+
+(negedge)
+teste 1) Saida: ID -> IF
+id_if_selfontepc: 0
+id_if_rega      : 00000000
+id_if_pcimd2ext : 00020000
+id_if_pcindex   : 0011fffc
+id_if_seltipopc : x
+teste 1) Entrada: Forwarding -> ID
+fw_id_rega      : ff1e00a5
+fw_id_regb      : 11111111
+#1
+teste 1) Saida: ID -> EX
+id_ex_selalushift : 0
+id_ex_selimregb   : 1
+id_ex_selsarega   : 0
+id_ex_aluop       : 2
+id_ex_unsig       : 0
+id_ex_shiftop     : x
+id_ex_shiftamt    : 31
+id_ex_rega        : ff1e00a5
+id_ex_msm         : x
+id_ex_msl         : x
+id_ex_readmem     : 0
+id_ex_writemem    : 0
+id_ex_mshw        : x
+id_ex_lshw        : x
+id_ex_regb        : 11111111
+id_ex_imedext     : 00007fff
+id_ex_proximopc   : 00000004
+id_ex_selwsource  : 0
+id_ex_regdest     :  4
+id_ex_writereg    : 1
+id_ex_writeov     : 0
+
+swr $a0, 21($sp)
+
+(negedge)
+teste 2) Entrada: IF -> ID
+fw_if_id_stall  : 1
+if_id_instrucao : bba40015
+if_id_proximopc :        200
+#1
+teste 2) Saida: ID -> Registers
+id_reg_addra    : 29
+id_reg_addrb    :  4
+id_reg_ena      : 0
+id_reg_enb      : 0
+
+(posedge)
+teste 2) Entrada: Registers -> ID
+reg_id_dataa    : 00001111
+reg_id_datab    : 22220000
+#1
+teste 2) Saida: ID -> Forwarding
+id_fw_regdest   :  4
+id_fw_load      : 0
+id_fw_addra     : 29
+id_fw_addrb     :  4
+id_fw_rega      : 00001111
+id_fw_regb      : 22220000
+
+(negedge)
+teste 2) Saida: ID -> IF
+id_if_selfontepc: 0
+id_if_rega      : 0000001d
+id_if_pcimd2ext : 0000011c
+id_if_pcindex   : 02900054
+id_if_seltipopc : x
+teste 2) Entrada: Forwarding -> ID
+fw_id_rega      : aaaaaa01
+fw_id_regb      : 98989898
+#1
+teste 2) Saida: ID -> EX
+id_ex_selalushift : 0
+id_ex_selimregb   : 1
+id_ex_selsarega   : 0
+id_ex_aluop       : 2
+id_ex_unsig       : 0
+id_ex_shiftop     : x
+id_ex_shiftamt    :  0
+id_ex_rega        : 00000000
+id_ex_msm         : x
+id_ex_msl         : x
+id_ex_readmem     : 0
+id_ex_writemem    : 0
+id_ex_mshw        : x
+id_ex_lshw        : x
+id_ex_regb        : 00000000
+id_ex_imedext     : 00000015
+id_ex_proximopc   : 000000c8
+id_ex_selwsource  : 0
+id_ex_regdest     :  4
+id_ex_writereg    : 1
+id_ex_writeov     : 0
+
+jr $ra
+
+(negedge)
+teste 3) Entrada: IF -> ID
+fw_if_id_stall  : 0
+if_id_instrucao : 03e00008
+if_id_proximopc :        300
+#1
+teste 3) Saida: ID -> Registers
+id_reg_addra    : 31
+id_reg_addrb    :  0
+id_reg_ena      : 0
+id_reg_enb      : 0
+
+(posedge)
+teste 3) Entrada: Registers -> ID
+reg_id_dataa    : aaaaffff
+reg_id_datab    : bbbb0000
+#1
+teste 3) Saida: ID -> Forwarding
+id_fw_regdest   :  4
+id_fw_load      : 0
+id_fw_addra     : 31
+id_fw_addrb     :  0
+id_fw_rega      : aaaaffff
+id_fw_regb      : bbbb0000
+
+(negedge)
+teste 3) Saida: ID -> IF
+id_if_selfontepc: 1
+id_if_rega      : 0000001f
+id_if_pcimd2ext : 0000011c
+id_if_pcindex   : 02900054
+id_if_seltipopc : x
+teste 3) Entrada: Forwarding -> ID
+fw_id_rega      : aaaaffff
+fw_id_regb      : bbbb0000
+#1
+teste 3) Saida: ID -> EX
+id_ex_selalushift : x
+id_ex_selimregb   : x
+id_ex_selsarega   : 0
+id_ex_aluop       : x
+id_ex_unsig       : x
+id_ex_shiftop     : x
+id_ex_shiftamt    :  0
+id_ex_rega        : aaaaffff
+id_ex_msm         : x
+id_ex_msl         : x
+id_ex_readmem     : 0
+id_ex_writemem    : 0
+id_ex_mshw        : x
+id_ex_lshw        : x
+id_ex_regb        : bbbb0000
+id_ex_imedext     : 00000008
+id_ex_proximopc   : 0000012c
+id_ex_selwsource  : x
+id_ex_regdest     :  4
+id_ex_writereg    : 0
+id_ex_writeov     : x
+
+lh $a2, 12($sp)
+
+(negedge)
+teste 4) Entrada: IF -> ID
+fw_if_id_stall  : 0
+if_id_instrucao : 87a6000c
+if_id_proximopc :        500
+#1
+teste 4) Saida: ID -> Registers
+id_reg_addra    : 29
+id_reg_addrb    :  6
+id_reg_ena      : 0
+id_reg_enb      : 0
+
+(posedge)
+teste 3) Entrada: Registers -> ID
+reg_id_dataa    : dddddddd
+reg_id_datab    : eeeeeeee
+#1
+teste 3) Saida: ID -> Forwarding
+id_fw_regdest   :  4
+id_fw_load      : 1
+id_fw_addra     : 29
+id_fw_addrb     :  6
+id_fw_rega      : dddddddd
+id_fw_regb      : eeeeeeee
+
+(negedge)
+teste 4) Saida: ID -> IF
+id_if_selfontepc: 0
+id_if_rega      : 0000001d
+id_if_pcimd2ext : 00000224
+id_if_pcindex   : 02980030
+id_if_seltipopc : 1
+teste 4) Entrada: Forwarding -> ID
+fw_id_rega      : dddddddd
+fw_id_regb      : eeeeeeee
+#1
+teste 4) Saida: ID -> EX
+id_ex_selalushift : 0
+id_ex_selimregb   : 1
+id_ex_selsarega   : 0
+id_ex_aluop       : 2
+id_ex_unsig       : 0
+id_ex_shiftop     : x
+id_ex_shiftamt    :  0
+id_ex_rega        : dddddddd
+id_ex_msm         : 3
+id_ex_msl         : 1
+id_ex_readmem     : 1
+id_ex_writemem    : 0
+id_ex_mshw        : 1
+id_ex_lshw        : 1
+id_ex_regb        : eeeeeeee
+id_ex_imedext     : 0000000c
+id_ex_proximopc   : 000001f4
+id_ex_selwsource  : 1
+id_ex_regdest     :  6
+id_ex_writereg    : 1
+id_ex_writeov     : 1
+Halted at location **tb_decode.v(137) time 300 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 104 inform(s).

@@ -1,0 +1,614 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Fri Aug  6 15:12:27 2010.
+Compiling source file "tb_mips.v"
+Highest level modules:
+tb_mips
+
+en1h: x
+en1l: x
+en2h: x
+en2l: x
+xx   1   xx
+
+debug fetch
+if_id_proximopc :          x
+if_id_instrucao :          x
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+debug decode:
+id_if_pcimd2ext : xxxxxxxx
+id_if_pcindex   : xxxxxxxx
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+en1h: 1
+en1l: 1
+en2h: 1
+en2l: 1
+#1 compout      : x
+
+ciclo:          1
+(negedge)
+PC:          0
+
+debug fetch
+if_id_proximopc :          0
+if_id_instrucao :          0
+id_if_selfontepc: 0
+id_if_seltipopc : 0
+
+ ID | EX | MEM | WB 
+  0 |  0 |  0  |  0
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :          4 | selalushift : 1        | msm        : 0          | regdest    :  0       |           
+instrucao  : xxxxxxxx   | selimregb   : 0        | msl        : 0          | writereg   : 0        |           
+                        | selsarega   : 1        | readmem    : 0          | wbvalue    : 00000000 |           
+                        | aluop       : x        | writemem   : 0          |                       |           
+                        | unsig       : x        | mshw       : 0          |                       |           
+                        | shiftop     : 2        | lshw       : 0          |                       |           
+                        | shiftamt    :  0       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource :  0         |                       |           
+                        | msm         : x        | regdest    :  0         |                       |           
+                        | msl         : x        | writereg   : 0          |                       |           
+                        | readmem     : 0        | aluout     :          0 |                       |           
+                        | writemem    : 0        | wbvalue    :          0 |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : 00000000 |                         |                       |           
+                        | proximopc   : 00000000 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     :  0       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 1        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : 00000000
+id_if_pcindex   : 00000000
+id_if_seltipopc : 0
+id_if_selfontepc: x
+compout         : x
+#1 compout      : x
+
+ciclo:          2
+(negedge)
+PC:          4
+
+debug fetch
+if_id_proximopc :          4
+if_id_instrucao :          x
+id_if_selfontepc: x
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+  x |  0 |  0  |  0
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :          8 | selalushift : x        | msm        : x          | regdest    :  0       |           
+instrucao  : 00119400   | selimregb   : x        | msl        : x          | writereg   : 0        |           
+                        | selsarega   : x        | readmem    : 0          | wbvalue    : 00000000 |           
+                        | aluop       : x        | writemem   : 0          |                       |           
+                        | unsig       : x        | mshw       : x          |                       |           
+                        | shiftop     : x        | lshw       : x          |                       |           
+                        | shiftamt    :  x       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource :  0         |                       |           
+                        | msm         : x        | regdest    :  0         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : xxxxxxxx |                         |                       |           
+                        | proximopc   : 00000004 |                         |                       |           
+                        | selwsource  : x        |                         |                       |           
+                        | regdest     :  x       |                         |                       |           
+                        | writereg    : 0        |                         |                       |           
+                        | writeov     : x        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : xxxxxxxx
+id_if_pcindex   : 0xxxxxxX
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:          3
+(negedge)
+PC:          8
+
+debug fetch
+if_id_proximopc :          8
+if_id_instrucao :    1152000
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 18 |  x |  0  |  0
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         12 | selalushift : 1        | msm        : x          | regdest    :  0       |           
+instrucao  : 0012e020   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 1        | readmem    : 0          | wbvalue    : xxxxxxxx |           
+                        | aluop       : x        | writemem   : 0          |                       |           
+                        | unsig       : x        | mshw       : x          |                       |           
+                        | shiftop     : 2        | lshw       : x          |                       |           
+                        | shiftamt    : 16       | regb       : x          |                       |           
+                        | rega        : xxxxxxxx | selwsource :  x         |                       |           
+                        | msm         : x        | regdest    :  x         |                       |           
+                        | msl         : x        | writereg   : 0          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : 00000000 |                         |                       |           
+                        | imedext     : ffff9400 |                         |                       |           
+                        | proximopc   : 00000008 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 18       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 1        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : 00000000 |                         |                       |           
+debug decode:
+id_if_pcimd2ext : fffe5008
+id_if_pcindex   : 00465000
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:          4
+(negedge)
+PC:         12
+
+debug fetch
+if_id_proximopc :         12
+if_id_instrucao :    1237024
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 28 | 18 |  x  |  0
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         16 | selalushift : 0        | msm        : x          | regdest    :  x       |           
+instrucao  : 201100ff   | selimregb   : 0        | msl        : x          | writereg   : 0        |           
+                        | selsarega   : 0        | readmem    : 0          | wbvalue    : xxxxxxxx |           
+                        | aluop       : 2        | writemem   : 0          |                       |           
+                        | unsig       : 0        | mshw       : x          |                       |           
+                        | shiftop     : x        | lshw       : x          |                       |           
+                        | shiftamt    :  0       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 18         |                       |           
+                        | msm         : x        | regdest    : 18         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          0 |                       |           
+                        | writemem    : 0        | wbvalue    :          0 |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : 00000000 |                         |                       |           
+                        | imedext     : ffffe020 |                         |                       |           
+                        | proximopc   : 0000000c |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 28       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 0        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : 00000000 |                         |                       |           
+debug decode:
+id_if_pcimd2ext : ffff808c
+id_if_pcindex   : 004b8080
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:          5
+(negedge)
+PC:         16
+
+debug fetch
+if_id_proximopc :         16
+if_id_instrucao :  537985279
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 17 | 28 | 18  |  x
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         20 | selalushift : 0        | msm        : x          | regdest    : 18       |           
+instrucao  : 00119400   | selimregb   : 1        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 0        | readmem    : 0          | wbvalue    : 00000000 |           
+                        | aluop       : 2        | writemem   : 0          |                       |           
+                        | unsig       : 0        | mshw       : x          |                       |           
+                        | shiftop     : x        | lshw       : x          |                       |           
+                        | shiftamt    :  3       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 28         |                       |           
+                        | msm         : x        | regdest    : 28         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : 00000000 |                         |                       |           
+                        | imedext     : 000000ff |                         |                       |           
+                        | proximopc   : 00000010 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 17       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 0        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : 00000000 |                         |                       |           
+debug decode:
+id_if_pcimd2ext : 0000040c
+id_if_pcindex   : 004403fc
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:          6
+(negedge)
+PC:         20
+
+debug fetch
+if_id_proximopc :         20
+if_id_instrucao :    1152000
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 18 | 17 | 28  | 18
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         24 | selalushift : 1        | msm        : x          | regdest    : 28       |           
+instrucao  : 02409820   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 1        | readmem    : 0          | wbvalue    : xxxxxxxx |           
+                        | aluop       : x        | writemem   : 0          |                       |           
+                        | unsig       : x        | mshw       : x          |                       |           
+                        | shiftop     : 2        | lshw       : x          |                       |           
+                        | shiftamt    : 16       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 17         |                       |           
+                        | msm         : x        | regdest    : 17         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : ffff9400 |                         |                       |           
+                        | proximopc   : 00000014 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 18       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 1        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : fffe5014
+id_if_pcindex   : 00465000
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:          7
+(negedge)
+PC:         24
+
+debug fetch
+if_id_proximopc :         24
+if_id_instrucao :   37787680
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 19 | 18 | 17  | 28
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         28 | selalushift : 0        | msm        : x          | regdest    : 17       |           
+instrucao  : 00119200   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 0        | readmem    : 0          | wbvalue    : xxxxxxxx |           
+                        | aluop       : 2        | writemem   : 0          |                       |           
+                        | unsig       : 0        | mshw       : x          |                       |           
+                        | shiftop     : x        | lshw       : x          |                       |           
+                        | shiftamt    :  0       | regb       : 0          |                       |           
+                        | rega        : xxxx0000 | selwsource : 18         |                       |           
+                        | msm         : x        | regdest    : 18         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          X |                       |           
+                        | writemem    : 0        | wbvalue    :          X |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : ffff9820 |                         |                       |           
+                        | proximopc   : 00000018 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 19       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 0        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxx0000 |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : fffe6098
+id_if_pcindex   : 09026080
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:          8
+(negedge)
+PC:         28
+
+debug fetch
+if_id_proximopc :         28
+if_id_instrucao :    1151488
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 18 | 19 | 18  | 17
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         32 | selalushift : 1        | msm        : x          | regdest    : 18       |           
+instrucao  : 02729820   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 1        | readmem    : 0          | wbvalue    : xxxx0000 |           
+                        | aluop       : x        | writemem   : 0          |                       |           
+                        | unsig       : x        | mshw       : x          |                       |           
+                        | shiftop     : 2        | lshw       : x          |                       |           
+                        | shiftamt    :  8       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 19         |                       |           
+                        | msm         : x        | regdest    : 19         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : ffff9200 |                         |                       |           
+                        | proximopc   : 0000001c |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 18       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 1        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : fffe481c
+id_if_pcindex   : 00464800
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:          9
+(negedge)
+PC:         32
+
+debug fetch
+if_id_proximopc :         32
+if_id_instrucao :   41064480
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 19 | 18 | 19  | 18
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         36 | selalushift : 0        | msm        : x          | regdest    : 19       |           
+instrucao  : 02719820   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 0        | readmem    : 0          | wbvalue    : xxxxxxxx |           
+                        | aluop       : 2        | writemem   : 0          |                       |           
+                        | unsig       : 0        | mshw       : x          |                       |           
+                        | shiftop     : x        | lshw       : x          |                       |           
+                        | shiftamt    :  0       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 18         |                       |           
+                        | msm         : x        | regdest    : 18         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          X |                       |           
+                        | writemem    : 0        | wbvalue    :          X |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxx00 |                         |                       |           
+                        | imedext     : ffff9820 |                         |                       |           
+                        | proximopc   : 00000020 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 19       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 0        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxx00 |                         |                       |           
+debug decode:
+id_if_pcimd2ext : fffe60a0
+id_if_pcindex   : 09ca6080
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:         10
+(negedge)
+PC:         36
+
+debug fetch
+if_id_proximopc :         36
+if_id_instrucao :   40998944
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 19 | 19 | 18  | 19
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         40 | selalushift : 0        | msm        : x          | regdest    : 18       |           
+instrucao  : 0013e820   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 0        | readmem    : 0          | wbvalue    : xxxxxx00 |           
+                        | aluop       : 2        | writemem   : 0          |                       |           
+                        | unsig       : 0        | mshw       : x          |                       |           
+                        | shiftop     : x        | lshw       : x          |                       |           
+                        | shiftamt    :  0       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 19         |                       |           
+                        | msm         : x        | regdest    : 19         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : ffff9820 |                         |                       |           
+                        | proximopc   : 00000024 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 19       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 0        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : fffe60a4
+id_if_pcindex   : 09c66080
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:         11
+(negedge)
+PC:         40
+
+debug fetch
+if_id_proximopc :         40
+if_id_instrucao :    1304608
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+ 29 | 19 | 19  | 18
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         44 | selalushift : 0        | msm        : x          | regdest    : 19       |           
+instrucao  : 00000000   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 0        | readmem    : 0          | wbvalue    : xxxxxxxx |           
+                        | aluop       : 2        | writemem   : 0          |                       |           
+                        | unsig       : 0        | mshw       : x          |                       |           
+                        | shiftop     : x        | lshw       : x          |                       |           
+                        | shiftamt    :  0       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 19         |                       |           
+                        | msm         : x        | regdest    : 19         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : ffffe820 |                         |                       |           
+                        | proximopc   : 00000028 |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     : 29       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 0        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : ffffa0a8
+id_if_pcindex   : 004fa080
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+
+ciclo:         12
+(negedge)
+PC:         44
+
+debug fetch
+if_id_proximopc :         44
+if_id_instrucao :          0
+id_if_selfontepc: 0
+id_if_seltipopc : x
+
+ ID | EX | MEM | WB 
+  0 | 29 | 19  | 19
+FETCH:  (if_id_)        | DECODE:  (id_ex_)      | EX: (ex_mem_)           | MEM:  (mem_wb_)       | WRITEBACK:
+                        |                        |                         |                       |           
+proximopc  :         48 | selalushift : 1        | msm        : x          | regdest    : 19       |           
+instrucao  : 00000000   | selimregb   : 0        | msl        : x          | writereg   : 1        |           
+                        | selsarega   : 1        | readmem    : 0          | wbvalue    : xxxxxxxx |           
+                        | aluop       : x        | writemem   : 0          |                       |           
+                        | unsig       : x        | mshw       : x          |                       |           
+                        | shiftop     : 2        | lshw       : x          |                       |           
+                        | shiftamt    :  0       | regb       : 0          |                       |           
+                        | rega        : xxxxxxxx | selwsource : 29         |                       |           
+                        | msm         : x        | regdest    : 29         |                       |           
+                        | msl         : x        | writereg   : 1          |                       |           
+                        | readmem     : 0        | aluout     :          x |                       |           
+                        | writemem    : 0        | wbvalue    :          x |                       |           
+                        | mshw        : x        | tall       : 0          |                       |           
+                        | lshw        : x        |                         |                       |           
+                        | regb        : xxxxxxxx |                         |                       |           
+                        | imedext     : 00000000 |                         |                       |           
+                        | proximopc   : 0000002c |                         |                       |           
+                        | selwsource  : 0        |                         |                       |           
+                        | regdest     :  0       |                         |                       |           
+                        | writereg    : 1        |                         |                       |           
+                        | writeov     : 1        |                         |                       |           
+                        |                        |                         |                       |           
+                        | fw_id_rega  : xxxxxxxx |                         |                       |           
+                        | fw_id_regb  : xxxxxxxx |                         |                       |           
+debug decode:
+id_if_pcimd2ext : 0000002c
+id_if_pcindex   : 00000000
+id_if_seltipopc : x
+id_if_selfontepc: 0
+compout         : x
+#1 compout      : x
+Reg[ 0] : xxxxxxxx	Reg[16] : 00000000
+Reg[ 1] : 00000000	Reg[17] : xxxxxxxx
+Reg[ 2] : 00000000	Reg[18] : xxxxxx00
+Reg[ 3] : 00000000	Reg[19] : xxxxxxxx
+Reg[ 4] : 00000000	Reg[20] : 00000000
+Reg[ 5] : 00000000	Reg[21] : 00000000
+Reg[ 6] : 00000000	Reg[22] : 00000000
+Reg[ 7] : 00000000	Reg[23] : 00000000
+Reg[ 8] : 00000000	Reg[24] : 00000000
+Reg[ 9] : 00000000	Reg[25] : 00000000
+Reg[10] : 00000000	Reg[26] : 00000000
+Reg[11] : 00000000	Reg[27] : 00000000
+Reg[12] : 00000000	Reg[28] : xxxxxxxx
+Reg[13] : 00000000	Reg[29] : 00000000
+Reg[14] : 00000000	Reg[30] : 00000000
+Reg[15] : 00000000	Reg[31] : 00000000
+
+
+Memoria[ 0] : 2011 0001
+Memoria[ 4] : 0011 9400
+Memoria[ 8] : 0012 e020
+Memoria[12] : 2011 00ff
+Memoria[16] : 0011 9400
+Memoria[20] : 0240 9820
+Memoria[24] : 0011 9200
+Memoria[28] : 0272 9820
+Memoria[32] : 0271 9820
+Memoria[36] : 0013 e820
+Halted at location **tb_mips.v(165) time 240 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 96 inform(s).

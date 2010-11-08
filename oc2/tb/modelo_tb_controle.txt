@@ -1,0 +1,1061 @@
+GPLCVER_2.12a of 05/16/07 (Cygwin32).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Mon Nov 30 11:19:28 2009.
+Compiling source file "tb_controle.v"
+Highest level modules:
+tb_controle
+
+SLL    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 1
+selalushift : 1
+aluop       : x
+unsig       : x
+shiftop     : 2
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SRL    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 1
+selalushift : 1
+aluop       : x
+unsig       : x
+shiftop     : 0
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SRA    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 1
+selalushift : 1
+aluop       : x
+unsig       : x
+shiftop     : 1
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SLLV   
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 1
+aluop       : x
+unsig       : x
+shiftop     : 2
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SRLV   
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 1
+aluop       : x
+unsig       : x
+shiftop     : 0
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SRAV   
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 1
+aluop       : x
+unsig       : x
+shiftop     : 1
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+JR     
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 1
+seltipopc   : 1
+compop      : x
+
+JALR   
+selwsource  : 3
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 1
+seltipopc   : 1
+compop      : x
+
+ADD    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 0
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+ADDU   
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 1
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SUB    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 0
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 6
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SUBU   
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 6
+unsig       : 1
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+AND    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 0
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+OR     
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 1
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+XOR    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 5
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+NOR    
+selwsource  : 0
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 4
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SLT    
+selwsource  : 4
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 6
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SLTU   
+selwsource  : 4
+selregdest  : 1
+writereg    : 1
+writeov     : 1
+selimregb   : 0
+selsarega   : 0
+selalushift : 0
+aluop       : 6
+unsig       : 1
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+BLTZ   
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 4
+
+BGEZ   
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 1
+
+BLTZAL 
+selwsource  : 3
+selregdest  : 2
+writereg    : 1
+writeov     : 1
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 4
+
+BGEZAL 
+selwsource  : 3
+selregdest  : 2
+writereg    : 1
+writeov     : 1
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 1
+
+J      
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : x
+selalushift : x
+aluop       : x
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 1
+seltipopc   : 2
+compop      : x
+
+JAL    
+selwsource  : 3
+selregdest  : 2
+writereg    : 1
+writeov     : 1
+selimregb   : x
+selsarega   : x
+selalushift : x
+aluop       : x
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 1
+seltipopc   : 2
+compop      : x
+
+BEQ    
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 0
+
+BNE    
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 5
+
+BLEZ   
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 2
+
+BGTZ   
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : x
+selsarega   : 0
+selalushift : x
+aluop       : x
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 2
+seltipopc   : 0
+compop      : 3
+
+ADDI   
+selwsource  : 0
+selregdest  : 0
+writereg    : 1
+writeov     : 0
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+ADDIU  
+selwsource  : 0
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 1
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SLTI   
+selwsource  : 4
+selregdest  : 0
+writereg    : 1
+writeov     : 0
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 6
+unsig       : 0
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SLTIU  
+selwsource  : 4
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 6
+unsig       : 1
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+ANDI   
+selwsource  : 0
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 0
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+ORI    
+selwsource  : 0
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 1
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+XORI   
+selwsource  : 0
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 5
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LUI    
+selwsource  : 2
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : x
+selsarega   : x
+selalushift : x
+aluop       : x
+unsig       : x
+shiftop     : x
+mshw        : x
+lshw        : x
+msm         : x
+msl         : x
+readmem     : 0
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LB     
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 3
+msl         : 3
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LH     
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 3
+msl         : 1
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LWL    
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 0
+msm         : 2
+msl         : 0
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LW     
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 1
+msl         : 2
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LBU    
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 0
+msl         : 4
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LHU    
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 0
+msl         : 1
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LWR    
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 0
+lshw        : 1
+msm         : 0
+msl         : 1
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SB     
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 4
+msl         : 3
+readmem     : 0
+writemem    : 1
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SH     
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 2
+msl         : 0
+readmem     : 0
+writemem    : 1
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SWL    
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 0
+lshw        : 1
+msm         : 0
+msl         : 1
+readmem     : 0
+writemem    : 1
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SW     
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 1
+msl         : 2
+readmem     : 0
+writemem    : 1
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SWR    
+selwsource  : x
+selregdest  : 3
+writereg    : 0
+writeov     : x
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 0
+msm         : 2
+msl         : 0
+readmem     : 0
+writemem    : 1
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+LL     
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : 1
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 1
+msl         : 2
+readmem     : 1
+writemem    : 0
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+SC     
+selwsource  : 1
+selregdest  : 0
+writereg    : 1
+writeov     : x
+selimregb   : 1
+selsarega   : 0
+selalushift : 0
+aluop       : 2
+unsig       : 0
+shiftop     : x
+mshw        : 1
+lshw        : 1
+msm         : 1
+msl         : 2
+readmem     : 0
+writemem    : 1
+selbrjumpz  : 0
+seltipopc   : x
+compop      : x
+
+Halted at location **tb_controle.v(77) time 104 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 23 inform(s).
