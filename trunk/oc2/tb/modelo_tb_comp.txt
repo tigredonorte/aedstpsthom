@@ -1,0 +1,101 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Wed Sep  9 15:48:01 2009.
+Compiling source file "tb_comp.v"
+Highest level modules:
+tb_comp
+
+// Teste (==) Verdadeiro
+a == b
+a:        128 
+b:        128 
+compout: 1 
+
+// Teste Falso
+a == b
+a:        128 
+b:          0 
+compout: 0 
+
+// Teste Verdadeiro 1
+a >= b
+a:        128 
+b:         16 
+compout: 1 
+
+// Teste Verdadeiro 2
+a >= b
+a:        128 
+b:        128 
+compout: 1 
+
+// Teste Falso
+a >= b
+a:          1 
+b:        128 
+compout: 0 
+
+// Teste Verdadeiro 1
+a <= b
+a:          1 
+b:         16 
+compout: 1 
+
+// Teste Verdadeiro 2
+a <= b
+a:         16 
+b:         16 
+compout: 1 
+
+// Teste Falso
+a <= b
+a:        256 
+b:        128 
+compout: 0 
+
+// Teste Verdadeiro
+a > b
+a:        128 
+b:         16 
+compout: 1 
+
+// Teste Falso
+a > b
+a:        128 
+b:        128 
+compout: 0 
+
+// Teste Verdadeiro
+a < b
+a:          8 
+b:         16 
+compout: 1 
+
+// Teste Falso
+a < b
+a:        256 
+b:        256 
+compout: 0 
+
+// Teste Verdadeiro
+a != b
+a:          1 
+b:          0 
+compout: 1 
+
+// Teste Falso
+a != b
+a:        128 
+b:        128 
+compout: 0 
+
+// Teste com clock
+a == b
+a:        128 
+b:        128 
+compout: 1 
+
+Halted at location **tb_comp.v(49) time 16 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 1 inform(s).

@@ -1,0 +1,93 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Wed Sep 30 19:14:49 2009.
+Compiling source file "tb_fetch.v"
+Highest level modules:
+tb_fetch
+
+xxxxxxxxxxxxxxxxxxxx TESTE COM O CLOCK xxxxxxxxxxxxxxxxxxxxxx
+Ciclo de clock:  1
+reset = 1
+Ciclo de clock:  2
+reset = 0
+Ciclo de clock:  3
+// PC = 0, serah incrementado em 4.
+if_gdm_en    : 1
+if_gdm_addr  :          0
+-- Valores apos nedge anterior:
+ if_id_proximopc :          0
+ if_id_instrucao : 00000000
+Ciclo de clock:  4
+// PC = 4, apos incremento serah 8.
+if_gdm_en    : 1
+if_gdm_addr  :          4
+-- Valores apos nedge anterior:
+ if_id_proximopc :          4
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock:  5
+// PC = 8, assumir valor de id_if_rega (100).
+if_gdm_en    : 1
+if_gdm_addr  :          8
+-- Valores apos nedge anterior:
+ if_id_proximopc :          8
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock:  6
+// PC = 100, serah incrementado em 4 (104).
+if_gdm_en    : 1
+if_gdm_addr  :        100
+-- Valores apos nedge anterior:
+ if_id_proximopc :        100
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock:  7
+// PC = 104, assumir valor de id_if_pcimd2ext (200).
+if_gdm_en    : 1
+if_gdm_addr  :        104
+-- Valores apos nedge anterior:
+ if_id_proximopc :        104
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock:  8
+// PC = 200, serah incrementado em 4 (204).
+if_gdm_en    : 1
+if_gdm_addr  :        200
+-- Valores apos nedge anterior:
+ if_id_proximopc :        200
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock:  9
+// PC = 204, assumir o valor de id_if_pcindex (300).
+if_gdm_en    : 1
+if_gdm_addr  :        204
+-- Valores apos nedge anterior:
+ if_id_proximopc :        204
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock: 10
+// PC = 300, serah incrementado em 4 (304).
+if_gdm_en    : 1
+if_gdm_addr  :        300
+-- Valores apos nedge anterior:
+ if_id_proximopc :        300
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock: 11
+// PC = 304, assumir valor 64.
+if_gdm_en    : 1
+if_gdm_addr  :        304
+-- Valores apos nedge anterior:
+ if_id_proximopc :        304
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock: 12
+// PC = 64, serah incrementado em 4 (68).
+if_gdm_en    : 1
+if_gdm_addr  :         64
+-- Valores apos nedge anterior:
+ if_id_proximopc :         64
+ if_id_instrucao : zzzzzzzz
+Ciclo de clock: 13
+// PC = 68, serah incrementado em 4 (72).
+if_gdm_en    : 1
+if_gdm_addr  :         68
+-- Valores apos nedge anterior:
+ if_id_proximopc :         68
+ if_id_instrucao : zzzzzzzz
+Halted at location **tb_fetch.v(319) time 65 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 23 inform(s).

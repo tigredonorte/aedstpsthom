@@ -1,0 +1,152 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Wed Nov  4 09:49:13 2009.
+Compiling source file "tb_execute.v"
+Highest level modules:
+tb_execute
+
+
+teste 1) Testa operao shift e stall = 0
+(negedge)
+ciclo :  1 (ID -> EX)
+id_ex_selalushift : 1
+id_ex_selimregb   : x
+id_ex_selsarega   : 1
+id_ex_aluop       : x
+id_ex_unsig       : 1
+id_ex_shiftop     : 2
+id_ex_shiftamt    :  2
+id_ex_rega        :          x
+id_ex_msm         : x
+id_ex_msl         : x
+id_ex_readmem     : 0
+id_ex_writemem    : 1
+id_ex_mshw        : x
+id_ex_lshw        : x
+id_ex_regb        :         23
+id_ex_imedext     :          x
+id_ex_proximopc   :          x
+id_ex_selwsource  : 0
+id_ex_regdest     :  5
+id_ex_writereg    : 1
+id_ex_writeov     : 0
+(posedge)
+ciclo :  1 (EX -> MEM)
+ex_fw_wbvalue    :         92
+ex_fw_writereg   : 1
+ex_if_stall      : 1
+#1
+ciclo :  2 (EX -> MEM)
+Resultado do 1o. ciclo
+ex_mem_msm       : x
+ex_mem_msl       : x
+ex_mem_readmem   : 0
+ex_mem_writemem  : 1
+ex_mem_mshw      : x
+ex_mem_lshw      : x
+ex_mem_regb      :         23
+ex_mem_selwsource: 0
+ex_mem_regdest   :  5
+ex_mem_writereg  : 1
+ex_mem_aluout    :         92
+ex_mem_wbvalue   :         92
+ex_if_stall      : 1
+
+
+teste 2) Testa sinais Alu
+(negedge)
+ciclo :  2 (ID -> EX)
+id_ex_selalushift : 0
+id_ex_selimregb   : 1
+id_ex_selsarega   : 0
+id_ex_aluop       : 2
+id_ex_unsig       : 0
+id_ex_shiftop     : x
+id_ex_shiftamt    :  x
+id_ex_rega        : 2147483656
+id_ex_msm         : x
+id_ex_msl         : x
+id_ex_readmem     : x
+id_ex_writemem    : x
+id_ex_mshw        : x
+id_ex_lshw        : x
+id_ex_regb        :          x
+id_ex_imedext     : 4294967168
+id_ex_proximopc   :          x
+id_ex_selwsource  : 0
+id_ex_regdest     :  x
+id_ex_writereg    : 1
+id_ex_writeov     : 0
+(posedge)
+ciclo :  2 (EX -> MEM)
+ex_fw_wbvalue    : 2147483528
+ex_fw_writereg   : 0
+ex_if_stall      : 1
+#1
+ciclo :  3 (EX -> MEM)
+Resultado do 2o. ciclo
+ex_mem_msm       : x
+ex_mem_msl       : x
+ex_mem_readmem   : x
+ex_mem_writemem  : x
+ex_mem_mshw      : x
+ex_mem_lshw      : x
+ex_mem_regb      :          x
+ex_mem_selwsource: 0
+ex_mem_regdest   :  x
+ex_mem_writereg  : 0
+ex_mem_aluout    : 2147483528
+ex_mem_wbvalue   : 2147483528
+ex_if_stall      : x
+
+
+teste 3) Testa repasse de sinais e stall = 1
+(negedge)
+ciclo :  3 (ID -> EX)
+id_ex_selalushift : x
+id_ex_selimregb   : x
+id_ex_selsarega   : x
+id_ex_aluop       : x
+id_ex_unsig       : x
+id_ex_shiftop     : x
+id_ex_shiftamt    :  x
+id_ex_rega        :          x
+id_ex_msm         : 5
+id_ex_msl         : 4
+id_ex_readmem     : 1
+id_ex_writemem    : 0
+id_ex_mshw        : 1
+id_ex_lshw        : 1
+id_ex_regb        :     790923
+id_ex_imedext     :          x
+id_ex_proximopc   :          x
+id_ex_selwsource  : 7
+id_ex_regdest     : 26
+id_ex_writereg    : 1
+id_ex_writeov     : 1
+(posedge)
+ciclo :  3 (EX -> MEM)
+ex_fw_wbvalue    :          z
+ex_fw_writereg   : 1
+ex_if_stall      : x
+#1
+ciclo :  4 (EX -> MEM)
+Resultado do 3o. ciclo
+ex_mem_msm       : 5
+ex_mem_msl       : 4
+ex_mem_readmem   : 1
+ex_mem_writemem  : 0
+ex_mem_mshw      : 1
+ex_mem_lshw      : 1
+ex_mem_regb      :     790923
+ex_mem_selwsource: 7
+ex_mem_regdest   : 26
+ex_mem_writereg  : 1
+ex_mem_aluout    :          x
+ex_mem_wbvalue   :          z
+ex_if_stall      : 1
+
+Halted at location **tb_execute.v(122) time 100 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 33 inform(s).

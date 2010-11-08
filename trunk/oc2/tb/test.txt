@@ -1,0 +1,154 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Sat Nov  6 22:15:44 2010.
+Compiling source file "tb_forwarding.v"
+Highest level modules:
+tb_forwarding
+
+Valores de pipeline utilizados no teste:
+
+     ID  | EX  | MEM | WB   ADRRs :  A  |  B    HZ      
+1    5   |     |     |               3  |  4    -       
+2    6   | 5   |     |               5  |  2    EX      
+3    30  | 6   | 5   |               6  |  5    EX, MEM 
+4    6   | 30  | 6   | 5             8  |  9    -       
+5    7   | 6   | 30  | 6             6  |  1    EX      
+6    16  | 7   | 6   | 30            30 |  6    MEM, WB 
+7        |     |     |                  |               
+
+ciclo:  1
+ ID | EX | MEM | WB 
+  0 |  0 |  0  |  0
+(negedge)
+ID -> FW (negedge)
+id_fw_regdest :  5
+id_fw_load    : 0
+id_fw_addra   :  3
+id_fw_addrb   :  4
+id_fw_rega    : 1111111a
+id_fw_regb    : 1111111b
+ex_fw_wbvalue   : eeeeeeee
+ex_fw_writereg  : 1
+mem_fw_wbvalue  : cccccccc
+mem_fw_writereg : 1
+wb_fw_wbvalue   : ffffffff
+wb_fw_writereg  : 1
+
+fw(rega)       : 1111111a
+fw(regb)       : 1111111b
+fw_if_id_stall : 0
+
+ciclo:  2
+ ID | EX | MEM | WB 
+  5 |  0 |  0  |  0
+(negedge)
+ID -> FW (negedge)
+id_fw_regdest :  6
+id_fw_load    : 0
+id_fw_addra   :  5
+id_fw_addrb   :  2
+id_fw_rega    : 2222222a
+id_fw_regb    : 2222222b
+ex_fw_wbvalue   : eeeeeeee
+ex_fw_writereg  : 1
+mem_fw_wbvalue  : cccccccc
+mem_fw_writereg : 1
+wb_fw_wbvalue   : ffffffff
+wb_fw_writereg  : 1
+
+fw(rega)       : eeeeeeee
+fw(regb)       : 2222222b
+fw_if_id_stall : 0
+
+ciclo:  3
+ ID | EX | MEM | WB 
+  6 |  5 |  0  |  0
+(negedge)
+ID -> FW (negedge)
+id_fw_regdest : 30
+id_fw_load    : 0
+id_fw_addra   :  6
+id_fw_addrb   :  5
+id_fw_rega    : 3333333a
+id_fw_regb    : 3333333b
+ex_fw_wbvalue   : eeeeeeee
+ex_fw_writereg  : 1
+mem_fw_wbvalue  : cccccccc
+mem_fw_writereg : 1
+wb_fw_wbvalue   : ffffffff
+wb_fw_writereg  : 1
+
+fw(rega)       : eeeeeeee
+fw(regb)       : cccccccc
+fw_if_id_stall : 0
+
+ciclo:  4
+ ID | EX | MEM | WB 
+ 30 |  6 |  5  |  0
+(negedge)
+ID -> FW (negedge)
+id_fw_regdest :  6
+id_fw_load    : 0
+id_fw_addra   :  8
+id_fw_addrb   :  9
+id_fw_rega    : 4444444a
+id_fw_regb    : 4444444b
+ex_fw_wbvalue   : eeeeeeee
+ex_fw_writereg  : 1
+mem_fw_wbvalue  : cccccccc
+mem_fw_writereg : 1
+wb_fw_wbvalue   : ffffffff
+wb_fw_writereg  : 1
+
+fw(rega)       : 4444444a
+fw(regb)       : 4444444b
+fw_if_id_stall : 0
+
+ciclo:  5
+ ID | EX | MEM | WB 
+  6 | 30 |  6  |  5
+(negedge)
+ID -> FW (negedge)
+id_fw_regdest :  7
+id_fw_load    : 0
+id_fw_addra   :  6
+id_fw_addrb   :  1
+id_fw_rega    : 5555555a
+id_fw_regb    : 5555555b
+ex_fw_wbvalue   : eeeeeeee
+ex_fw_writereg  : 1
+mem_fw_wbvalue  : cccccccc
+mem_fw_writereg : 1
+wb_fw_wbvalue   : ffffffff
+wb_fw_writereg  : 1
+
+fw(rega)       : eeeeeeee
+fw(regb)       : 5555555b
+fw_if_id_stall : 0
+
+ciclo:  6
+ ID | EX | MEM | WB 
+  7 |  6 | 30  |  6
+(negedge)
+ID -> FW (negedge)
+id_fw_regdest : 16
+id_fw_load    : 0
+id_fw_addra   : 30
+id_fw_addrb   :  6
+id_fw_rega    : 6666666a
+id_fw_regb    : 6666666b
+ex_fw_wbvalue   : eeeeeeee
+ex_fw_writereg  : 1
+mem_fw_wbvalue  : cccccccc
+mem_fw_writereg : 1
+wb_fw_wbvalue   : ffffffff
+wb_fw_writereg  : 1
+
+fw(rega)       : ffffffff
+fw(regb)       : cccccccc
+fw_if_id_stall : 0
+
+Halted at location **tb_forwarding.v(95) time 160 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 17 inform(s).
