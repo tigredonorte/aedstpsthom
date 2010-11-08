@@ -1,0 +1,19 @@
+	READ N
+	DEC N
+LOOP:	DEC N
+	LOAD N
+	JPL FIM
+	LOAD atual
+	STORE temp
+	ADD ant
+	STORE atual
+	LOAD temp
+	STORE ant
+	JMP LOOP
+FIM:	WRITE atual
+	HALT
+N:	WORD 0
+atual:	WORD 1
+ant:	WORD 1
+temp:	WORD 0
+	END

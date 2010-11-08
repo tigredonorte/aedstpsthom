@@ -1,0 +1,22 @@
+		READ a	;le a e b
+		READ b
+		CALL MULTIPLICA
+		WRITE a	;imprime a, b e resultado
+		WRITE b
+		WRITE resultado
+		HALT
+MULTIPLICA: 	LOAD a		;subrotina de multiplicacao
+		STORE i		
+LOOP:		DEC i		;enquanto i for maior do que zero
+		LOAD i
+		JPL FIMLOOP
+		LOAD resultado
+		ADD b
+		STORE resultado
+		JMP LOOP
+FIMLOOP:	RET		;retorno de subrotina
+a:		WORD 0		;variaveis globais
+b:		WORD 0
+i:		WORD 0
+resultado:	WORD 0
+		END
