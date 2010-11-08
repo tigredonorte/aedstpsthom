@@ -1,0 +1,12 @@
+FIBONACCI: MACRO 
+DEC N 
+LOAD N 
+JPL FIM 
+LOAD atual 
+STORE temp 
+ADD ant 
+STORE atual 
+LOAD temp 
+STORE ant 
+JMP LOOP 
+ENDMACRO 

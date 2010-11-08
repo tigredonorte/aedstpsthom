@@ -1,0 +1,32 @@
+;le um numero qualquer
+READ N
+Fibonacci N
+HALT
+
+;definicao de variaveis
+N:	WORD 0
+atual:	WORD 1
+ant:	WORD 1
+temp:	WORD 0
+
+;macro fibonacci
+Fibonacci: MACRO N
+	DEC N
+
+;inicio do loop, repete enquanto N >= 0
+LOOP:	DEC N
+	LOAD N
+	JPL FIM
+	LOAD atual
+	STORE temp
+	ADD ant
+	STORE atual
+	LOAD temp
+	STORE ant
+	JMP LOOP
+
+	;termino do loop, imprime a saida
+	FIM: WRITE atual
+ENDMACRO
+
+END

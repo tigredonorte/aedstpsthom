@@ -1,0 +1,28 @@
+;Este programa não pode ser executado, ele somente testa os comentarios
+;
+;Como
+EX: MACRO Y
+;podemos ver, os comentarios
+STORE Y
+LOAD Y
+;funcionam corretamente
+ADD B
+ENDMACRO
+
+ADD A 
+STORE B
+
+TESTE: MACRO
+LOAD A
+;omg comentario funciona
+ADD B
+ADD C
+;
+STORE A ;comentario na mesma linha agora
+ENDMACRO
+
+;comentario incoveniente TESTE EX kkkk END MACRO ENDMACRO
+EX KKKK
+EX BOraPRABoraBora
+TESTE
+END
