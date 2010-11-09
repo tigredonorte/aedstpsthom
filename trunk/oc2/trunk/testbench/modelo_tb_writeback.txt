@@ -1,0 +1,42 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Tue Nov  3 17:51:26 2009.
+Compiling source file "tb_writeback.v"
+Highest level modules:
+tb_writeback
+
+Resultado do 1o. ciclo:
+Forwarding (wire):
+wbvalue  : ffffa0ee
+writereg : 1
+
+Registradores (negedge):
+en   : 1
+addr :  2
+data : ffffa0ee
+
+Resultado do 2o. ciclo:
+Forwarding (wire):
+wbvalue  : 5538a0ab
+writereg : 0
+
+Registradores (negedge):
+en   : 0
+addr : 30
+data : 5538a0ab
+
+Resultado do 3o. ciclo:
+Forwarding (wire):
+wbvalue  : 07e8a0ee
+writereg : 1
+
+Registradores (negedge):
+en   : 1
+addr :  8
+data : 07e8a0ee
+
+
+Halted at location **tb_writeback.v(59) time 14 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 7 inform(s).

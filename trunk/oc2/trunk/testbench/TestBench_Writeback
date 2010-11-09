@@ -1,0 +1,106 @@
+`include "Writeback.v"
+`include "Registers.v"
+
+module tb_writeback();
+
+  reg clock;
+
+  // Memoria
+  reg [4:0]    mem_wb_regdest;
+  reg mem_wb_writereg;
+  reg [31:0]   mem_wb_wbvalue;
+
+   // Registradores
+   wire wb_reg_en;
+   wire [4:0]  wb_reg_addr;
+   wire [31:0] wb_reg_data;
+
+   // Forwarding
+   wire [31:0] wb_fw_wbvalue;
+   wire  wb_fw_writereg;
+
+   // variaveis para teste
+   reg reset, ena, enb;
+   reg [4:0] addr;
+
+   wire w_reset, w_ena, w_enb;
+   wire [4:0] w_addr; 
+   
+   wire [31:0] w_output_regA; // leitura de registradores barramento a;
+   wire [31:0] w_output_regB; // leitura de registradores barramento b;
+
+   assign w_reset = reset;
+   assign w_ena = ena;
+   assign w_enb = enb;
+   assign w_addr = addr;
+
+   Writeback wrtback(
+      clock,
+      mem_wb_regdest,
+      mem_wb_writereg,
+      mem_wb_wbvalue,
+      wb_reg_en,
+      wb_reg_addr,
+      wb_reg_data,
+      wb_fw_wbvalue,
+      wb_fw_writereg
+   );
+   
+   Registers regs(
+      w_reset,
+      w_ena,
+      w_addr,
+      w_output_regA,
+      w_enb,
+      w_addr,
+      w_output_regB,
+      wb_reg_en,
+      wb_reg_addr,
+      wb_reg_data
+   );
+
+   initial begin
+      clock <= 0;
+
+      $dumpfile("dump.txt");
+      $dumpvars;
+
+      // Valores de teste para o módulo Registers
+
+      reset = 0;
+      ena <= 0;
+      enb <= 0;
+      addr <= 12;
+     
+      // Teste de escrita no banco de registradores com wb_writereg ativo
+      mem_wb_regdest = 5'b01100;
+      mem_wb_writereg = 1;
+      mem_wb_wbvalue = 31;
+
+      #1 // Teste de escrita no banco de registradores com wb_writereg desabilitado
+      mem_wb_regdest = 5'b01100;
+      mem_wb_writereg = 0;
+      mem_wb_wbvalue = 63;
+
+      #1 // Leitura do Registrador escrito
+      ena <= 1;
+
+      #2 // Habilita a escrita no banco de registradores
+      ena <= 0;
+      mem_wb_writereg = 1;
+      
+      #1 // Leitura do registrador
+      ena <= 1;
+      mem_wb_writereg = 0;
+
+
+   end
+
+   always begin
+      repeat (10) begin
+         #1 clock <= ~clock;
+      end
+      #10 $finish;
+   end
+
+endmodule

@@ -1,0 +1,115 @@
+/*
+	Módulo Decode.
+	(usando espaçamento de tabulação igual a quatro espaços; tab space = 4)
+	
+	Desenvolvido por Cássio Elias e Fernanda Takahashi
+	cass@dcc.ufmg.br; fetaka@dcc.ufmg.br;
+*/
+
+`include "../rtl/Comp.v"
+`include "../rtl/Controle.v"
+
+module Decode(
+
+	input             clock,
+	input             reset,
+	input             fw_if_id_stall,       // Sinal de stall vindo de FW para instrução seguinte a load com dependencia de dados
+	
+	// Fetch
+	input      [31:0] if_id_instrucao,   //ir,
+	input      [31:0] if_id_proximopc,   //pc,  // valor do PC da proxima instrução
+	output            id_if_selfontepc,
+ 	
+	output     [31:0] id_if_rega, 
+	output reg [31:0] id_if_pcimd2ext,   // PC + Imediato << 2 c/ sinal extendido (Usado em Branches)
+	output reg [31:0] id_if_pcindex,     // PC[31:28], 26 bits (index) << 2 (Usado em J e JAL)
+	output reg  [1:0] id_if_seltipopc,   // Seletor de fonte do PC
+	
+	// Excecute
+	output reg        id_ex_selalushift, // Seleciona ALU ou COMP
+	output reg        id_ex_selimregb,   // Seleciona Imediato Extendido ou Reg B
+	output reg        id_ex_selsarega,   // Seleciona Shift Amount ou Reg A
+	output reg  [2:0] id_ex_aluop,       // opAlu,    // Operacao da ALU
+	output reg        id_ex_unsig,       // Informa se a instruço éem sinal
+	output reg  [1:0] id_ex_shiftop,     // Direcao do shift e Tipo do shif
+	output reg  [4:0] id_ex_shiftamt,    // Shift Amount
+	output     [31:0] id_ex_rega,		 // Registrador lido A
+	output reg  [2:0] id_ex_msm,
+	output reg  [2:0] id_ex_msl,
+	output reg        id_ex_readmem,     // Le memoria
+	output reg        id_ex_writemem,	 // Escreve memoria
+	output reg        id_ex_mshw,
+	output reg        id_ex_lshw,
+	output     [31:0] id_ex_regb,		 // Registrador lido B
+	output reg [31:0] id_ex_imedext,	 // Imediato com extensão de sinal
+	output reg [31:0] id_ex_proximopc,
+	output reg  [2:0] id_ex_selwsource,	 // Seleciona fonte de dados para WB realizar escrita
+	output reg  [4:0] id_ex_regdest,     // Endereço do registrador de destino ( RD || RT || 31 )
+	output reg        id_ex_writereg,    // Escreve em registrador
+	output reg        id_ex_writeov,     // Escreve c/ overflow
+	
+	// Forwarding
+	output      [4:0] id_fw_regdest,	// Registrador de destino
+	output            id_fw_load,		// Instrução de Load ? (equivale a sinal readmem)
+	output      [4:0] id_fw_addra,		// Address A
+	output      [4:0] id_fw_addrb,		// Address B
+	output     [31:0] id_fw_rega,		// Registrador A lido
+	output     [31:0] id_fw_regb,		// Registrador B lido
+	input      [31:0] fw_id_rega,		// Valores enviados ao Execute com tratamento de conflito de dados
+	input      [31:0] fw_id_regb,
+		
+	// Registradores
+	output      [4:0] id_reg_addra, 	 // Endereço A do registrador (campo RS)
+	output      [4:0] id_reg_addrb, 	 // Endereço B do registrador (campo RT)
+	input      [31:0] reg_id_dataa,  	 // Barramento de dados dos registradores
+	input      [31:0] reg_id_datab,  	
+	output            id_reg_ena,  		 // Enable dos registradores
+	output            id_reg_enb  
+	
+	);
+	
+	Comp COMP(
+		fw_id_rega,
+		fw_id_regb,
+		compop,
+		compout
+	);
+	
+	Controle CONTROLE(
+		if_id_instrucao[31:26],
+		if_id_instrucao[5:0],
+		if_id_instrucao[20:16],
+		id_ex_w_selwsource,
+		selregdest,
+		id_ex_w_writereg,
+		id_ex_w_writeov,
+		id_ex_w_selimregb,
+		id_ex_w_selsarega,
+		id_ex_w_selalushift,
+		id_ex_w_aluop,
+		id_ex_w_unsig,
+		id_ex_w_shiftop,
+		id_ex_w_mshw,
+		id_ex_w_lshw,
+		id_ex_w_msm,
+		id_ex_w_msl,
+		id_ex_w_readmem,
+		id_ex_w_writemem,
+		selbrjumpz,
+		id_if_w_seltipopc,
+		compop_w
+    );
+
+	assign id_if_selfontepc = (selbrjumpz == 2'b00) ? 1'b0 :
+							  (selbrjumpz == 2'b01) ? 1'b1 :
+							  (selbrjumpz == 2'b10) ? compout : 1'b0;							  
+	
+	assign id_if_rega = if_id_instrucao[25:21];
+	
+	assign id_ex_rega = ((reset) || (fw_if_id_stall)) ? (0) : (fw_id_rega);
+	assign id_ex_regb = ((reset) || (fw_if_id_stall)) ? (0) : (fw_id_regb);
+
+	assign id_fw_regdest = id_ex_regdest;
+00: if_id_instrucao[20:16]; // Campo rt
+01: if_id_instrucao[15:11]; // Campo rd
+10: 5
