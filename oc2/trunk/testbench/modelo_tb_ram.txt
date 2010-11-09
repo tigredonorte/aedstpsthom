@@ -1,0 +1,324 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Wed Nov  4 15:09:21 2009.
+Compiling source file "tb_ram.v"
+Highest level modules:
+tb_ram
+
+addr  :          x
+rw  : x
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : x
+en1l : x
+en2h : x
+en2l : x
+
+Memoria[ 0] : xxxx xxxx
+Memoria[ 4] : xxxx xxxx
+Memoria[ 8] : xxxx xxxx
+Memoria[12] : xxxx xxxx
+Memoria[16] : xxxx xxxx
+Memoria[20] : xxxx xxxx
+Memoria[24] : xxxx xxxx
+Memoria[28] : xxxx xxxx
+Memoria[32] : xxxx xxxx
+Memoria[36] : xxxx xxxx
+wdata: xxxxxxxx
+
+// Escreve 1a. halfword;
+addr  :         16
+rw  : 1
+data1h: aa
+data1l: aa
+data2h: xx
+data2l: xx
+en1h : 1
+en1l : 1
+en2h : 0
+en2l : 0
+
+wdata: aaaazzzz
+
+// Escreve 2a. halfword;
+addr  :         20
+rw  : 1
+data1h: xx
+data1l: xx
+data2h: a0
+data2l: a0
+en1h : 0
+en1l : 0
+en2h : 1
+en2l : 1
+
+wdata: zzzza0a0
+
+// Le 1a. halfword;
+addr  :         16
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 1
+en1l : 1
+en2h : 0
+en2l : 0
+
+wdata: aaaazzzz
+
+// Le 2a. halfword;
+addr  :         20
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 1
+en2l : 1
+
+wdata: zzzza0a0
+
+// Escreve 1a. halfword, en = 0;
+addr  :         24
+rw  : 1
+data1h: aa
+data1l: aa
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: zzzzzzzz
+
+// Escreve 2a. halfword, en = 0;
+addr  :         28
+rw  : 1
+data1h: xx
+data1l: xx
+data2h: a0
+data2l: a0
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: zzzzzzzz
+
+// Le 1a. halfword, en = 0;
+addr  :         24
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: zzzzzzzz
+
+// Le 2a. halfword, en = 0;
+addr  :         28
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: zzzzzzzz
+
+// Escreve word completa, en = 1;
+addr  :         32
+rw  : 1
+data1h: aa
+data1l: aa
+data2h: 44
+data2l: 55
+en1h : 1
+en1l : 1
+en2h : 1
+en2l : 1
+
+wdata: aaaa4455
+
+// Le word completa, en = 1;
+addr  :         32
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 1
+en1l : 1
+en2h : 1
+en2l : 1
+
+wdata: aaaa4455
+
+// Escreve word completa, en = 0;
+addr  :         36
+rw  : 1
+data1h: aa
+data1l: aa
+data2h: 44
+data2l: 55
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: zzzzzzzz
+
+// Le word completa, en = 0;
+addr  :         36
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: zzzzzzzz
+
+// Escreve byte 1l, en = 1;
+addr  :         24
+rw  : 1
+data1h: xx
+data1l: ff
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 1
+en2h : 0
+en2l : 0
+
+wdata: zzffzzzz
+
+// Escreve byte 2h, en = 1;
+addr  :         28
+rw  : 1
+data1h: xx
+data1l: xx
+data2h: 11
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 1
+en2l : 0
+
+wdata: zzzz11zz
+
+// Escreve byte 1h, en = 1;
+addr  :          8
+rw  : 1
+data1h: 22
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 1
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: 22zzzzzz
+
+// Escreve byte 2l, en = 1;
+addr  :         12
+rw  : 1
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: 33
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 1
+
+wdata: zzzzzz33
+
+// Le byte 1l, en = 1;
+addr  :         24
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 1
+en2h : 0
+en2l : 0
+
+wdata: zzffzzzz
+
+// Le byte 2h, en = 1;
+addr  :         28
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 1
+en2l : 0
+
+wdata: zzzz11zz
+
+// Le byte 1h, en = 1;
+addr  :          8
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 1
+en1l : 0
+en2h : 0
+en2l : 0
+
+wdata: 22zzzzzz
+
+// Le byte 2l, en = 1;
+addr  :         12
+rw  : 0
+data1h: xx
+data1l: xx
+data2h: xx
+data2l: xx
+en1h : 0
+en1l : 0
+en2h : 0
+en2l : 1
+
+wdata: zzzzzz33
+
+Memoria[ 0] : 0000 0000
+Memoria[ 4] : 0000 0000
+Memoria[ 8] : 2200 0000
+Memoria[12] : 0000 0033
+Memoria[16] : aaaa 0000
+Memoria[20] : 0000 a0a0
+Memoria[24] : 00ff 0000
+Memoria[28] : 0000 1100
+Memoria[32] : aaaa 4455
+Memoria[36] : 0000 0000
+Halted at location **tb_ram.v(418) time 55 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 23 inform(s).

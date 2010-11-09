@@ -1,0 +1,47 @@
+GPLCVER_2.12a of 05/16/07 (Linux-elf).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Wed Sep  9 15:47:44 2009.
+Compiling source file "tb_shifter.v"
+Highest level modules:
+tb_shifter
+
+++ Shift Logico
+// SLL - Shift Logico Esquerda
+value_in : 11111111111111111111111111111111
+shiftop  : 10
+shiftamt :  6
+result(d): 4294967232
+result(b): 11111111111111111111111111000000
+
+// SRL - Shift Logico Direita
+value_in : 11111111111111111111111111111111
+shiftop  : 00
+shiftamt : 24
+result(d):        255
+result(b): 00000000000000000000000011111111
+
+// SRA - Shift Aritmetico a Direita - Teste 1
+value_in : 10101010101010101010101010101010
+shiftop  : 01
+shiftamt :  6
+result(d): 4272597674
+result(b): 11111110101010101010101010101010
+
+// SRA - Shift Aritmetico a Direita - Teste 2
+value_in : 01010101010101010101010101010101
+shiftop  : 01
+shiftamt :  6
+result(d):   22369621
+result(b): 00000001010101010101010101010101
+
+// Simulando com o evento de clock (Teste SLL)
+value_in : 11111111111111111111111111111111
+shiftop  : 10
+shiftamt :  6
+result(d): 4294967232
+result(b): 11111111111111111111111111000000
+
+Halted at location **tb_shifter.v(49) time 6 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 4 inform(s).

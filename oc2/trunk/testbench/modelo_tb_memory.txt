@@ -1,0 +1,817 @@
+GPLCVER_2.12a of 05/16/07 (Cygwin32).
+Copyright (c) 1991-2007 Pragmatic C Software Corp.
+  All Rights reserved.  Licensed under the GNU General Public License (GPL).
+  See the 'COPYING' file for details.  NO WARRANTY provided.
+Today is Mon Nov 30 11:14:11 2009.
+Compiling source file "tb_memory.v"
+Highest level modules:
+tb_memory
+
+LB
+ciclo :  1
+ex_mem_msm        : 3
+ex_mem_msl        : 3
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : ffffffe1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : ffffffe1
+
+
+LH
+ciclo :  2
+ex_mem_msm        : 3
+ex_mem_msl        : 1
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : ffffffe1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : ffffffe1
+
+
+LWL 0
+ciclo :  3
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : dda0ffe1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : dda0ffe1
+
+
+LWL +1
+ciclo :  4
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        129
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        129
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 0
+mem_fw_wbvalue : a0ffe1d3
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : a0ffe1d3
+
+
+LWL +2
+ciclo :  5
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        130
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        130
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 0
+mem_mc_en2l   : 0
+mem_fw_wbvalue : ffe1c2d3
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : ffe1c2d3
+
+
+LWL +3
+ciclo :  6
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        131
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        131
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 0
+mem_mc_en2h   : 0
+mem_mc_en2l   : 0
+mem_fw_wbvalue : e1b1c2d3
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : e1b1c2d3
+
+
+LW
+ciclo :  7
+ex_mem_msm        : 1
+ex_mem_msl        : 2
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : dda0ffe1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : dda0ffe1
+
+
+LBU
+ciclo :  8
+ex_mem_msm        : 0
+ex_mem_msl        : 4
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : a0b1c2e1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : a0b1c2e1
+
+
+LHU
+ciclo :  9
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : a0b1ffe1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : a0b1ffe1
+
+
+LWR 0
+ciclo : 10
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 0
+mem_mc_en1l   : 0
+mem_mc_en2h   : 0
+mem_mc_en2l   : 1
+mem_fw_wbvalue : a0b1c2dd
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : a0b1c2dd
+
+
+LWR +1
+ciclo : 11
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        129
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        129
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 0
+mem_mc_en1l   : 0
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : a0b1dda0
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : a0b1dda0
+
+
+LWR +2
+ciclo : 12
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        130
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        130
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 0
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : a0dda0ff
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : a0dda0ff
+
+
+LWR +3
+ciclo : 13
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        131
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        131
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : dda0ffe1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : dda0ffe1
+
+
+SB
+ciclo : 14
+ex_mem_msm        : 4
+ex_mem_msl        : 3
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : xxxxxxd3
+mem_mc_en1h   : 0
+mem_mc_en1l   : 0
+mem_mc_en2h   : 0
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SH
+ciclo : 15
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : xxxxc2d3
+mem_mc_en1h   : 0
+mem_mc_en1l   : 0
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWL 0
+ciclo : 16
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : a0b1c2d3
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWL +1
+ciclo : 17
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        129
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        129
+w_mem_mc_data : xxa0b1c2
+mem_mc_en1h   : 0
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWL +2
+ciclo : 18
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        130
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        130
+w_mem_mc_data : xxxxa0b1
+mem_mc_en1h   : 0
+mem_mc_en1l   : 0
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWL +3
+ciclo : 19
+ex_mem_msm        : 0
+ex_mem_msl        : 1
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 0
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        131
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        131
+w_mem_mc_data : xxxxxxa0
+mem_mc_en1h   : 0
+mem_mc_en1l   : 0
+mem_mc_en2h   : 0
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SW
+ciclo : 20
+ex_mem_msm        : 1
+ex_mem_msl        : 2
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : a0b1c2d3
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWR 0
+ciclo : 21
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : d3xxxxxx
+mem_mc_en1h   : 1
+mem_mc_en1l   : 0
+mem_mc_en2h   : 0
+mem_mc_en2l   : 0
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWR +1
+ciclo : 22
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        129
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        129
+w_mem_mc_data : c2d3xxxx
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 0
+mem_mc_en2l   : 0
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWR +2
+ciclo : 23
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        130
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        130
+w_mem_mc_data : b1c2d3xx
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 0
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+SWR +3
+ciclo : 24
+ex_mem_msm        : 2
+ex_mem_msl        : 0
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 0
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        131
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        131
+w_mem_mc_data : a0b1c2d3
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+LL
+ciclo : 25
+ex_mem_msm        : 1
+ex_mem_msl        : 2
+ex_mem_readmem    : 1
+ex_mem_writemem   : 0
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 0
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : dda0ffe1
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : dda0ffe1
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : dda0ffe1
+
+
+SC
+ciclo : 26
+ex_mem_msm        : 1
+ex_mem_msl        : 2
+ex_mem_readmem    : 0
+ex_mem_writemem   : 1
+ex_mem_mshw       : 1
+ex_mem_lshw       : 1
+ex_mem_regb       : a0b1c2d3
+ex_mem_selwsource : 1
+ex_mem_regdest    : 22
+ex_mem_writereg   : x
+ex_mem_aluout     :        128
+ex_mem_wbvalue    : 7777ffff
+(negedge)
+Resultado do 1o. ciclo
+mem_mc_rw     : 1
+mem_mc_en     : 1
+mem_mc_addr   :        128
+w_mem_mc_data : a0b1c2d3
+mem_mc_en1h   : 1
+mem_mc_en1l   : 1
+mem_mc_en2h   : 1
+mem_mc_en2l   : 1
+mem_fw_wbvalue : zzzzzzzz
+mem_fw_writereg: x
+mem_wb_regdest : 22
+mem_wb_writereg: x
+mem_wb_wbvalue : zzzzzzzz
+
+
+Halted at location **tb_memory.v(98) time 60 from call to $finish.
+  There were 0 error(s), 0 warning(s), and 16 inform(s).
